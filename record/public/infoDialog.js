@@ -3,6 +3,7 @@ const autoDialog = document.getElementById('a-dialog');
 
 const start = () => {
     document.getElementById('start-dialog').close();
+    document.getElementById('start-dialog').style.display = 'none';
     document.getElementById('i-dialog').showModal();
     document.getElementById('i-dialog-div').webkitRequestFullscreen();
 };
@@ -27,12 +28,12 @@ let chosenForm = 0;
 
                     const p = document.getElementById(`i-d-form-btn-p${i}`);
                     if(p.innerText == '' && otherBtn.style.animation === '0.2s ease-out 0s 1 normal forwards running bump') {
-                        otherBtn.style.animation = '0.2s ease-out 0s 1 normal forwards running back'
+                        otherBtn.style.animation = '0.2s ease-out 0s 1 normal forwards running back';
                     }
                 }
             }
 
-        }
+        };
 
         const keyboard = (number) => {
             if(chosenForm != 0) {
@@ -56,8 +57,16 @@ let chosenForm = 0;
         };
 
 
-const infoDone = () => {;
-    infoDialog.close();
-    autoDialog.showModal();
-    document.getElementById('a-dialog-div').webkitRequestFullscreen();
+const infoDone = () => {
+    if( document.getElementById('i-d-form-btn-p1').innerText == '' ) {
+        document.getElementById('i-d-form-btn1').style.animation = 'rotate 2s linear infinite';
+    } else if( document.getElementById('i-d-form-btn-p2').innerText == '' || document.getElementById('i-d-form-btn-p2').innerText > '3' ) {
+        document.getElementById('i-d-form-btn2').style.animation = 'rotate 2s linear infinite';
+    } else if( document.getElementById('i-d-form-btn-p3').innerText == '') {
+        document.getElementById('i-d-form-btn3').style.animation = 'rotate 2s linear infinite';
+    } else {
+        infoDialog.close();
+        autoDialog.showModal();
+        document.getElementById('a-dialog-div').webkitRequestFullscreen();
+    }
 };

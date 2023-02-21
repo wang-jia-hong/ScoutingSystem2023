@@ -29,9 +29,8 @@ app.post('/analyzeSubmit', async (req, res) => {
 
 
 //for result
-app.get('/result', async (req, res) => {
+app.get('/result/:gameType', async (req, res) => {
 	await getAllTeamResult(req, res);
-	
 });
 
 const startServer = async () => {

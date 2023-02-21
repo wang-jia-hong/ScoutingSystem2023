@@ -15,10 +15,11 @@ const analyzeInsert = async (req, res) => {
     try{
         const reqData = await req.body;
         const teamNumber = reqData.teamNumber;
+        const gameType = reqData.gameType;
         const teamI = await teamInclude(teamNumber);
 
         if(teamI === true) {
-            const oldData = await findOne('analyze', process.env.gameName, {teamNumber: teamNumber});
+            const oldData = await findOne('analyze', process.env.gameName + gameType, {teamNumber: teamNumber});
             
 
             const topA = reqData.topA + oldData.topA;
@@ -64,7 +65,7 @@ const analyzeInsert = async (req, res) => {
 
             const times = oldData.times + 1;
 
-            const data = await update('analyze', process.env.gameName, { teamNumber: teamNumber }, 
+            const data = await update('analyze', process.env.gameName + gameType , { teamNumber: teamNumber }, 
             {
                 teamNumber: teamNumber,
                 topA: topA,
@@ -136,7 +137,7 @@ const analyzeInsert = async (req, res) => {
 
             const times = 1;
 
-            const data = await insert('analyze', process.env.gameName,
+            const data = await insert('analyze', process.env.gameName + gameType,
             {
                 teamNumber: teamNumber,
                 topA: topA,
@@ -171,4 +172,4 @@ const analyzeInsert = async (req, res) => {
     }
 };
 
-module.exports = {teamInclude, analyzeInsert };
+module.exports = { teamInclude, analyzeInsert };

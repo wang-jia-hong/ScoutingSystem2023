@@ -64,7 +64,8 @@ const { dbCilent }  = require('../../db/connect');
 };*/
 
 const getAllTeamResult = async (req, res) => {
-    const query = req.query;
+    const gameType = req.params.gameType;
+	const query = req.query;
 
 	let newFields = {};
 	let conditions = {};
@@ -153,12 +154,12 @@ const getAllTeamResult = async (req, res) => {
 	if( Object.prototype.hasOwnProperty.call(query, 'sort') ) {
 		sort[query['sort']] = Number(query['sortOrder']);
 	}
-	
-	console.log(query);
 
-	const data = await dbCilent.db('analyze').collection(process.env.gameName).aggregate([{$addFields: newFields }, {$match: conditions }, {$sort: sort}]).toArray();
+	const data = await dbCilent.db('analyze').collection(process.env.gameName + gameType ).aggregate([{$addFields: newFields }, {$match: conditions }, {$sort: sort}]).toArray();
 
 	res.render('result' ,{data: data});
+
+	res.render('result', {data: []});
 };
 
 module.exports =  getAllTeamResult;
