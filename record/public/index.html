@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+    <head>
+        <title>觀賽系統</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans+SC&display=swap" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="./css/start-dialog.css">
+        <link rel="stylesheet" type="text/css" href="./css/info-dialog.css">
+        <link rel="stylesheet" type="text/css" href="./css/count-dialog.css">
+        <link href="./css/summarize-form.css" rel="stylesheet">
+        <style>
+            :root {
+                --w: 0;
+                --h: 0;
+                touch-action: manipulation;
+                box-sizing: border-box;
+            }
+
+            body {    
+                margin: 0 !important;
+                padding: 0 !important;
+                width: 100%;
+                height: 100%;
+                background-color: white;
+                min-width: 200px;
+                min-height: 200px;
+            }
+
+            #body-div {
+                width: 100%;
+                height: 100%;
+                min-width: 200px;
+                min-height: 200px;
+            }
+
+            @keyframes rotate {
+                0%{
+                    box-shadow: #ffe0e0 3px 0px 25px, inset #ffe0e0 -3px 0px 25px;
+                }
+                25%{
+                    box-shadow: #ffe0e0 0px 3px 25px, inset #ffe0e0 0px -3px 25px;
+                }
+                50%{
+                    box-shadow: #ffe0e0 -3px 0px 25px, inset #ffe0e0 3px 0px 25px;
+                }
+                75%{
+                    box-shadow: #ffe0e0 0px -3px 25px, inset #ffe0e0 0px 3px 25px;
+                }
+                100%{
+                    box-shadow: #ffe0e0 3px 0px 25px, inset #ffe0e0 -3px 0px 25px;
+                }
+            }
+
+
+
+
+
+
+
+            
+
+        </style>
+    </head>
+    <body id="body">
+
+        
+
+            <dialog open id="start-dialog">
+                <button id="start-dialog-btn" onclick="start()">start</button>
+            </dialog>
+
+
+            <!-- 'i' stands for info
+            'd' stands for dialog -->
+            <dialog id="i-dialog">
+                <div id="i-dialog-div" class="i-dialog-div">
+                    <div id="i-d-form-div">
+                        <div class="i-d-form-btn-div">
+                            <button class="i-d-form-btn" id="i-d-form-btn1" onclick="choseForm(1)">
+                                Team Number
+                                <p class="i-d-form-btn-p" id="i-d-form-btn-p1"></p>
+                            </button>
+                        </div>
+                        <div class="i-d-form-btn-div">
+                            <button class="i-d-form-btn" id="i-d-form-btn2" onclick="choseForm(2)">
+                                Game Type
+                                <p class="i-d-form-btn-p" id="i-d-form-btn-p2"></p>
+                            </button>
+                        </div>
+                        <div class="i-d-form-btn-div">
+                            <button class="i-d-form-btn" id="i-d-form-btn3" onclick="choseForm(3)">
+                                Game Number
+                                <p class="i-d-form-btn-p" id="i-d-form-btn-p3"></p>
+                            </button>
+                        </div>
+                    </div>
+            
+                    <div id="i-d-keyboard-div">
+
+                        <div class="keyboard-div">
+                            <div class="keyboard-btn-div"> <button class="keyboard-btn" id="keyboard-btn1" onclick="keyboard(1)">1</button> </div>
+                            <div class="keyboard-btn-div"> <button class="keyboard-btn" id="keyboard-btn2" onclick="keyboard(2)">2</button> </div>
+                            <div class="keyboard-btn-div"> <button class="keyboard-btn" id="keyboard-btn3" onclick="keyboard(3)">3</button> </div>
+                        </div>
+
+                        <div class="keyboard-div">
+                            <div class="keyboard-btn-div"> <button class="keyboard-btn" id="keyboard-btn4" onclick="keyboard(4)">4</button> </div>
+                            <div class="keyboard-btn-div"> <button class="keyboard-btn" id="keyboard-btn5" onclick="keyboard(5)">5</button> </div>
+                            <div class="keyboard-btn-div"> <button class="keyboard-btn" id="keyboard-btn6" onclick="keyboard(6)">6</button> </div>
+                        </div>
+
+                        <div class="keyboard-div">
+                            <div class="keyboard-btn-div"> <button class="keyboard-btn" id="keyboard-btn7" onclick="keyboard(7)">7</button> </div>
+                            <div class="keyboard-btn-div"> <button class="keyboard-btn" id="keyboard-btn8" onclick="keyboard(8)">8</button> </div>
+                            <div class="keyboard-btn-div"> <button class="keyboard-btn" id="keyboard-btn9" onclick="keyboard(9)">9</button> </div>
+                        </div>
+
+                        <div class="keyboard-div">
+                            <div class="keyboard-btn-div"></div>
+                            <div class="keyboard-btn-div"> <button class="keyboard-btn" id="keyboard-btn0" onclick="keyboard(0)">0</button> </div>
+                            <div class="keyboard-btn-div"> <button class="keyboard-btn" id="delete-btn" onclick="backspace()"><i class="fa-solid  fa-delete-left ft-lg" id="delete-icon"></i></button> </div>
+                        </div>
+                        
+                    </div>
+
+                    <div id="i-done-div">
+                        <div class="i-done-btn-div"> <button class="i-done-btn" onclick="infoDone()"><i class="fa-sharp fa-solid fa-circle-check ft-lg"></i></button> </div>
+                    </div>
+                        
+                    <div id="i-full-screen-div" class="full-screen-div">
+
+                    </div>
+                </div>
+            </dialog>
+
+            <!--'a' stands for auto-->
+            <dialog id="a-dialog" class="count-dialog">
+                <div id="a-dialog-div" class="count-dialog-div">
+                    <div id="a-cargo-div" class="cargo-div">
+                        <div id="a-cargo-row1-div" class="cargo-row-div"></div>
+                        <div id="a-cargo-row2-div" class="cargo-row-div"></div>
+                        <div id="a-cargo-row3-div" class="cargo-row-div"></div>
+                    </div>
+
+                    <div class="move-div">
+                        <button type="button" id="a-charge-btn" class="move-btn" value="0" onclick="mBtnClicked('a-charge-btn')">
+                            <i class="fa-solid fa-charging-station ft-lg"></i>
+                        </button>
+
+                        <button type="button" id="a-community-btn" class="move-btn" value="0" onclick="mBtnClicked('a-community-btn')">
+                            <i class="fa-solid fa-arrow-right-from-bracket ft-lg"></i>
+                        </button>
+
+                        <button type="button" id="a-balance-btn" class="move-btn" value="0" onclick="mBtnClicked('a-balance-btn')">
+                            <i class="fa-solid fa-scale-balanced ft-lg"></i>
+                        </button>                
+                    </div>
+
+                    <div class="done-div" >
+                        <button type="button" id="a-done-btn" class="done-btn" value="0" onclick="autoDone()">
+                            <i class="fa-solid  fa-clock-rotate-left ft-lg"></i>
+                        </button>
+                    </div>
+
+                    <div id="a-full-screen-div" class="full-screen-div">
+
+                    </div>
+                </div>
+            </dialog>
+
+            <!--'t' stands for teleop-->
+            <dialog id="t-dialog" class="count-dialog">
+                <div id="t-dialog-div" class="count-dialog-div">
+                    <div id="t-cargo-div" class="cargo-div">
+                        <div id="t-cargo-row1-div"></div>
+                        <div id="t-cargo-row2-div"></div>
+                        <div id="t-cargo-row3-div"></div>
+                    </div>
+
+                    <div class="move-div">
+                        <button type="button" id="t-charge-btn" class="move-btn" value="0" onclick="mBtnClicked('t-charge-btn')">
+                            <i class="fa-solid fa-charging-station ft-lg"></i>
+                        </button>
+
+                        <button type="button" id="t-park-btn" class="move-btn" value="0" onclick="mBtnClicked('t-park-btn')">
+                            <i class="fa-solid fa-square-parking ft-lg"></i>
+                        </button>
+
+                        <button type="button" id="t-balance-btn" class="move-btn" value="0" onclick="mBtnClicked('t-balance-btn')">
+                            <i class="fa-solid fa-scale-balanced ft-lg"></i>
+                        </button>                
+                    </div>
+
+                    <div class="done-div" >
+                        <button type="button" id="t-done-btn" class="done-btn" value="0" onclick="teleDone()">
+                            <i class="fa-solid  fa-clock-rotate-left ft-lg"></i>
+                        </button>
+                    </div>
+
+                    <div id="t-full-screen-div" class="full-screen-div">
+
+                    </div>
+                </div>
+            </dialog>
+
+
+
+
+
+
+            
+
+            
+
+
+        
+        <!-- 's' stands for summarize -->
+        <form id="s-form">
+            <div class="s-input-div">
+                <a class="s-label">輸贏</a>
+
+                <div class="s-radio-div">
+                    <input type="radio" name="result" value="0" class="s-radio" id="result0-radio" />
+                    <label for="result0-radio" class="s-radio-label">贏</label>
+
+                    <input type="radio" name="result" value="1" class="s-radio" id="result1-radio" />
+                    <label for="result1-radio" class="s-radio-label">輸</label>
+
+                    <input type="radio" name="result" value="2" class="s-radio" id="result2-radio" />
+                    <label for="result2-radio" class="s-radio-label">平局</label>
+                </div>
+                        
+            </div>
+
+            <div class="s-input-div">
+                <label for="foul-input" class="s-label">犯規</label>
+                <input type="number" name="foul" class="s-input" id="foul-input">
+            </div>
+
+            <div class="s-input-div">
+                <label for="rp-input" class="s-label">RP</label>
+                <input type="number" name="rp" class="s-input" id="rp-input">
+            </div>
+                    
+            <div class="s-input-div">
+                <a class="s-label">角色</a>
+
+                <div class="s-radio-div">
+                    <input type="radio" name="character" value="0" class="s-radio" id="character0-radio" />
+                    <label for="character0-radio" class="s-radio-label">功</label>
+
+                    <input type="radio" name="character" value="1" class="s-radio" id="character1-radio" />
+                    <label for="character1-radio" class="s-radio-label">守</label>
+
+                    <input type="radio" name="character" value="2" class="s-radio" id="character2-radio" />
+                    <label for="character2-radio" class="s-radio-label">皆有</label>
+                </div>
+                        
+            </div>
+
+            <div class="s-input-div">
+                <label for="comment-input" class="s-label">概述</label>
+                <input type="text" name="comment" class="s-input" id="comment-input">
+            </div>
+        </form>
+
+        <div id="submit-btn-div">
+            <button type="button" id="submit-btn" onclick="submit()">submit</button>
+        </div>
+    </body>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://kit.fontawesome.com/3034cde1c1.js" crossorigin="anonymous"></script>
+    <script src="./setSize.js"></script>
+    <script src="./index.js"></script>
+
+    
+    <script src="./infoDialog.js"></script>
+</html>

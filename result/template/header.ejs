@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans+SC&display=swap" rel="stylesheet">
+        <style>
+            :root {
+                font-family: 'Alegreya Sans SC';
+                border: 0;
+                padding: 0;
+                margin: 0;
+                box-sizing: border-box;
+                --minValue: '30';
+                --maxValue: '70';
+                --type: '';
+                --logoBlue: #002a5c;
+                --logoPink: #de9896;
+            }
+
+            body {
+                border: 0;
+                padding: 0;
+                margin: 0;
+            }
+
+            ul {
+                margin: 0;
+                padding: 0;
+            }
+
+            li {
+                list-style: none;
+            }
+
+            #header {
+                height: 15vh;
+                width: 100%;
+                background-color: var(--logoBlue);
+                position: sticky;
+                top: 0;
+                left: 0;
+                z-index: 100;
+            }
+
+            #h-logo-div {
+                width: 20%;
+                height: 100%;
+                float: left;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            #h-logo {
+                height: 100%;
+            }
+
+            #h-menu-div {
+                width: 40%;
+                height: 100%;
+                float: right;
+                display: flex;
+                justify-content: center;
+            }
+
+            #h-menu-ul {
+                padding-right: 25%;
+                margin: 0;
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+            }
+
+            .h-menu-li {
+                display: flex;
+                align-items: center;
+                text-align: center;
+                height: 40%;
+                border-radius: 1vmin;
+                padding: 0 3%;
+                background-color: var(--logoPink);
+                color: var(--logoBlue);
+                font-size: 2rem;
+            }
+
+            #h-filter-div {
+                display: none;
+                /* display: flex !important; */
+                background-color: var(--logoBlue);
+                width: 100%;
+                height: 0vh;
+                position: relative;
+                justify-content: center;
+                overflow: hidden;
+                animation-name: showFilter;
+                animation-duration: 1s;
+                animation-fill-mode: forwards;
+            }
+
+            @keyframes showFilter {
+                from {
+                    height: 0vh;
+                } to {
+                    height: 85vh;
+                }
+            }
+
+            @keyframes hideFilter {
+                from {
+                    height: 85vh;
+                } to {
+                    height: 0vh;
+                    display: none;
+                }
+            }
+
+
+            #h-filter-background-div {
+                width: 70%;
+                height: 60vh;
+                margin-top: 12.5vh;
+                background-color: var(--logoPink);
+                border-radius: 5vmin;
+            }
+
+            #h-filter-btn-div {
+                width: 40%;
+                height: 70%;
+                float: left;
+                margin-left: 5%;
+                /*position: absolute;
+                top: 10%;
+                left: 5%;*/
+            }
+
+            #h-filter-btn-ul-div {
+                width: 100%;
+                height: 35%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            #h-filter-btn-ul {
+                width: 80%;
+                height: 40%;
+                background-color: var(--logoPink);
+                box-shadow: #f9d0d037 -5px -5px 10px, #4545454b 5px 5px 10px;
+                border-radius: 3vmin;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .h-filter-btn-li {
+                width: 25%;
+                height: 60%;
+                margin: 0 3%;
+                border-radius: 3vmin;
+                float: left;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #ffffff;
+            }
+
+            .h-filter-mode-btn-div {
+                width: 100%;
+                height: 65%;
+                display: none;
+                background-color: var(--logoPink);
+                box-shadow: inset #f9d0d037 -5px -5px 10px, inset #4545454b 5px 5px 10px;
+                border-radius: 3vmin;
+                overflow: auto;
+            }
+
+            #h-filter-auto-btn-div {
+                display: block;
+            }
+
+            .h-filter-btn {
+                width: fit-content;
+                height: 15%;
+                margin: 5% 3%;
+                padding: 5% 4%;
+                font-size: 1vmin;
+                border: 0;
+                border-radius: 2vmin;
+                display: flex;
+                float: left;
+                align-items: center;
+                background-color: var(--logoPink);
+                box-shadow: #f9d0d037 -5px -5px 10px, #4545454b 5px 5px 10px;
+                color: #ffffff;
+            }
+
+            #h-filter-slider-outerDiv {
+                height: 40%;
+                width: 80%;
+                margin-left: 10%;
+                display: flex;
+                align-items: center;
+            }
+
+            #h-filter-slider-div {
+                height: 40%;
+                width: 100%;
+                border-radius: 20px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: var(--logoPink);
+                box-shadow: #f9d0d037 -5px -5px 10px, #4545454b 5px 5px 10px;
+            }
+
+            .slider-extr-tag-div {
+                width: 18%;
+                height: 50%;
+                font-size: 1rem;
+            }
+
+            .slider-extr-tag {
+                width: 100%;
+                height: 100%;
+                font-size: 1rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-block-start: 0;
+                margin-block-end: 0;
+                margin-inline-start: 0;
+                margin-inline-end: 0;
+                color: #ffffff;
+            }
+
+            #h-filter-slider-range-div {
+                height: 100%;
+                width: 60%;
+            }
+            
+            #h-filter-range-outerDiv {
+                width: 100%;
+                height: 100%;
+                position: relative;
+                bottom: 5%;
+            }
+
+            .h-filter-range-div {
+                width: 100%;
+                height: 100%;
+                position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                pointer-events: none;
+            }
+
+            #h-filter-range2-div {
+                bottom: 100%;
+            }
+
+            .h-filter-range {
+                background: none;
+                background-color: transparent;
+                appearance: none;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                width: 100%;
+                height: 100%;  
+                pointer-events: none;
+                border: 0;
+                padding: 0;
+                margin: 0;
+            }
+
+            .h-filter-range::-webkit-slider-thumb {
+                -webkit-appearance: none;
+                pointer-events: auto;
+                height: 3vh;
+                width: 3vh; 
+                background: #ffffff;
+                border:#ffffff;
+                border-radius: 50%;
+                margin: 0;
+            }
+            
+            .h-filter-range::-moz-range-thumb {
+                -moz-appearance: none;
+                pointer-events: auto;
+                height: 3vh;
+                width: 3vh;
+                background: #ffffff;
+                border:#ffffff;
+                border-radius: 50%;
+                margin: 0;
+            }
+
+            #slider-track {
+                height: 5%;
+                width: 100%;
+                position: relative;
+                top: 47.5%;
+                border: 0;
+                border-radius: 50px;
+                padding: 0;
+                margin: 0;
+                background: linear-gradient(to right, #dadae5 30% , #ffffff 30% , #ffffff 70%, #dadae5 70%);
+            }
+    
+            #h-filter-list-div {
+                width: 40%;
+                height: 100%;
+                float: right;
+                margin-right: 5%;
+            }
+
+            #h-filter-list-ul-div {
+                width: 90%;
+                height: 75%;
+                margin-top: 5%;
+                margin-left: 5%;
+                border-radius: 2vmin;
+                box-shadow: inset #f9d0d037 -5px -5px 10px, inset #4545454b 5px 5px 10px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            #h-filter-list-ul {
+                width: 95%;
+                height: 90%;
+            }
+
+            .h-filter-list-li {
+                width: fit-content;
+                height: 15%;
+                font-size: 0.8rem;
+                color: #ffffff;
+                margin: 7% 0 0 5%;
+                float: left;
+                display: flex;
+                align-items: center;
+                border-radius: 2vmin;
+                box-shadow: #f9d0d037 -5px -5px 10px, #4545454b 5px 5px 10px;
+            }
+
+            .h-filter-list-li span {
+                white-space: nowrap;
+                border-right: 0.5rem;
+                border-left: 0.5rem;
+                border-style: solid;
+                border-color: transparent;
+            }
+
+            .h-filter-list-li i {
+                border-right: 0.5rem;
+                border-style: solid;
+                border-color: transparent;
+            }
+
+            #h-filter-submit-btn-div {
+                width: 100%;
+                height: 15%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            #h-filter-submit-btn {
+                width: 40%;
+                height: 60%;
+                border: none;
+                background-color: var(--logoPink);
+                border-radius: 2vmin;
+                color: #ffffff;
+                box-shadow: #f9d0d037 -5px -5px 10px, #4545454b 5px 5px 10px;
+            }
+        </style>
+    </head>
+    
+    <body>
+        <div id="header">
+            <div id="h-logo-div">
+                <img src="./7636Logo.JPG" id="h-logo">
+            </div>
+
+            <div id="h-menu-div">
+                <ul id="h-menu-ul">
+                    <li class="h-menu-li" onclick="showFilter()">filter</li>
+                    <!-- <li class="h-menu-li">other</li> -->
+                </ul>
+                
+            </div>
+
+            <div id="h-filter-div">
+                <div id="h-filter-background-div">
+                    <div id="h-filter-btn-div">
+
+                        <div id="h-filter-btn-ul-div">
+                            <ul id="h-filter-btn-ul">
+                                <li class="h-filter-btn-li" id="h-filter-auto-btn-li" onclick="changeFilterBtnDiv('auto')">Auto</li>
+                                <li class="h-filter-btn-li" id="h-filter-tele-btn-li" onclick="changeFilterBtnDiv('tele')">Tele</li>
+                                <li class="h-filter-btn-li" id="h-filter-other-btn-li" onclick="changeFilterBtnDiv('other')">Other</li>
+                            </ul>
+                        </div>
+    
+                        <div id="h-filter-auto-btn-div" class="h-filter-mode-btn-div">
+                            <button id="topA" class="h-filter-btn" onclick="rateBtnClicked('top', 'A')">Top</button>
+                            <button id="middleA" class="h-filter-btn" onclick="rateBtnClicked('middle', 'A')">Middle</button>
+                            <button id="bottomA" class="h-filter-btn" onclick="rateBtnClicked('bottom', 'A')">Bottom</button>
+                            <button id="dockA" class="h-filter-btn" onclick="rateBtnClicked('dock', 'A')">Dock</button>
+                            <button id="engageA" class="h-filter-btn" onclick="rateBtnClicked('engage', 'A')">Engage</button>
+                            <button id="mobilityA" class="h-filter-btn" onclick="rateBtnClicked('mobility', 'A')">Mobility</button>
+                            <button id="pointA" class="h-filter-btn" onclick="pointBtnClicked('point', 'A')">平均分</button>
+                        </div>
+    
+                        <div id="h-filter-tele-btn-div" class="h-filter-mode-btn-div">
+                            <button id="topT" class="h-filter-btn" onclick="rateBtnClicked('top', 'T')">Top</button>
+                            <button id="middleT" class="h-filter-btn" onclick="rateBtnClicked('middle', 'T')">Middle</button>
+                            <button id="bottomT" class="h-filter-btn" onclick="rateBtnClicked('bottom', 'T')">Bottom</button>
+                            <button id="dockT" class="h-filter-btn" onclick="rateBtnClicked('dock', 'T')">Dock</button>
+                            <button id="engageT" class="h-filter-btn" onclick="rateBtnClicked('engage', 'T')">Engage</button>
+                            <button id="mobilityT" class="h-filter-btn" onclick="rateBtnClicked('mobility', 'T')">Mobility</button>
+                            <button id="pointT" class="h-filter-btn" onclick="pointBtnClicked('point', 'T')">平均分</button>
+                        </div>
+    
+                        <div id="h-filter-other-btn-div" class="h-filter-mode-btn-div">
+                            <button id="win" class="h-filter-btn" onclick="rateBtnClicked('win', 'O')">贏</button>
+                            <button id="lose" class="h-filter-btn" onclick="rateBtnClicked('lose', 'O')">輸</button>
+                            <button id="tie" class="h-filter-btn" onclick="rateBtnClicked('tie', 'O')">平局</button>
+                            <button id="offensive" class="h-filter-btn" onclick="rateBtnClicked('offensive', 'O')">功</button>
+                            <button id="defensive" class="h-filter-btn" onclick="rateBtnClicked('defensive', 'O')">守</button>
+                            <button id="mix" class="h-filter-btn" onclick="rateBtnClicked('mix', 'O')">功兼守</button>
+                            <button id="rp" class="h-filter-btn" onclick="rateBtnClicked('rp', 'O')">總RP</button>
+                        </div>
+
+                        <div id="h-filter-slider-outerDiv">
+                            <div id="h-filter-slider-div">
+                                <div class="slider-extr-tag-div">
+                                    <p class="slider-extr-tag" id="slider-min-tag">30</p>
+                                </div>
+                                
+                                <div id="h-filter-slider-range-div">
+                                    <div id="slider-track"></div>
+                                
+    
+                                    <div id="h-filter-range-outerDiv">
+                                        <div class="h-filter-range-div" id="h-filter-range1-div">
+                                            <input type="range" max="100" min="0" value="30" id="slider1" oninput="sliderInputted()" class="h-filter-range">
+                                        </div>
+            
+                                        <div class="h-filter-range-div" id="h-filter-range2-div">
+                                            <input type="range" max="100" min="0" value="70" id="slider2" oninput="sliderInputted()" class="h-filter-range">
+                                        </div>
+                                    </div>
+    
+                                </div>
+                                
+                                <div class="slider-extr-tag-div">
+                                    <p class="slider-extr-tag" id="slider-max-tag">70</p>
+                                </div>     
+                                
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+    
+                    <div id="h-filter-list-div">
+                        <div id="h-filter-list-ul-div">
+                            <ul id="h-filter-list-ul"></ul>
+                        </div>
+
+                        <div id="h-filter-submit-btn-div">
+                            <button id="h-filter-submit-btn" onclick="filterSubmit()">確認篩選</button>
+                        </div>
+                    </div>
+    
+                    
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+            
+            <script src="https://kit.fontawesome.com/3034cde1c1.js" crossorigin="anonymous"></script>
+        <script>
+        
+            let clickedFilterBtn = 'none';
+            let chosenFilterList = {};
+            let type = '';
+            
+
+            //console.log/('cat include '+Object.prototype.hasOwnProperty.call(chosenFilterList, 'cat'));
+            //console.log(chosenFilterList);
+
+
+            const changeFilterBtnDiv = (mode) => {
+                document.getElementById('h-filter-auto-btn-div').style.display = 'none';
+                document.getElementById('h-filter-auto-btn-li').style.boxShadow = '';
+                document.getElementById('h-filter-tele-btn-div').style.display = 'none';
+                document.getElementById('h-filter-tele-btn-li').style.boxShadow = '';
+                document.getElementById('h-filter-other-btn-div').style.display = 'none';
+                document.getElementById('h-filter-other-btn-li').style.boxShadow = '';
+
+                document.getElementById(`h-filter-${mode}-btn-li`).style.boxShadow = 'inset #f9d0d037 -5px -5px 10px, inset #4545453d 5px 5px 10px';
+
+                const chosenDiv = document.getElementById(`h-filter-${mode}-btn-div`).style.display = 'block';
+            }
+
+
+            const sliderInputted = () => {
+                const slider1 = document.getElementById("slider1");
+                const slider2 = document.getElementById("slider2");
+                const sliderTrack = document.getElementById("slider-track");
+                const sliderMax = document.getElementById("slider1").max;
+                const percent1 = (slider1.value / sliderMax) * 100;
+                const percent2 = (slider2.value / sliderMax) * 100;
+        
+                if(percent1 <= percent2) {
+                    if(clickedFilterBtn != 'none') {
+                        chosenFilterList[clickedFilterBtn][0] = Number(slider1.value);
+                        chosenFilterList[clickedFilterBtn][1] = Number(slider2.value);
+                        //console.log(chosenFilterList[clickedFilterBtn]);
+                    }
+                    document.getElementById('slider-min-tag').innerText = `${slider1.value}${type}`;
+                    document.getElementById('slider-max-tag').innerText = `${slider2.value}${type}`;
+                    sliderTrack.style.background = `linear-gradient(to right, #dadae5 ${percent1}% , #ffffff ${percent1}% , #ffffff ${percent2}%, #dadae5 ${percent2}%)`;
+                } else {
+                    if(clickedFilterBtn != 'none') {
+                        chosenFilterList[clickedFilterBtn][0] = Number(slider2.value);
+                        chosenFilterList[clickedFilterBtn][1] = Number(slider1.value);
+                        //console.log(chosenFilterList[clickedFilterBtn]);
+                    }
+                    document.getElementById('slider-min-tag').innerText = `${slider2.value}${type}`;
+                    document.getElementById('slider-max-tag').innerText = `${slider1.value}${type}`;
+                    sliderTrack.style.background = `linear-gradient(to right, #dadae5 ${percent2}% , #ffffff ${percent2}% , #ffffff ${percent1}%, #dadae5 ${percent1}%)`;
+                }
+                
+            }
+        
+        
+            const pointBtnClicked = (item, mode) => {
+                if( ! Object.prototype.hasOwnProperty.call(chosenFilterList, `${item}${mode}`) ) {
+                    chosenFilterList[`${item}${mode}`] = [];
+                    createFilterLi(item, mode);
+                }
+                type = '分'
+                clickedFilterBtn = `${item}${mode}`;
+                sliderInputted();
+            };
+        
+            const rateBtnClicked = (item, mode) => {
+                if( ! Object.prototype.hasOwnProperty.call(chosenFilterList, `${item}${mode}`) ) {
+                    chosenFilterList[`${item}${mode}`] = [];
+                    createFilterLi(item, mode);
+                }
+                type = '%'
+                clickedFilterBtn = `${item}${mode}`;
+                sliderInputted();
+            };
+
+            const removeFilterLi = (item, mode) => {
+                console.log(chosenFilterList);
+                const li = document.getElementById(`filter-li-${item}${mode}`);
+                li.remove();
+                delete chosenFilterList[`${item}${mode}`];
+                console.log(chosenFilterList);
+            }
+
+            const createFilterLi = (item, mode) => {
+                const ul = document.getElementById('h-filter-list-ul');
+                const li = document.createElement('li');
+                li.classList.add('h-filter-list-li');
+                li.id = `filter-li-${item}${mode}`;
+                
+                const span = document.createElement('span');
+
+                //console.log(mode)
+                if( mode === 'A' ) {
+                    span.innerText = 'Auto' + document.getElementById(`${item}${mode}`).innerText;
+                } else if ( mode === 'T' ) {
+                    span.innerText = 'Tele' + document.getElementById(`${item}${mode}`).innerText;
+                } else {
+                    span.innerText = document.getElementById(item).innerText;
+                }
+                
+                
+                const i = document.createElement('i');
+                
+                i.classList.add('fa-solid');
+                i.classList.add('fa-xmark');
+                i.classList.add('ft-lg');
+                i.onclick = () => {
+                    removeFilterLi(item, mode);
+                }
+
+                ul.appendChild(li);
+                li.appendChild(span);
+                li.appendChild(i);
+                
+            };
+        
+            const filterSubmit = () => {
+                let href = '../filter?';
+                const conditions =  Object.keys(chosenFilterList);
+                conditions.forEach( condition => {
+                    if(chosenFilterList[condition][0] !== 0 ) {
+                        href += condition + 'Min=' + chosenFilterList[condition][0] + '&';
+                    }
+
+                    if(chosenFilterList[condition][1] !== 100 ) {
+                        href += condition + 'Max=' + chosenFilterList[condition][1] + '&';
+                    }
+                });
+
+                href = href.slice(0, -1);
+
+                //console.log(href);
+                
+                window.location.href = href;
+            };
+
+            const showFilter = () => {
+                if( window.getComputedStyle(document.getElementById('h-filter-div')).display == 'none') {
+                    document.getElementById('h-filter-div').style.display = 'flex';
+                    document.getElementById('h-filter-div').style.animationName = 'showFilter';
+                } else {
+                    document.getElementById('h-filter-div').style.animationName = 'hideFilter';
+                    setTimeout(() => {
+                        document.getElementById('h-filter-div').style.display = 'none';
+                    }, 1000);
+                }
+                
+            };
+
+
+            window.onload = () => {
+                sliderInputted();
+                document.getElementById('h-filter-auto-btn-li').style.boxShadow = 'inset #f9d0d037 -5px -5px 10px, inset #4545453d 5px 5px 10px';
+            }
+        
+        </script>
+    </body>
+    
+    
+</html>

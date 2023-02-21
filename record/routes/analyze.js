@@ -1,0 +1,174 @@
+const { listCollections , findAll, findOne, insert, update } = require('../../db/CRUD');
+const { dbCilent } = require('../../db/connect');
+require('dotenv').config;
+
+const teamInclude = async (teamNumber) => {
+    const documents = await findAll('analyze', process.env.gameName);
+    let teamList = [];
+    documents.forEach( document => {
+        teamList.push(document.teamNumber);
+    });
+    return teamList.includes(teamNumber);
+};
+
+const analyzeInsert = async (req, res) => {
+    try{
+        const reqData = await req.body;
+        const teamNumber = reqData.teamNumber;
+        const teamI = await teamInclude(teamNumber);
+
+        if(teamI === true) {
+            const oldData = await findOne('analyze', process.env.gameName, {teamNumber: teamNumber});
+            
+
+            const topA = reqData.topA + oldData.topA;
+            const middleA = reqData.middleA + oldData.middleA;
+            const bottomA = reqData.bottomA + oldData.bottomA;
+
+            const dockA = reqData.dockA + oldData.dockA;
+            const engageA = reqData.engageA + oldData.engageA;
+            const mobilityA = reqData.mobilityA + oldData.mobilityA;
+
+            const pointA = (topA * 6) + (middleA * 4) + (bottomA * 3) + (dockA * 8) + (engageA * 4) +(mobilityA * 3);
+
+
+            const topT = await reqData.topT + oldData.topT;
+            const middleT = reqData.middleT + oldData.middleT;
+            const bottomT = reqData.bottomT + oldData.bottomT;
+
+            const dockT = reqData.dockT + oldData.dockT;
+            const engageT = reqData.engageT + oldData.engageT;
+            const parkT = reqData.parkT + oldData.parkT;
+
+            const pointT = (topT * 5) + (middleT * 3) + (bottomT * 2) + (dockT * 6) + (engageT * 4) + (parkT * 2);
+
+            let win = oldData.win;
+            let lose = oldData.lose;
+
+            if(reqData.result === 0) {
+                win += 1;
+            } else if (reqData.result === 1) {
+                lose += 1;
+            }
+
+            let offensive = oldData.offensive;
+            let defensive = oldData.defensive;
+
+            if(reqData.character === 0) {
+                offensive += 1;
+            } else if(reqData.character === 1) {
+                defensive += 1;
+            }
+
+            const rp = reqData.rp + oldData.rp;
+
+            const times = oldData.times + 1;
+
+            const data = await update('analyze', process.env.gameName, { teamNumber: teamNumber }, 
+            {
+                teamNumber: teamNumber,
+                topA: topA,
+                middleA: middleA,
+                bottomA: bottomA,
+                dockA: dockA,
+                engageA: engageA,
+                mobilityA: mobilityA,
+                pointA: pointA,
+                topT: topT,
+                middleT: middleT,
+                bottomT: bottomT,
+                dockT: dockT,
+                engageT: engageT,
+                parkT: parkT,
+                pointT: pointT,
+                win: win,
+                lose: lose,
+                offensive: offensive,
+                defensive: defensive,
+                rp: rp,
+                times: times,
+            });
+            res.status(201).json({ result: data });
+            res.end();
+
+        } else {
+
+            const topA = reqData.topA;
+            const middleA = reqData.middleA;
+            const bottomA = reqData.bottomA;
+
+            const dockA = reqData.dockA;
+            const engageA = reqData.engageA;
+            const mobilityA = reqData.mobilityA;
+
+            const pointA = (topA * 6) + (middleA * 4) + (bottomA * 3) + (dockA * 8) + (engageA * 4) + (mobilityA * 3);
+
+
+            const topT = await reqData.topT;
+            const middleT = reqData.middleT;
+            const bottomT = reqData.bottomT;
+
+            const dockT = reqData.dockT;
+            const engageT = reqData.engageT;
+            const parkT = reqData.parkT;
+
+            const pointT = (topT * 5) + (middleT * 3) + (bottomT * 2) + (dockT * 6) + (engageT * 4) + (parkT * 2);
+
+            let win = 0;
+            let lose = 0;
+
+            if(reqData.result === 0) {
+                win += 1;
+            } else if (reqData.result === 1) {
+                lose += 1;
+            }
+
+            let offensive = 0;
+            let defensive = 0;
+
+            if(reqData.character === 0) {
+                offensive += 1;
+            } else if(reqData.character === 1) {
+                defensive += 1;
+            }
+
+            const rp = reqData.rp;
+
+            const times = 1;
+
+            const data = await insert('analyze', process.env.gameName,
+            {
+                teamNumber: teamNumber,
+                topA: topA,
+                middleA: middleA,
+                bottomA: bottomA,
+                dockA: dockA,
+                engageA: engageA,
+                mobilityA: mobilityA,
+                pointA: pointA,
+                topT: topT,
+                middleT: middleT,
+                bottomT: bottomT,
+                dockT: dockT,
+                engageT: engageT,
+                parkT: parkT,
+                pointT: pointT,
+                win: win,
+                lose: lose,
+                offensive: offensive,
+                defensive: defensive,
+                rp: rp,
+                times: times,
+            });
+
+            res.status(201).json({ result: data });
+            res.end();
+            
+            
+        }
+    } catch (err){
+        console.log(err);
+    }
+};
+
+module.exports = {teamInclude, analyzeInsert };

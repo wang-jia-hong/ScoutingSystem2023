@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            :root {
+                --logoBlue: #002a5c;
+                --logoPink: #de9896;
+                font-size: 1vmin;
+            }
+
+            #table-div::-webkit-scrollbar {
+                display: none;
+            }
+            a {
+                color: var(--logoPink);
+            }
+
+            #table-outerDiv {
+                width: 100%;
+                height: 100%;
+                background-color: var(--logoPink);
+                border-radius: 2vmin;
+                padding: 0% 1vmin;
+            }
+
+            #table-div {
+                width: 100%;
+                height: 97%;
+                overflow: auto;
+                position: relative;
+                top: 1%;
+            }
+
+            table {
+                height: 100%;
+                width: 100%;
+                text-align: center;
+                border-collapse: collapse;
+                /* border-spacing: 1vmin; */
+                border: 0;
+                /* border-radius: 2vmin; */
+            }
+
+            #th-tr {
+                position: sticky;
+                top: 0;
+                left: 0;
+                height: 5vh;
+            }
+
+            th {
+                background-color: var(--logoPink);
+                color:#ffffff;
+                height: 5vh;
+                border-bottom-style: solid;
+                border-bottom-color: var(--logoPink);
+                border-bottom-width: 0.5vmin;
+            }
+            tr {
+                
+            }
+            td {
+                background-color: #ffffff;
+                color: var(--logoPink);
+                width: fit-content;
+                height: 5vh;
+            }
+
+            .bottom-tr {
+                border-bottom-style: solid;
+                border-bottom-width: 0.5vmin;
+                border-bottom-color: var(--logoPink);
+            }
+        </style>
+    </head>
+
+    <body>  
+        <div id="table-outerDiv">
+            <div id="table-div">
+                <table>
+                    <tr id="th-tr">
+                        <th>Team</th>
+                        <th>mode</th>
+                        <th>top(%)</th>
+                        <th>middle(%)</th>
+                        <th>bottom(%)</th>
+                        <th>dock(%)</th>
+                        <th>engage(%)</th>
+                        <th>mobility(%)</th>
+                        <th>平均分(分)</th>
+                        <th>贏(%)</th>
+                        <th>輸(%)</th>
+                        <th>平手(%)</th>
+                        <th>功(%)</th>
+                        <th>守(%)</th>
+                        <th>攻兼守(%)</th>
+                        <th>平均RP</th>
+                        <th>總RP</th>
+                    </tr>
+        
+                    
+                    <% data.forEach( document => { %>
+                        <% const times = document.times %>
+        
+                        <% const getRate = (num) => { %>
+                            <% if (num == 0) { %>
+                                <% return 0; %>
+                            <% } %>
+        
+                            <% return Math.round( ( (num * 100) + Number.EPSILON) * 100 ) / 100; %>
+                        <% }; %>
+        
+                        <% const getAverage = (num) => { %>
+                            <% if (num == 0) { %>
+                                <% return 0; %>
+                            <% } %>
+        
+                            <% return Math.round( (num + Number.EPSILON) * 100 ) / 100; %>
+                        <% }; %>
+        
+                        <% let cargoTotalA = document.topA + document.middleA + document.bottomA; %>
+        
+                        <% if(cargoTotalA == 0) { %>
+                            <% cargoTotalA = 1; %>
+                        <% } %>
+        
+                        <% let cargoTotalT = document.topT + document.middleT + document.bottomT; %>
+        
+                        <% if(cargoTotalT == 0) { %>
+                            <% cargoTotalT = 1; %>
+                        <% } %>
+        
+                        <tr>
+                            <td rowspan="2"><a href="./result/<%=document.teamNumber%>" ><%= document.teamNumber %></a></td>
+                            <td>auto</td>
+                            <td><%= getRate(document.topA / cargoTotalA) %></td>
+                            <td><%= getRate(document.middleA / cargoTotalA) %></td>
+                            <td><%= getRate(document.bottomA / cargoTotalA) %></td>
+                            <td><%= getRate(document.dockA / document.times) %></td>
+                            <td><%= getRate(document.engageA / document.times) %></td>
+                            <td><%= getRate(document.mobilityA / document.times) %></td>
+                            <td><%= getAverage(document.pointA / document.times) %></td>
+                            <td rowspan="2"><%= getRate(document.win / document.times) %></td>
+                            <td rowspan="2"><%= getRate(document.lose / document.times) %></td>
+                            <td rowspan="2"><%= getRate( (document.times - document.win - document.lose) / document.times ) %></td>
+                            <td rowspan="2"><%= getRate(document.offensive / document.times) %></td>
+                            <td rowspan="2"><%= getRate(document.defensive / document.times) %></td>
+                            <td rowspan="2"><%= getRate( (document.times - document.offensive - document.defensive ) / document.times) %></td>
+                            <td rowspan="2"><%= getAverage(document.rp / document.times) %></td>
+                            <td rowspan="2"><%= document.rp %></td>
+                        </tr>
+                        <tr class="bottom-tr">
+                            <td>tele</td>
+                            <td><%= getRate(document.topT / cargoTotalT) %></td>
+                            <td><%= getRate(document.middleT / cargoTotalT) %></td>
+                            <td><%= getRate(document.bottomT / cargoTotalT) %></td>
+                            <td><%= getRate(document.dockT / document.times) %></td>
+                            <td><%= getRate(document.engageT / document.times) %></td>
+                            <td><%= getRate(document.parkT / document.times) %></td>
+                            <td><%= getAverage(document.pointT / document.times) %></td>
+                        </tr>
+                            
+            
+                            
+                    <% }) %>
+                    
+                    
+                </table>
+                </div>
+        </div> 
+            
+        
+            
+            
+        
+
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script>
+            const get = async () => {
+                await axios.post('/result');
+            }
+        </script>
+
+    </body>
+</html>

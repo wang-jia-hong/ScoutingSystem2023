@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <style>
+            :root {
+                width: 100%;
+                overflow-x: auto;
+            }
+            #fTable {
+                width: 3000px;
+                margin-bottom: 5%;
+            }
+            td {
+                background-color: antiquewhite;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>隊伍 <%= teamNumber %></h1>
+        <table id="fTable">
+            <tr>
+                <td>自動模式top機率</td>
+                <td>自動模式middle機率</td>
+                <td>自動模式bottom機率</td>
+                <td>自動模式dock機率</td>
+                <td>自動模式engage機率</td>
+                <td>自動模式mobility機率</td>
+                <td>自動模式平均分</td>
+                <td>手動模式top機率</td>
+                <td>手動模式middle機率</td>
+                <td>手動模式bottom機率</td>
+                <td>手動模式dock機率</td>
+                <td>手動模式engage機率</td>
+                <td>手動模式park機率</td>
+                <td>手動模式平均分</td>
+                <td>贏機率</td>
+                <td>輸機率</td>
+                <td>平手機率</td>
+                <td>功機率</td>
+                <td>守機率</td>
+                <td>攻兼守機率</td>
+                <td>總RP</td>
+            </tr>
+        
+            <tr>
+                <td><%= topRateA %>%</td>
+                <td><%= middleRateA %>%</td>
+                <td><%= bottomRateA %>%</td>
+                <td><%= dockRateA %>%</td>
+                <td><%= engageRateA %>%</td>
+                <td><%= mobilityRateA %>%</td>
+                <td><%= avaragePointA %></td>
+                <td><%= topRateT %>%</td>
+                <td><%= middleRateT %>%</td>
+                <td><%= bottomRateT %>%</td>
+                <td><%= dockRateT %>%</td>
+                <td><%= engageRateT %>%</td>
+                <td><%= dockRateT %>%</td>
+                <td><%= avaragePointT %></td>
+                <td><%= winRate %>%</td>
+                <td><%= loseRate %>%</td>
+                <td><%= tieRate %>%</td>
+                <td><%= offensiveRate %>%</td>
+                <td><%= defensiveRate %>%</td>
+                <td><%= mixRate %>%</td>
+                <td><%= totalRP %></td>
+            </tr>
+        </table>
+
+
+        <% gameRecorded.forEach(record => { %>
+                <table id="sTable">
+                    <tr>
+                        <td>比賽類型</td>
+                        <td>場次</td>
+                        <td>自動模式dock</td>
+                        <td>自動模式平衡</td>
+                        <td>自動模式mobility</td>
+                        <td>自動模式cargo</td>
+                        <td>手動模式dock</td>
+                        <td>手動模式平衡</td>
+                        <td>手動模式park</td>
+                        <td>手動模式cargo</td>
+                        <td>勝負</td>
+                        <td>犯規</td>
+                        <td>功守</td>
+                        <td>RP</td>
+                        <td>概述</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <% if(record.gameType === 0) { %>
+                                練習賽
+                            <% } else if(record.gameType === 1) { %>
+                                資格賽
+                            <% } else { %>
+                                淘汰賽
+                            <% } %>                              
+                        </td>
+                        <td><%= record.gameNumber %></td>
+                        <td>
+                            <% if(record.moveA === 1 || record.moveA === 3) { %>
+                                √
+                            <% } %>
+                        </td>
+                        <td>
+                            <% if(record.moveA === 3) { %>
+                                √
+                            <% } %>
+                        </td>
+                        <td>
+                            <% if(record.moveA === 2) { %>
+                                √
+                            <% } %>
+                        </td>
+                        <td>
+                            <% record.cargoA.forEach(element => { %>
+                                <%= element %> 
+                            <% }) %>
+                        </td>
+                        <td>
+                            <% if(record.moveT === 1 || record.moveT === 3) { %>
+                                √
+                            <% } %>
+                        </td>
+                        <td>
+                            <% if(record.moveT === 3) { %>
+                                √
+                            <% } %>
+                        </td>
+                        <td>
+                            <% if(record.moveT === 2) { %>
+                                √
+                            <% } %>
+                        </td>
+                        <td>
+                            <% record.cargoT.forEach(element => { %>
+                                <%= element %>
+                            <% }) %>
+                        </td>
+                        <td>
+                            <% if(record.result === 0) { %>
+                                贏
+                            <% } else if(record.result === 1) { %>
+                                輸
+                            <% } else { %>
+                                平手
+                            <% } %>
+                        </td>
+                        <td>
+                            <%= record.foul %>
+                        </td>
+                        <td>
+                            <% if(record.character === 0) { %>
+                                功
+                            <% } else if(record.character === 1) { %>
+                                守
+                            <% } else { %>
+                                功兼守
+                            <% } %>
+                        </td>
+                        <td>
+                            <% if(record.result === 2) { %>
+                                √
+                            <% } %>
+                        </td>
+                        <td>
+                            <%= record.comment %>
+                        </td>
+                    </tr>
+                </table>
+        <%  }); %>
+        
+    </body>
+</html>
