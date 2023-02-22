@@ -141,11 +141,12 @@ dialog:modal {
 .full-screen-div {
     border: 0;
     width: 10%;
-    height: 22%;
+    height: 18%;
     position: relative;
     top: 10%;  
     left: 7%;
     float:left;
+    display: none;
 }
 
 .full-screen-btn {

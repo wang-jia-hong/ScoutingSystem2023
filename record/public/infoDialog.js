@@ -35,16 +35,25 @@ let chosenForm = 0;
 
         };
 
-        const keyboard = (number) => {
+        const keyboard = async (number) => {
+            const keyboardBtn = document.getElementById(`keyboard-btn${number}`);
+            keyboardBtn.classList.toggle('keyboard-btn-clicked');
             if(chosenForm != 0) {
                 const p = document.getElementById(`i-d-form-btn-p${chosenForm}`);
                 if(p.innerText < 100000) {
                     p.innerText += number;
                 }
             }
+            
+            setTimeout( () => {
+                keyboardBtn.classList.toggle('keyboard-btn-clicked');
+            }, 100);
+            
         };
 
         const backspace = () => {
+            const backspace = document.getElementById('delete-btn');
+            backspace.classList.toggle('keyboard-btn-clicked');
             if(chosenForm != 0) {
                 const p = document.getElementById(`i-d-form-btn-p${chosenForm}`);
                     const text = Math.floor(p.innerText/10);
@@ -54,6 +63,9 @@ let chosenForm = 0;
                         p.innerText = text;
                     } 
             }
+            setTimeout( () => {
+                backspace.classList.toggle('keyboard-btn-clicked');
+            }, 100);
         };
 
 

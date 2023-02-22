@@ -113,9 +113,8 @@
 
 .keyboard-btn {
     width: 70%;
-    max-height: 8vw;
+    max-width: 15vh;
     aspect-ratio: 1 / 1;
-    
     border: 0;
     border-radius: 50%;
     margin: auto auto;
@@ -126,15 +125,9 @@
     font-family: 'Alegreya Sans SC', serif;
 }
 
-.keyboard-btn:active {
+.keyboard-btn-clicked {
     color: #ffe0e0;
     box-shadow: #ffe0e0 0px 0px 25px, inset #ffe0e0 0px 0px 25px;
-    outline: none;
-}
-
-.keyboard-btn:focus {
-    color: #4c4c4c;
-    box-shadow: #4c4c4c 0px 0px 25px, inset #4c4c4c 0px 0px 25px;
 }
 
 #delete-btn {
@@ -154,10 +147,13 @@
     left: 10%;
     width: 30%;
     height: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-radius: 7vmin;
 }
 
-.i-done-btn-div {
+#i-done-btn-div {
     height: 100%;
     width: 100%;
     padding: 0;
@@ -168,11 +164,32 @@
 }
 
 .i-done-btn {
-    height: 70%;;
+    width: 70%;
+    max-width: 10vh;
     aspect-ratio: 1 / 1;
     border: 0;
     border-radius: 50%;
-    margin: auto auto;
+    margin: 0;
+    background-color: #000000;
+    color: #ffe0e0;
+    font-size: 3.5vmin;
+    animation: rotate 2s linear infinite;
+}
+
+#i-full-screen-div {
+    height: 100%;
+    width: 100%;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+#i-full-screen-btn {
+    width: 70%;
+    max-width: 10vh;
+    aspect-ratio: 1 / 1;
+    border: 0;
+    border-radius: 50%;
     background-color: #000000;
     color: #ffe0e0;
     font-size: 3.5vmin;
@@ -204,7 +221,7 @@
 
 @media only screen and (orientation: portrait) {
     #i-d-form-div { width: 90%; height: 40%; top: 3%; left: 5%; }
-    .keyboard-btn { max-height: 20vw; }
+    .keyboard-btn { max-width: 7vh; }
     #i-d-keyboard-div { width: 90%; height: 40%; top: 7%; left: 5%; }
     #i-done-div { width: 90%; height: 10%; top: 12%; left: 5%; margin-bottom: 15%;}
     #i-dialog-div { overflow-y: auto; }

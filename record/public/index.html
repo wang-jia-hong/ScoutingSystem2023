@@ -117,12 +117,13 @@
                     </div>
 
                     <div id="i-done-div">
-                        <div class="i-done-btn-div"> <button class="i-done-btn" onclick="infoDone()"><i class="fa-sharp fa-solid fa-circle-check ft-lg"></i></button> </div>
+                        <div id="i-done-btn-div"> <button class="i-done-btn" onclick="infoDone()"><i class="fa-sharp fa-solid fa-circle-check ft-lg"></i></button> </div>
+                        <div id="i-full-screen-div">
+                            <button id="i-full-screen-btn" onclick="enterFullScreen('i')"><i class="fa-solid fa-expand ft-lg"></i></button>
+                        </div>
                     </div>
                         
-                    <div id="i-full-screen-div" class="full-screen-div">
-
-                    </div>
+                    
                 </div>
             </dialog>
 
@@ -156,7 +157,7 @@
                     </div>
 
                     <div id="a-full-screen-div" class="full-screen-div">
-
+                        <button class="full-screen-btn" onclick="enterFullScreen('a')"><i class="fa-solid fa-expand ft-lg"></i></button>
                     </div>
                 </div>
             </dialog>
@@ -191,7 +192,7 @@
                     </div>
 
                     <div id="t-full-screen-div" class="full-screen-div">
-
+                        <button class="full-screen-btn" onclick="enterFullScreen('t')"><i class="fa-solid fa-expand ft-lg"></i></button>
                     </div>
                 </div>
             </dialog>

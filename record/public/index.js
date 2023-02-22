@@ -50,8 +50,9 @@ const mBtnClicked = (id) => {
 
 
 
-const enterFullScreen = (id) => {
-    document.getElementById(id).webkitRequestFullscreen();
+const enterFullScreen = (mode) => {
+    document.getElementById(`${mode}-dialog-div`).webkitRequestFullscreen();
+    document.getElementById(`${mode}-full-screen-div`).style.display = 'none';
 };
 
 document.onwebkitfullscreenchange = () => {
@@ -65,38 +66,15 @@ document.onwebkitfullscreenchange = () => {
 
 
 const createFullScreenBtn = () => {
-    let dialogOpened= '';
-
     if(document.getElementById('i-dialog').open === true) {
-        dialogOpened = 'i';
+        document.getElementById('i-full-screen-div').style.display = 'flex';
     } else if(document.getElementById('a-dialog').open === true) {
-        dialogOpened = 'a';
+        document.getElementById('a-full-screen-div').style.display = 'block';
     } else if(document.getElementById('t-dialog').open === true) {
-        dialogOpened = 't';
+        document.getElementById('t-full-screen-div').style.display = 'block';
     } else {
         return;
     }
-    const div = document.getElementById(`${dialogOpened}-full-screen-div`);
-    const btn = document.createElement('button');
-
-    btn.classList.add('full-screen-btn');
-
-
-    btn.addEventListener('click', () => {
-		enterFullScreen('a-dialog-div');
-        div.removeChild(btn);
-	});
-
-    div.appendChild(btn);
-
-    const i = document.createElement('i');
-
-    i.classList.add('fa-solid');
-    i.classList.add('fa-expand');
-
-    btn.appendChild(i);
-
-
 };
 
 
@@ -256,6 +234,7 @@ const submit = async () =>{
 
         await axios.post('/analyzeSubmit', {
             teamNumber: teamNumber,
+            gameType: gameType,
             topA: topA,
             middleA: middleA,
             bottomA: bottomA,
