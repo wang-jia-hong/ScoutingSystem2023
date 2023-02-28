@@ -140,14 +140,6 @@ const analyzeInsert = async (req, res) => {
             let mix = 0;
 
             if(reqData.character === 1) {
-                offensive = 1;
-            } else if(reqData.character === 2) {
-                defensive = 1;
-            } else if(reqData.character === 3) {
-                mix = 1;
-            }
-
-            if(reqData.character === 1) {
                 offensive += 1;
             } else if(reqData.character === 2) {
                 defensive += 1;
