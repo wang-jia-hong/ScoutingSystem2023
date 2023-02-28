@@ -3,13 +3,21 @@ require('dotenv').config;
 
 const recordInsert = async (req, res) => {
     try{
+        // setTimeout( () => {
+        //     res.status(500).json({ result: data });
+        //     res.end();
+        // }, 2000);
+        
         const teamNumber = req.body.teamNumber;
         const gameType = req.body.gameType;
         const data = await insert(`${process.env.gameName}Record${gameType}`, `${teamNumber}`, req.body);
         res.status(201).json({ result: data });
         res.end();
     } catch (err){
-        console.log(err);
+        if(err) {
+            res.status(500).json({ msg: 'Submit failed, please try again later.' });
+            console.log(err);
+        }
     }
 };
 

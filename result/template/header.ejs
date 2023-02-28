@@ -6,7 +6,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans+SC&display=swap" rel="stylesheet">
         <style>
             :root {
-                font-family: 'Alegreya Sans SC';
+                font-family: 'Alegreya Sans SC', serif;
                 border: 0;
                 padding: 0;
                 margin: 0;
@@ -427,13 +427,15 @@
                         </div>
     
                         <div id="h-filter-other-btn-div" class="h-filter-mode-btn-div">
-                            <button id="win" class="h-filter-btn" onclick="rateBtnClicked('win', 'O')">贏</button>
-                            <button id="lose" class="h-filter-btn" onclick="rateBtnClicked('lose', 'O')">輸</button>
-                            <button id="tie" class="h-filter-btn" onclick="rateBtnClicked('tie', 'O')">平局</button>
-                            <button id="offensive" class="h-filter-btn" onclick="rateBtnClicked('offensive', 'O')">功</button>
-                            <button id="defensive" class="h-filter-btn" onclick="rateBtnClicked('defensive', 'O')">守</button>
-                            <button id="mix" class="h-filter-btn" onclick="rateBtnClicked('mix', 'O')">功兼守</button>
-                            <button id="rp" class="h-filter-btn" onclick="rateBtnClicked('rp', 'O')">總RP</button>
+                            <button id="win" class="h-filter-btn" onclick="rateBtnClicked('win', '')">贏</button>
+                            <button id="lose" class="h-filter-btn" onclick="rateBtnClicked('lose', '')">輸</button>
+                            <button id="tie" class="h-filter-btn" onclick="rateBtnClicked('tie', '')">平局</button>
+                            <button id="offensive" class="h-filter-btn" onclick="rateBtnClicked('offensive', '')">功</button>
+                            <button id="defensive" class="h-filter-btn" onclick="rateBtnClicked('defensive', '')">守</button>
+                            <button id="mix" class="h-filter-btn" onclick="rateBtnClicked('mix', '')">功兼守</button>
+                            <button id="rp" class="h-filter-btn" onclick="pointBtnClicked('rp', '')">平均RP</button>
+                            <button id="link" class="h-filter-btn" onclick="pointBtnClicked('link', '')">平均link</button>
+                            <button id="foul" class="h-filter-btn" onclick="pointBtnClicked('foul', '')">平均犯規</button>
                         </div>
 
                         <div id="h-filter-slider-outerDiv">
@@ -565,11 +567,9 @@
             };
 
             const removeFilterLi = (item, mode) => {
-                console.log(chosenFilterList);
                 const li = document.getElementById(`filter-li-${item}${mode}`);
                 li.remove();
                 delete chosenFilterList[`${item}${mode}`];
-                console.log(chosenFilterList);
             }
 
             const createFilterLi = (item, mode) => {
@@ -606,7 +606,7 @@
             };
         
             const filterSubmit = () => {
-                let href = '../filter?';
+                let href = '?';
                 const conditions =  Object.keys(chosenFilterList);
                 conditions.forEach( condition => {
                     if(chosenFilterList[condition][0] !== 0 ) {

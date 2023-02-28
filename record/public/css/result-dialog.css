@@ -1,0 +1,272 @@
+.r1-btn-div {
+    width: 80%;
+    height: 24%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: #ffdfdf73 var(--box-shadow-offset) var(--box-shadow-offset) var(--box-shadow-size);
+    border-radius: 7vmin;
+}
+
+#r1-gameResult-div {
+    top: 10%;
+    left: 10%;
+}
+
+#r1-character-div {
+    top: 20%;
+    left: 10%;
+}
+
+.r1-btn {
+    width: 25%;
+    height: 60%;
+    margin: 0 3%;
+    border: 0;
+    border-radius: 4vmin;
+    background-color: #000000;
+    color: #4c4c4c;
+    box-shadow: #4c4c4c 0px 0px var(--box-shadow-size), inset #4c4c4c 0px 0px var(--box-shadow-size);
+    font-size: var(--font-size);
+    letter-spacing: calc( var(--font-size) * 0.1 );
+    font-family: 'Alegreya Sans SC', serif;
+}
+
+#r1-done-div {
+    width: 30%;
+    height: fit-content;
+    border: 0;
+    position: relative;
+    top: 30%;
+    left: 35%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#r1-done-btn-div {
+    width: 35%;
+    height: 100%;
+    border: 0;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.r1-done-btn {
+    width: 80%;
+    aspect-ratio: 1 / 1;
+    border: 0;
+    border-radius: 50%;
+    background-color: #000000;
+    color: #ffe0e0;
+    font-size: var(--font-size);
+    font-family: 'Alegreya Sans SC', serif;
+    animation: rotate 2s linear infinite;
+}
+
+#r1-full-screen-div {
+    width: 35%;
+    height: 100%;
+    margin: auto;
+    border: 0;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+#r2-d-form-div {
+    background-color: #000000;
+    position: relative;
+    float: left;
+    top: 5%;
+    left: 5%;
+    width: 55%;
+    height: 90%;
+    box-shadow: #ffdfdf73 var(--box-shadow-offset) var(--box-shadow-offset) var(--box-shadow-size);
+    border-radius: 7vmin;
+    text-align: center;
+}
+
+.r2-d-form-btn-div {
+    width: 100%;
+    height: 33%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.r2-d-form-btn {
+    width: 50%;
+    height: 60%;
+    border: 0;
+    padding: 3% 7%;
+    border-radius: 7vmin;
+    background-color: #000000;
+    color: #4c4c4c;
+    box-shadow: #4c4c4c 0px 0px var(--box-shadow-size), inset #4c4c4c 0px 0px var(--box-shadow-size);
+    font-size: var(--font-size);
+    font-family: 'Alegreya Sans SC', serif;
+    letter-spacing: calc(var(--font-size) * 0.2);
+    white-space:nowrap;
+    
+}
+
+.r2-d-form-btn-p {
+    width: fit-content;
+    height: fit-content;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    display: inline;
+    letter-spacing: inherit;
+}
+
+#r2-d-keyboard-div {
+    background-color: black;
+    position: relative;
+    float: left;
+    top: 5%;
+    left: 10%;
+    width: 30%;
+    height: 70%;
+    box-shadow: #ffdfdf73 var(--box-shadow-offset) var(--box-shadow-offset) var(--box-shadow-size);
+    border-radius: 7vmin;
+    justify-content: center;
+    overflow: scroll;
+}
+
+
+.keyboard-div {
+    height: 25%;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
+.keyboard-btn-div {
+    height: 100%;
+    width: 33%;
+    padding: 0;
+    float: left;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.keyboard-btn {
+    width: 70%;
+    /* max-width: 15vh; */
+    aspect-ratio: 1 / 1;
+    border: 0;
+    border-radius: 50%;
+    margin: auto auto;
+    background-color: #000000;
+    color: #4c4c4c;
+    box-shadow: #4c4c4c 0px 0px var(--box-shadow-size), inset #4c4c4c 0px 0px var(--box-shadow-size);
+    font-size: var(--font-size);
+    font-family: 'Alegreya Sans SC', serif;
+}
+
+.keyboard-btn-clicked {
+    color: #ffe0e0;
+    box-shadow: #ffe0e0 0px 0px var(--box-shadow-size), inset #ffe0e0 0px 0px var(--box-shadow-size);
+}
+
+#delete-btn {
+    display: flex;
+    text-align: center;
+    font-size: var(--font-size);
+}
+
+#delete-icon {
+    margin: auto;
+}
+
+#r2-done-div {
+    position: relative;
+    float: left;
+    top: 10%;
+    left: 10%;
+    width: 30%;
+    height: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 7vmin;
+}
+
+#r2-done-btn-div {
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    float: left;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#r2-done-btn {
+    width: 25%;
+    aspect-ratio: 1 / 1;
+    border: 0;
+    border-radius: 50%;
+    margin: 0;
+    background-color: #000000;
+    color: #ffe0e0;
+    font-size: var(--font-size);
+    animation: rotate 2s linear infinite;
+}
+
+#r2-full-screen-div {
+    height: 100%;
+    width: 100%;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+#r2-full-screen-btn {
+    width: 25%;
+    aspect-ratio: 1 / 1;
+    border: 0;
+    border-radius: 50%;
+    background-color: #000000;
+    color: #ffe0e0;
+    font-size: var(--font-size);
+    animation: rotate 2s linear infinite;
+}
+
+@keyframes bump {
+    from {
+        width: 60%;
+        letter-spacing: calc(var(--font-size) * 0.2);
+    }
+    to {
+        width: 70%;
+        letter-spacing: calc(var(--font-size) * 0.3);
+    }
+}
+
+@keyframes back {
+    from {
+        width: 70%;
+        letter-spacing: calc(var(--font-size) * 0.3);
+    }
+    to {
+        width: 60%;
+        letter-spacing: calc(var(--font-size) * 0.2);
+    }
+}
+
+
+@media only screen and (orientation: portrait) {
+    #r1-done-div { width: 40%; left: 30%; }
+    #r2-d-form-div { width: 90%; height: 40%; top: 3%; left: 5%; }
+    .keyboard-btn { max-width: 7vh; }
+    #r2-d-keyboard-div { width: 90%; height: 40%; top: 7%; left: 5%; }
+    #r2-done-div { width: 60%; height: 20%; top: 12%; left: 20%; padding-bottom: 15%;}
+    #r2-dialog-div { overflow-y: auto; }
+}

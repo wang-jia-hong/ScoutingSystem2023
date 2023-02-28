@@ -6,14 +6,15 @@ require('dotenv').config();
 const { connectDB }  = require('./db/connect');
 
 const recordInsert = require('./record/routes/record');
-const { teamInclude, analyzeInsert } = require('./record/routes/analyze');
-const getAllTeamResult =require('./result/routes/result');
+const { analyzeInsert } = require('./record/routes/analyze');
+const { getAllTeamResult, getOneTeamResult }=require('./result/routes/result');
 
 
 //for record
 app.use(express.json());
 app.use('/record', express.static('./record/public'));
 app.use('/result', express.static('./result/public'));
+app.use('/result/:gameType/:teamNum', express.static('./result/public'));
 
 app.set('views', './result/views');
 app.set('view engine', 'ejs');
@@ -31,6 +32,10 @@ app.post('/analyzeSubmit', async (req, res) => {
 //for result
 app.get('/result/:gameType', async (req, res) => {
 	await getAllTeamResult(req, res);
+});
+
+app.get('/result/:gameType/:teamNum', async (req, res) => {
+	await getOneTeamResult(req, res);
 });
 
 const startServer = async () => {

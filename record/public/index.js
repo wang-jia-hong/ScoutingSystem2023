@@ -1,5 +1,4 @@
 const createCargoBtn = (id, mode, row) => {
-    
 	const div = document.getElementById(`${mode}-cargo-row${row}-div`);
 	const btn = document.createElement('button');
 
@@ -53,6 +52,10 @@ const mBtnClicked = (id) => {
 const enterFullScreen = (mode) => {
     document.getElementById(`${mode}-dialog-div`).webkitRequestFullscreen();
     document.getElementById(`${mode}-full-screen-div`).style.display = 'none';
+    if( mode === 'i' || mode === 'r2' ) {
+        document.getElementById(`${mode}-done-btn`).style.width = '25%';
+        document.getElementById(`${mode}-full-screen-btn`).style.width = '25%';
+    }
 };
 
 document.onwebkitfullscreenchange = () => {
@@ -68,16 +71,22 @@ document.onwebkitfullscreenchange = () => {
 const createFullScreenBtn = () => {
     if(document.getElementById('i-dialog').open === true) {
         document.getElementById('i-full-screen-div').style.display = 'flex';
+        document.getElementById('i-done-btn').style.width = '50%';
+        document.getElementById('i-full-screen-btn').style.width = '50%';
     } else if(document.getElementById('a-dialog').open === true) {
         document.getElementById('a-full-screen-div').style.display = 'block';
     } else if(document.getElementById('t-dialog').open === true) {
         document.getElementById('t-full-screen-div').style.display = 'block';
-    } else {
+    } else if(document.getElementById('r1-dialog').open === true) {
+        document.getElementById('r1-full-screen-div').style.display = 'flex';
+    }else if(document.getElementById('r2-dialog').open === true) {
+        document.getElementById('r2-full-screen-div').style.display = 'flex';
+        document.getElementById('r2-done-btn').style.width = '50%';
+        document.getElementById('r2-full-screen-btn').style.width = '50%';
+    }else {
         return;
     }
 };
-
-
 
 
 let cargo = new Array(3);
@@ -104,24 +113,77 @@ const autoDone = () => {
     autoDialog.close();
     teleDialog.showModal();
 
-    if(!document.fullscreenElement){
+    if( ! document.fullscreenElement ) {
         createFullScreenBtn();
     }
-    
-    //document.getElementById('t-dialog-div').webkitRequestFullscreen();
 };
 
 const teleDone = () => {
-    
     const teleDialog = document.getElementById('t-dialog');
+    const result1Dialog = document.getElementById('r1-dialog');
 
     teleDialog.close();
+    result1Dialog.showModal();
 
-    document.webkitExitFullscreen();
-    
+    if( ! document.fullscreenElement ) {
+        createFullScreenBtn();
+    }
 };
 
-const submit = async () =>{
+let gameResult = '';
+
+const gameResultBtnClicked = (clickedBtn) => {
+    if( gameResult !== '') {
+        document.getElementById(`r1-${gameResult}-btn`).style.boxShadow = '#4c4c4c 0px 0px var(--box-shadow-size), inset #4c4c4c 0px 0px var(--box-shadow-size)';
+        document.getElementById(`r1-${gameResult}-btn`).style.color = '#4c4c4c';
+    }
+    
+    gameResult = clickedBtn;
+    document.getElementById(`r1-${clickedBtn}-btn`).style.boxShadow = '#ffe0e0 0px 0px var(--box-shadow-size), inset #ffe0e0 0px 0px var(--box-shadow-size)';
+    document.getElementById(`r1-${clickedBtn}-btn`).style.color = '#ffe0e0';
+};
+
+let gameCharacter = '';
+
+const characterBtnClicked = (clickedBtn) => {
+    if( gameCharacter !== '') {
+        document.getElementById(`r1-${gameCharacter}-btn`).style.boxShadow = '#4c4c4c 0px 0px var(--box-shadow-size), inset #4c4c4c 0px 0px var(--box-shadow-size)';
+        document.getElementById(`r1-${gameCharacter}-btn`).style.color = '#4c4c4c';
+    }
+    
+    gameCharacter = clickedBtn;
+    document.getElementById(`r1-${clickedBtn}-btn`).style.boxShadow = '#ffe0e0 0px 0px var(--box-shadow-size), inset #ffe0e0 0px 0px var(--box-shadow-size)';
+    document.getElementById(`r1-${clickedBtn}-btn`).style.color = '#ffe0e0';
+};
+
+const r1Done = () => {
+    const result1Dialog = document.getElementById('r1-dialog');
+    const result2Dialog = document.getElementById('r2-dialog');
+
+    result1Dialog.close();
+    result2Dialog.showModal();
+};
+
+const r2Done = () => {
+    if( document.getElementById('r2-d-form-btn-p1').innerText == '' ) {
+        document.getElementById('r2-d-form-btn1').style.animation = 'rotate 2s linear infinite';
+    } else if( document.getElementById('r2-d-form-btn-p2').innerText == '' ) {
+        document.getElementById('r2-d-form-btn2').style.animation = 'rotate 2s linear infinite';
+    } else if( document.getElementById('r2-d-form-btn-p3').innerText == '') {
+        document.getElementById('r2-d-form-btn3').style.animation = 'rotate 2s linear infinite';
+    } else {
+        document.getElementById('r2-dialog').close();
+        if(document.fullscreenElement) {
+            document.webkitExitFullscreen();
+        }
+    }
+};
+
+const submit = async () => {
+    const submitBtn = document.getElementById('submit-btn');
+    submitBtn.onclick = () => {};
+    submitBtn.classList.toggle('submit-btn-noAnimation');
+
     const teamNumber = Number(document.getElementById('i-d-form-btn-p1').innerText);
     const gameType = Number(document.getElementById('i-d-form-btn-p2').innerText);
     const gameNumber = Number(document.getElementById('i-d-form-btn-p3').innerText);
@@ -175,16 +237,34 @@ const submit = async () =>{
         }
     }
     
-    const result = Number(document.querySelector('input[name="result"]:checked').value);
-    const foul = Number(document.getElementById('foul-input').value);
+    let result = 0;
+
+    if( gameResult === 'win' ) {
+        result = 1;
+    } else if( gameResult === 'lose' ) {
+        result = 2;
+    } else if( gameResult === 'tie' ) {
+        result = 3;
+    }
+
+    const link = Number(document.getElementById('r2-d-form-btn-p1').innerText);
+    const foul = Number(document.getElementById('r2-d-form-btn-p2').innerText); 
     
     let rp = 0;
     if(gameType === 1) {
-        rp = Number(document.getElementById('rp-input').value);
+        rp = Number(document.getElementById('r2-d-form-btn-p3').innerText);
     }
 
-    const character = Number(document.querySelector('input[name="character"]:checked').value);
-    const comment = Number(document.getElementById('comment-input').value);
+    let character = 0;
+    if ( gameCharacter === 'offensive' ) {
+        character = 1;
+    } else if( gameCharacter === 'defensive' ) {
+        character = 2;
+    } else if( gameCharacter === 'mix' ) {
+        character = 3;
+    }
+
+    const comment = document.getElementById('comment-textarea').value;
 
     //analyze data
     let topA = 0;
@@ -216,6 +296,9 @@ const submit = async () =>{
     });
 
 
+    submitBtn.classList.toggle('submit-btn-clicked');
+    document.getElementById('submit-icon').classList.toggle('submit-icon-fly');
+
     try {
         await axios.post('/recordSubmit', {
             teamNumber: teamNumber,
@@ -226,12 +309,12 @@ const submit = async () =>{
             moveT: moveT,
             cargoT: cargoT,
             result: result,
+            character: character,
+            link: link,
             foul: foul,
             rp: rp,
-            character: character,
             comment: comment,
         }); 
-
         await axios.post('/analyzeSubmit', {
             teamNumber: teamNumber,
             gameType: gameType,
@@ -247,12 +330,19 @@ const submit = async () =>{
             dockT: dockT,
             engageT: engageT,
             parkT: parkT,
-            character: character,
             result: result,
+            character: character,
+            link: link,
+            foul: foul,
             rp: rp,
         });
+        document.location.href = './';
     } catch(err) {
-        console.log(err);
+        submitBtn.classList.toggle('submit-btn-noAnimation');
+        console.log('Submit failed.');
+        submitBtn.onclick = () => {submit();};
+        submitBtn.classList.toggle('submit-btn-clicked');
+        document.getElementById('submit-icon').classList.toggle('submit-icon-fly');
     }
 };
 
@@ -267,5 +357,13 @@ document.getElementById('a-dialog').addEventListener('cancel', (event) => {
 });
 
 document.getElementById('t-dialog').addEventListener('cancel', (event) => {
+    event.preventDefault();
+});
+
+document.getElementById('r1-dialog').addEventListener('cancel', (event) => {
+    event.preventDefault();
+});
+
+document.getElementById('r2-dialog').addEventListener('cancel', (event) => {
     event.preventDefault();
 });

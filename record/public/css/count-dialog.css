@@ -17,39 +17,13 @@
     --dBtnMarginLeft: 0;
 }
 
-.count-dialog {
-    border: none;
-    box-shadow: 0 0 0;
-    width: 100%;
-    height: 100%;
-    padding: 0;
-    margin: 0;
-    background-color: black;
-    min-width: 200px;
-    min-height: 200px;
-    user-select:none;
-}
 
 .count-dialog-div {
-    background-color: black;
-    padding: 0;
-    margin: 0;
-    height: 100%;
-    width: 100%;
     min-width: 200px;
     min-height: 200px;
 }
 
-dialog:modal {
-    position: fixed;
-    inset-block-start: 0px;
-    inset-block-end: 0px;
-    max-width: 100%;
-    max-height: 100%;
-    user-select: text;
-    visibility: visible;
-    overflow: auto;
-}
+
 
 .cargo-div {
     border: 0;
@@ -62,8 +36,8 @@ dialog:modal {
     top: 2.5%;  
     left: 1.5%;
     float:left;
-    box-shadow: #ffdfdf73 2px 2px 25px;
-    border-radius: 50px;
+    box-shadow: #ffdfdf73 var(--box-shadow-offset) var(--box-shadow-offset) var(--box-shadow-size);
+    border-radius: 7vmin;
 }
 
 .cargo-row-div {
@@ -79,9 +53,10 @@ dialog:modal {
     padding: 0;
     border: 0;
     font-size: var(--cBtnFontSize);
+    font-family: 'Alegreya Sans SC', serif;
     background-color: #000000;
     color: #4c4c4c;
-    box-shadow: #4c4c4c 0px 0px 25px, inset #4c4c4c 0px 0px 25px;
+    box-shadow: #4c4c4c 0px 0px var(--box-shadow-size), inset #4c4c4c 0px 0px var(--box-shadow-size);
 }
 
 
@@ -94,8 +69,8 @@ dialog:modal {
     top: 10%;
     left: 1.5%;
     float:left;
-    box-shadow: #ffdfdf73 2px 2px 25px;
-    border-radius: 50px;
+    box-shadow: #ffdfdf73 var(--box-shadow-offset) var(--box-shadow-offset) var(--box-shadow-size);
+    border-radius: 7vmin;
 }
 
 .move-btn {
@@ -109,7 +84,7 @@ dialog:modal {
     font-size: var(--mBtnFontSize);
     background-color: #000000;
     color: #4c4c4c;
-    box-shadow: #4c4c4c 0px 0px 25px, inset #4c4c4c 0px 0px 25px;
+    box-shadow: #4c4c4c 0px 0px var(--box-shadow-size), inset #4c4c4c 0px 0px var(--box-shadow-size);
 }
 
 .done-div {
@@ -120,8 +95,8 @@ dialog:modal {
     top: 10%;  
     left: 6%;
     float:left;
-    box-shadow: #ffdfdf73 2px 2px 25px;
-    border-radius: 50px;
+    box-shadow: #ffdfdf73 var(--box-shadow-offset) var(--box-shadow-offset) var(--box-shadow-size);
+    border-radius: 7vmin;
 }
 
 .done-btn {
@@ -135,7 +110,7 @@ dialog:modal {
     font-size: var(--mBtnFontSize);
     background-color: #000000;
     color: #4c4c4c;
-    box-shadow: #4c4c4c 0px 0px 25px, inset #4c4c4c 0px 0px 25px;
+    box-shadow: #4c4c4c 0px 0px var(--box-shadow-size), inset #4c4c4c 0px 0px var(--box-shadow-size);
 }
 
 .full-screen-div {

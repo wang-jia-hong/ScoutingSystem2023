@@ -2,19 +2,19 @@ const infoDialog = document.getElementById('i-dialog');
 const autoDialog = document.getElementById('a-dialog');
 
 const start = () => {
-    document.getElementById('start-dialog').close();
-    document.getElementById('start-dialog').style.display = 'none';
+    document.getElementById('s-dialog').close();
+    document.getElementById('s-dialog').style.display = 'none';
     document.getElementById('i-dialog').showModal();
     document.getElementById('i-dialog-div').webkitRequestFullscreen();
 };
 
 let chosenForm = 0;
 
-        const choseForm = (number) => {
-            const clickedBtn = document.getElementById(`i-d-form-btn${number}`);
+        const choseForm = (mode, number) => {
+            const clickedBtn = document.getElementById(`${mode}-d-form-btn${number}`);
 
             clickedBtn.style.color = '#ffe0e0';
-            clickedBtn.style.boxShadow = '#ffe0e0 0px 0px 25px, inset #ffe0e0 0px 0px 25px';
+            clickedBtn.style.boxShadow = '#ffe0e0 0px 0px var(--box-shadow-size), inset #ffe0e0 0px 0px var(--box-shadow-size)';
 
             clickedBtn.style.animation= '0.2s ease-out 0s 1 normal forwards running bump';
 
@@ -22,11 +22,11 @@ let chosenForm = 0;
 
             for(let i = 1; i < 4; ++i){
                 if(i != number) {
-                    const otherBtn = document.getElementById(`i-d-form-btn${i}`);
+                    const otherBtn = document.getElementById(`${mode}-d-form-btn${i}`);
                     otherBtn.style.color = '#4c4c4c';
-                    otherBtn.style.boxShadow = '#4c4c4c 0px 0px 25px, inset #4c4c4c 0px 0px 25px';
+                    otherBtn.style.boxShadow = '#4c4c4c 0px 0px var(--box-shadow-size), inset #4c4c4c 0px 0px var(--box-shadow-size)';
 
-                    const p = document.getElementById(`i-d-form-btn-p${i}`);
+                    const p = document.getElementById(`${mode}-d-form-btn-p${i}`);
                     if(p.innerText == '' && otherBtn.style.animation === '0.2s ease-out 0s 1 normal forwards running bump') {
                         otherBtn.style.animation = '0.2s ease-out 0s 1 normal forwards running back';
                     }
@@ -35,11 +35,11 @@ let chosenForm = 0;
 
         };
 
-        const keyboard = async (number) => {
-            const keyboardBtn = document.getElementById(`keyboard-btn${number}`);
+        const keyboard = async (mode, number) => {
+            const keyboardBtn = document.getElementById(`${mode}-keyboard-btn${number}`);
             keyboardBtn.classList.toggle('keyboard-btn-clicked');
             if(chosenForm != 0) {
-                const p = document.getElementById(`i-d-form-btn-p${chosenForm}`);
+                const p = document.getElementById(`${mode}-d-form-btn-p${chosenForm}`);
                 if(p.innerText < 100000) {
                     p.innerText += number;
                 }
@@ -51,11 +51,11 @@ let chosenForm = 0;
             
         };
 
-        const backspace = () => {
-            const backspace = document.getElementById('delete-btn');
+        const backspace = (mode) => {
+            const backspace = document.getElementById(`${mode}-delete-btn`);
             backspace.classList.toggle('keyboard-btn-clicked');
             if(chosenForm != 0) {
-                const p = document.getElementById(`i-d-form-btn-p${chosenForm}`);
+                const p = document.getElementById(`${mode}-d-form-btn-p${chosenForm}`);
                     const text = Math.floor(p.innerText/10);
                     if ( text == 0) {
                         p.innerText = '';
@@ -79,6 +79,5 @@ const infoDone = () => {
     } else {
         infoDialog.close();
         autoDialog.showModal();
-        document.getElementById('a-dialog-div').webkitRequestFullscreen();
     }
 };

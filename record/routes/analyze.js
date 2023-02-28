@@ -2,8 +2,8 @@ const { listCollections , findAll, findOne, insert, update } = require('../../db
 const { dbCilent } = require('../../db/connect');
 require('dotenv').config;
 
-const teamInclude = async (teamNumber) => {
-    const documents = await findAll('analyze', process.env.gameName);
+const teamInclude = async (teamNumber, gameType) => {
+    const documents = await findAll('analyze', process.env.gameName + gameType);
     let teamList = [];
     documents.forEach( document => {
         teamList.push(document.teamNumber);
@@ -16,7 +16,7 @@ const analyzeInsert = async (req, res) => {
         const reqData = await req.body;
         const teamNumber = reqData.teamNumber;
         const gameType = reqData.gameType;
-        const teamI = await teamInclude(teamNumber);
+        const teamI = await teamInclude(teamNumber, gameType);
 
         if(teamI === true) {
             const oldData = await findOne('analyze', process.env.gameName + gameType, {teamNumber: teamNumber});
@@ -45,20 +45,26 @@ const analyzeInsert = async (req, res) => {
 
             let win = oldData.win;
             let lose = oldData.lose;
+            let tie = oldData.tie;
 
-            if(reqData.result === 0) {
+            if(reqData.result === 1) {
                 win += 1;
-            } else if (reqData.result === 1) {
+            } else if (reqData.result === 2) {
                 lose += 1;
+            } else if (reqData.result === 3) {
+                tie += 1 ;
             }
 
             let offensive = oldData.offensive;
             let defensive = oldData.defensive;
+            let mix = oldData.mix;
 
-            if(reqData.character === 0) {
+            if(reqData.character === 1) {
                 offensive += 1;
-            } else if(reqData.character === 1) {
+            } else if(reqData.character === 2) {
                 defensive += 1;
+            } else if(reqData.character === 3) {
+                mix += 1;
             }
 
             const rp = reqData.rp + oldData.rp;
@@ -84,8 +90,10 @@ const analyzeInsert = async (req, res) => {
                 pointT: pointT,
                 win: win,
                 lose: lose,
+                tie: tie,
                 offensive: offensive,
                 defensive: defensive,
+                mix: mix,
                 rp: rp,
                 times: times,
             });
@@ -117,20 +125,34 @@ const analyzeInsert = async (req, res) => {
 
             let win = 0;
             let lose = 0;
+            let tie = 0;
 
-            if(reqData.result === 0) {
+            if(reqData.result === 1) {
                 win += 1;
-            } else if (reqData.result === 1) {
+            } else if (reqData.result === 2) {
                 lose += 1;
+            } else if (reqData.result === 3) {
+                tie += 1 ;
             }
 
             let offensive = 0;
             let defensive = 0;
+            let mix = 0;
 
-            if(reqData.character === 0) {
+            if(reqData.character === 1) {
+                offensive = 1;
+            } else if(reqData.character === 2) {
+                defensive = 1;
+            } else if(reqData.character === 3) {
+                mix = 1;
+            }
+
+            if(reqData.character === 1) {
                 offensive += 1;
-            } else if(reqData.character === 1) {
+            } else if(reqData.character === 2) {
                 defensive += 1;
+            } else if (reqData.character === 3) {
+                mix += 1;
             }
 
             const rp = reqData.rp;
@@ -156,8 +178,10 @@ const analyzeInsert = async (req, res) => {
                 pointT: pointT,
                 win: win,
                 lose: lose,
+                tie: tie,
                 offensive: offensive,
                 defensive: defensive,
+                mix: mix,
                 rp: rp,
                 times: times,
             });

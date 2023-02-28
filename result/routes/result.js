@@ -1,9 +1,10 @@
-//const { findOne, findAll } = require('.../');
+const { findOne, findAll } = require('../../db/CRUD');
 const { dbCilent }  = require('../../db/connect');
 
-/*const getOneResult = async (req, res) => {
+const getOneTeamResult = async (req, res) => {
     try {
-        const document = await findOne('analyze', process.env.gameName, {teamNumber: Number(req.params.teamNumber)});
+		const params = req.params;
+        const analyzeData = await findOne('analyze', (process.env.gameName + params.gameType), {teamNumber: Number(params.teamNum)});
 
         const getRate = (num) => {
             if (num == 0) {
@@ -12,56 +13,35 @@ const { dbCilent }  = require('../../db/connect');
             return Math.round( ( (num * 100) + Number.EPSILON) * 100 ) / 100;
         };
 
-        const times = document.times;
+		if (analyzeData) {
+			const times = analyzeData.times;
 
-        let cargoTotalA = document.topA + document.middleA + document.bottomA;
+			let cargoTotalA = analyzeData.topA + analyzeData.middleA + analyzeData.bottomA;
 
-        if(cargoTotalA == 0){
-            cargoTotalA = 1;
-        }
+			if(cargoTotalA == 0){
+				cargoTotalA = 1;
+			}
 
-
-        let cargoTotalT = document.topT + document.middleT + document.bottomT;
-
-        if(cargoTotalT == 0){
-            cargoTotalT = 1;
-        }
-
-        const gameRecorded = await findAll(`${process.env.gameName}Record`, `${document.teamNumber}`);
+			const gameData = await findAll(process.env.gameName + 'Record' + params.gameType, `${analyzeData.teamNumber}`);
 
 
-        res.render('oneTeam', {
-            teamNumber: document.teamNumber,
-            topRateA: getRate( document.topA / cargoTotalA ),
-            middleRateA: getRate( document.middleA / cargoTotalA ),
-            bottomRateA: getRate( document.bottomA / cargoTotalA ),
-            dockRateA: getRate( document.dockA / times ),
-            engageRateA: getRate( document.engageA / document.dockA ),
-            mobilityRateA: getRate( document.mobilityA / times ),
-            avaragePointA: ( document.pointA / times ),
-            topRateT: getRate( document.topT / cargoTotalT ),
-            middleRateT: getRate( document.middleT / cargoTotalT ),
-            bottomRateT: getRate( document.bottomT / cargoTotalT ),
-            dockRateT: getRate( document.dockT / times ),
-            engageRateT: getRate( document.engageT / document.dockT ),
-            parkRateT: getRate( document.parkT / times ),
-            avaragePointT: ( document.pointT / times ),
-            winRate: getRate( document.win / times ),
-            loseRate: getRate( document.lose / times ),
-            tieRate: getRate( times - document.win - document.lose / times ),
-            offensiveRate: getRate( document.offensive / times ),
-            defensiveRate: getRate( document.defensive / times ),
-            mixRate: getRate( times - document.offensive - document.defensive / times ),
-            totalRP: document.rp,
-            gameRecorded: gameRecorded,
-        });
+			res.render('oneTeam', {
+				analyzeData: analyzeData,
+				gameData: gameData,
+				gameType: params.gameType,
+			});
 
-        res.end();
+			res.end();
+		} else {
+			res.status(404).end('404 No Team Found');
+		}
+
+        
     } catch(e) {
         console.log(e);
     }
 
-};*/
+};
 
 const getAllTeamResult = async (req, res) => {
     const gameType = req.params.gameType;
@@ -74,12 +54,13 @@ const getAllTeamResult = async (req, res) => {
 		if(Object.prototype.hasOwnProperty.call(query, `${place}${mode}${extremum}`)) {
 			if( extremum === 'Min' || ! Object.prototype.hasOwnProperty.call(query, `${place}${mode}Min`) ) {
 				newFields[`${place}Rate${mode}`] = {$cond: [ {$eq: [`$${place}${mode}`, 0]}, 0, {'$divide': [`$${place}${mode}`, {$sum: [`$top${mode}`, `$middle${mode}`, `$bottom${mode}`] } ] } ] };
+				conditions[`${place}Rate${mode}`] = {};
 			}
 
 			if(extremum === 'Min') {
-				conditions[`${place}Rate${mode}`] = {$gte: Number( query[`${place}${mode}${extremum}`] ) };
+				conditions[`${place}Rate${mode}`]['$gte'] = Number( query[`${place}${mode}${extremum}`] ) / 100;
 			} else {
-				conditions[`${place}Rate${mode}`] = {$lte: Number( query[`${place}${mode}${extremum}`] ) };
+				conditions[`${place}Rate${mode}`]['$lte'] = Number( query[`${place}${mode}${extremum}`] ) / 100;
 			}
 		}
 	};
@@ -97,33 +78,34 @@ const getAllTeamResult = async (req, res) => {
 	checkCargoRate('bottom', 'T', 'Min');
 	checkCargoRate('bottom', 'T', 'Max');
 
-	const checkOtherRate = (item, mode, extremum) => {
+	const checkMoveRate = (item, mode, extremum) => {
 		if( Object.prototype.hasOwnProperty.call(query, `${item}${mode}${extremum}`) ) {
 			if( extremum === 'Min' || ! Object.prototype.hasOwnProperty.call(query, `${item}${mode}Min`) ) {
 				newFields[`${item}Rate${mode}`] = {$cond: [ {$eq: ['$times', 0]}, 0, { $divide: [`$${item}${mode}`, '$times'] } ] };
+				conditions[`${item}Rate${mode}`] = {};
 			}
 			
 
 			if(extremum === 'Min') {
-				conditions[`${item}Rate${mode}`] = {$gte: Number( query[`${item}${mode}${extremum}`] ) };
+				conditions[`${item}Rate${mode}`]['$gte'] = Number( query[`${item}${mode}${extremum}`] ) / 100;
 			} else {
-				conditions[`${item}Rate${mode}`] = {$lte: Number( query[`${item}${mode}${extremum}`] ) };
+				conditions[`${item}Rate${mode}`]['$lte'] = Number( query[`${item}${mode}${extremum}`] ) / 100;
 			}
 		}
 	};
 
-	checkOtherRate('dock', 'A', 'Min');
-	checkOtherRate('dock', 'A', 'Max');
-	checkOtherRate('engage', 'A', 'Min');
-	checkOtherRate('engage', 'A', 'Max');
-	checkOtherRate('mobility', 'A', 'Min');
-	checkOtherRate('mobility', 'A', 'Max');
-	checkOtherRate('dock', 'T', 'Min');
-	checkOtherRate('dock', 'T', 'Max');
-	checkOtherRate('engage', 'T', 'Min');
-	checkOtherRate('engage', 'T', 'Max');
-	checkOtherRate('park', 'T', 'Min');
-	checkOtherRate('park', 'T', 'Max');
+	checkMoveRate('dock', 'A', 'Min');
+	checkMoveRate('dock', 'A', 'Max');
+	checkMoveRate('engage', 'A', 'Min');
+	checkMoveRate('engage', 'A', 'Max');
+	checkMoveRate('mobility', 'A', 'Min');
+	checkMoveRate('mobility', 'A', 'Max');
+	checkMoveRate('dock', 'T', 'Min');
+	checkMoveRate('dock', 'T', 'Max');
+	checkMoveRate('engage', 'T', 'Min');
+	checkMoveRate('engage', 'T', 'Max');
+	checkMoveRate('park', 'T', 'Min');
+	checkMoveRate('park', 'T', 'Max');
 	
 	
 
@@ -131,13 +113,14 @@ const getAllTeamResult = async (req, res) => {
 		if( Object.prototype.hasOwnProperty.call(query, `point${mode}${extremum}`) ) {
 			if( extremum === 'Min' || ! Object.prototype.hasOwnProperty.call(query, `point${mode}Min`) ) {
 				newFields[`averagePoint${mode}`] = {$cond: [ {$eq: ['$times', 0]}, 0, { $divide: [`$point${mode}`, '$times'] } ] };
+				conditions[`averagePoint${mode}`] = {};
 			}
 			
 
 			if(extremum === 'Min') {
-				conditions[`averagePoint${mode}`] = {$gte: Number( query[`point${mode}${extremum}`] ) };
+				conditions[`averagePoint${mode}`]['$gte'] =  Number( query[`point${mode}${extremum}`] );
 			} else {
-				conditions[`averagePoint${mode}`] = {$lte: Number( query[`point${mode}${extremum}`] ) };
+				conditions[`averagePoint${mode}`]['$lte'] = Number( query[`point${mode}${extremum}`] );
 			}
 		}
 	};
@@ -147,6 +130,57 @@ const getAllTeamResult = async (req, res) => {
 	checkAveragePoint('T', 'Min');
 	checkAveragePoint('T', 'Max');
 
+
+	const checkResultRate = (item, extremum) => {
+		if( Object.prototype.hasOwnProperty.call(query, `${item}${extremum}`) ) {
+			if( extremum === 'Min' || ! Object.prototype.hasOwnProperty.call(query, `${item}Min`) ) {
+				newFields[`${item}Rate`] = {$cond: [ {$eq: ['$times', 0]}, 0, { $divide: [`$${item}`, '$times'] } ] };
+				conditions[`${item}Rate`] = {};
+			}
+			
+			if(extremum === 'Min') {
+				conditions[`${item}Rate`]['$gte'] = Number( query[`${item}${extremum}`] ) / 100;
+			} else {
+				conditions[`${item}Rate`]['$lte'] = Number( query[`${item}${extremum}`] ) / 100;
+			}
+		}
+	};
+
+	checkResultRate('win', 'Min');
+	checkResultRate('win', 'Max');
+	checkResultRate('lose', 'Min');
+	checkResultRate('lose', 'Max');
+	checkResultRate('tie', 'Min');
+	checkResultRate('tie', 'Max');
+	checkResultRate('offensive', 'Min');
+	checkResultRate('offensive', 'Max');
+	checkResultRate('defensive', 'Min');
+	checkResultRate('defensive', 'Max');
+	checkResultRate('mix', 'Min');
+	checkResultRate('mix', 'Max');
+
+
+
+	const checkResultAverage = (item, extremum) => {
+		if( Object.prototype.hasOwnProperty.call(query, `${item}${extremum}`) ) {
+			if( extremum === 'Min' || ! Object.prototype.hasOwnProperty.call(query, `${item}Min`) ) {
+				newFields[`${item}average`] = {$cond: [ {$eq: ['$times', 0]}, 0, { $divide: [`$${item}`, '$times'] } ] };
+				conditions[`${item}average`] = {};
+			}
+			
+			if(extremum === 'Min') {
+				conditions[`${item}average`]['$gte'] = Number( query[`${item}${extremum}`] );
+			} else {
+				conditions[`${item}average`]['$lte'] = Number( query[`${item}${extremum}`] );
+			}
+		}
+	};
+
+	checkResultAverage('rp', 'Min');
+	checkResultAverage('rp', 'Max');
+	checkResultAverage('link', 'Min');
+	checkResultAverage('link', 'Max');
+
 	let sort = {'teamNumber' : 1};
 
 	
@@ -155,11 +189,13 @@ const getAllTeamResult = async (req, res) => {
 		sort[query['sort']] = Number(query['sortOrder']);
 	}
 
-	const data = await dbCilent.db('analyze').collection(process.env.gameName + gameType ).aggregate([{$addFields: newFields }, {$match: conditions }, {$sort: sort}]).toArray();
+	// console.log(newFields['topRateA']);
+	console.log(conditions);
+	const data = await dbCilent.db('analyze').collection(process.env.gameName + gameType).aggregate([{$addFields: newFields }, {$match: conditions }, {$sort: sort}]).toArray();
 
-	res.render('result' ,{data: data});
+	console.log(data);
 
-	res.render('result', {data: []});
+	res.render('allTeam' ,{data: data, gameType: gameType});
 };
 
-module.exports =  getAllTeamResult;
+module.exports =  {getAllTeamResult, getOneTeamResult};

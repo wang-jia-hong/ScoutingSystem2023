@@ -1,20 +1,50 @@
+let largerMode = false;
+
 const setSize = () => {
     
-    let w = window.innerWidth;
-    let h = window.innerHeight;
-
+    let w = window.innerWidth ;
+    let h = window.innerHeight ;
     
-
-    console.log('w '+ w + ' h ' + h );
-
-
-
-
-
-
+    if( w * window.devicePixelRatio < 700 ) {
+        w = 700 / window.devicePixelRatio;
+    }
+    if( h * window.devicePixelRatio < 700 ) {
+        h = 700 / window.devicePixelRatio;
+        
+    }
 
     document.documentElement.style.setProperty('--w', `${w}px`);
     document.documentElement.style.setProperty('--h', `${h}px`);
+
+
+    const setFontSize = () => {
+        if( w <= h ) {
+            document.documentElement.style.setProperty('--font-size', `${w * 0.03}px`);
+            return w * 0.03;
+        } else {
+            document.documentElement.style.setProperty('--font-size', `${h * 0.03}px`);
+            return h * 0.03;
+        }
+    };
+
+    setFontSize();
+
+    
+
+    if( ( h * 0.03 <= 15 || w * 0.03 <= 15 ) && navigator.maxTouchPoints < 1 ) {
+        if(largerMode === false) {
+            largerMode = true;
+        }
+        w = w * window.devicePixelRatio;
+        h = h * window.devicePixelRatio;
+        document.documentElement.style.setProperty('--w', `${w}px`);
+        document.documentElement.style.setProperty('--h', `${h}px`);
+         document.documentElement.style.setProperty('--font-size', `${setFontSize()}px`);
+    } else {
+        largerMode = false;
+    }
+
+    console.log(largerMode);
 
     if(w*0.6*0.1 >= h*0.18*0.8) {
         document.documentElement.style.setProperty('--mBtnW', `${h*0.18*0.85}px`);
@@ -63,8 +93,6 @@ const setSize = () => {
         document.documentElement.style.setProperty('--cBtnMarginLeft', `${( ( w * 0.97 - 4.8 ) - ( w*0.97*0.08 ) * 9 ) / 10}px`);
         document.documentElement.style.setProperty('--cBtnFontSize', `${(w*0.97*0.08) * 0.3}px`);
     }
-
-    
 };
 
 setSize();
