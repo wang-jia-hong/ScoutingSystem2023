@@ -4,7 +4,12 @@ const createCargoBtn = (id, mode, row) => {
 
 	btn.type = 'button';
 	btn.id = `${mode}Cargo${id}`;
-	btn.classList.add('cargo-btn');
+    btn.classList.add('cargo-btn');
+
+    
+    if( id < 30 && ( id % 10 === 2 || id % 10 === 5 || id % 10 === 8 ) ) {
+       btn.classList.add('cargo-cube-btn');
+    }
 
 	btn.innerText = `${id}\n`;
     btn.value = '0';
@@ -13,7 +18,8 @@ const createCargoBtn = (id, mode, row) => {
 		cBtnClicked(`${mode}Cargo${id}`);
 	});
 
-    div.append(btn);
+    div.appendChild(btn);
+    // btn.appendChild(borderDiv);
 };
 
 const cBtnClicked = (id) => {
@@ -22,11 +28,11 @@ const cBtnClicked = (id) => {
     if(btn.value === '1') {
         btn.value = '0';
         btn.style.color = '#4c4c4c';
-        btn.style.boxShadow = '#4c4c4c 0px 0px 25px, inset #4c4c4c 0px 0px 25px';
+        btn.style.boxShadow = '#4c4c4c 0px 0px var(--box-shadow-size), inset #4c4c4c 0px 0px var(--box-shadow-size)';
     } else if (btn.value === '0'){
         btn.value = '1';
         btn.style.color = '#ffe0e0';
-        btn.style.boxShadow = '#ffe0e0 0px 0px 25px, inset #ffe0e0 0px 0px 25px';
+        btn.style.boxShadow = '#ffe0e0 0px 0px var(--box-shadow-size), inset #ffe0e0 0px 0px var(--box-shadow-size)';
     }
     console.log(btn.value);
 };
@@ -37,11 +43,11 @@ const mBtnClicked = (id) => {
     if(btn.value == 1) {
         btn.value = 0;
         btn.style.color = '#4c4c4c';
-        btn.style.boxShadow = '#4c4c4c 0px 0px 25px, inset #4c4c4c 0px 0px 25px';
+        btn.style.boxShadow = '#4c4c4c 0px 0px var(--box-shadow-size), inset #4c4c4c 0px 0px var(--box-shadow-size)';
     } else if (btn.value == 0){
         btn.value = 1;
         btn.style.color = '#ffe0e0';
-        btn.style.boxShadow = '#ffe0e0 0px 0px 25px, inset #ffe0e0 0px 0px 25px';
+        btn.style.boxShadow = '#ffe0e0 0px 0px var(--box-shadow-size), inset #ffe0e0 0px 0px var(--box-shadow-size)';
     }
     console.log(btn.value);
 };
@@ -157,11 +163,13 @@ const characterBtnClicked = (clickedBtn) => {
 };
 
 const r1Done = () => {
-    const result1Dialog = document.getElementById('r1-dialog');
-    const result2Dialog = document.getElementById('r2-dialog');
+    if(gameResult !== '' && gameCharacter !== '') {
+        const result1Dialog = document.getElementById('r1-dialog');
+        const result2Dialog = document.getElementById('r2-dialog');
 
-    result1Dialog.close();
-    result2Dialog.showModal();
+        result1Dialog.close();
+        result2Dialog.showModal();
+    }
 };
 
 const r2Done = () => {

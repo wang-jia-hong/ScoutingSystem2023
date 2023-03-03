@@ -43,8 +43,8 @@ const startServer = async () => {
 		console.log('waiting for database connect');
 		await connectDB();
 		console.log('database connected');
-		app.listen(5000, () => {
-			console.log('server is listen on http://localhost:5000');
+		app.listen(process.env.port, () => {
+			console.log('server is listen on http://localhost:' + process.env.port);
 		});
 	} catch(err) {
 		console.log(err);

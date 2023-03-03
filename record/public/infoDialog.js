@@ -70,14 +70,22 @@ let chosenForm = 0;
 
 
 const infoDone = () => {
+    
+
     if( document.getElementById('i-d-form-btn-p1').innerText == '' ) {
         document.getElementById('i-d-form-btn1').style.animation = 'rotate 2s linear infinite';
+        
     } else if( document.getElementById('i-d-form-btn-p2').innerText == '' || document.getElementById('i-d-form-btn-p2').innerText > '3' ) {
         document.getElementById('i-d-form-btn2').style.animation = 'rotate 2s linear infinite';
     } else if( document.getElementById('i-d-form-btn-p3').innerText == '') {
         document.getElementById('i-d-form-btn3').style.animation = 'rotate 2s linear infinite';
     } else {
+        chosenForm = 0;
         infoDialog.close();
         autoDialog.showModal();
+    }
+
+    if( ! document.fullscreenElement ) {
+        createFullScreenBtn();
     }
 };

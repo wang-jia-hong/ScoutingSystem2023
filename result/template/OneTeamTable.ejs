@@ -5,6 +5,10 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans+SC&display=swap" rel="stylesheet">
         <style>
+            /* ::-webkit-scrollbar {
+                display: none;
+            } */
+
             :root {
                 --logoBlue: #002a5c;
                 --logoPink: #de9896;
@@ -27,7 +31,6 @@
             #analyze-table-div {
                 width: 100%;
                 height: 94%;
-                overflow: auto;
                 position: relative;
                 top: 1%;
             }
@@ -82,9 +85,15 @@
                 background-color: var(--logoPink);
                 border-radius: 2vmin;
                 padding: 0% 1vmin;
-                position: relative;
-                top: 10%;
+                position: absolute;
+                bottom: 0%;
                 box-sizing: border-box;
+                transition: 1s;
+            }
+
+            #game-table-outerDiv:hover {
+                height: 100%;
+                transition: 1s;
             }
 
             #game-table-div {
@@ -146,6 +155,20 @@
                 background-color: #ffffff;
                 padding: 0;
                 color: var(--logoPink);
+            }
+
+            #game-full-screen-div {
+                width: 5%;
+                aspect-ratio: 1 / 1;
+                background-color: var(--logoPink);
+                border-radius: 2vmin;
+                position: absolute;
+                right: 0%;
+                bottom: 0%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #ffffff;
             }
 
             #c-d-title-div {
@@ -409,6 +432,7 @@
                     <% }) %>
                 </table>
             </div>
+            <div id="game-full-screen-div" onclick="enterFullScreen('game')"><i class="fa-solid fa-expand ft-lg"></i></div>
         </div> 
 
 
@@ -419,6 +443,9 @@
             };
             const hideComment = (gameNum) => {
                 document.getElementById('game-comment-dialog' + gameNum).close();
+            };
+            const enterFullScreen = (table) => {
+                document.getElementById(table + '-table-outerDiv').webkitRequestFullscreen();
             };
         </script>
     </body>

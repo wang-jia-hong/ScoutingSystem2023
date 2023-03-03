@@ -33,7 +33,7 @@ const getOneTeamResult = async (req, res) => {
 
 			res.end();
 		} else {
-			res.status(404).end('404 No Team Found');
+			res.redirect('/result/' + req.params.gameType);
 		}
 
         

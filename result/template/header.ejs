@@ -43,6 +43,10 @@
                 z-index: 100;
             }
 
+            .header-a {
+                color: #ffffff;
+            }
+
             #h-logo-div {
                 width: 20%;
                 height: 100%;
@@ -59,7 +63,7 @@
             #h-menu-div {
                 width: 40%;
                 height: 100%;
-                float: right;
+                float: left;
                 display: flex;
                 justify-content: center;
             }
@@ -74,6 +78,40 @@
             }
 
             .h-menu-li {
+                display: flex;
+                align-items: center;
+                text-align: center;
+                height: 25%;
+                border-radius: 1vmin;
+                padding: 0 3%;
+                background-color: var(--logoPink);
+                color: #ffffff;
+                font-size: 2rem;
+            }
+
+            .h-menu-li-clicked {
+                background-color: var(--logoPink);
+                color: var(--logoBlue);
+            }
+
+            #h-tool-div {
+                width: 40%;
+                height: 100%;
+                float: right;
+                display: flex;
+                justify-content: center;
+            }
+
+            #h-tool-ul {
+                padding-right: 25%;
+                margin: 0;
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+            }
+
+            .h-tool-li {
                 display: flex;
                 align-items: center;
                 text-align: center;
@@ -386,10 +424,22 @@
                 <img src="./7636Logo.JPG" id="h-logo">
             </div>
 
+
+            
+            
             <div id="h-menu-div">
                 <ul id="h-menu-ul">
-                    <li class="h-menu-li" onclick="showFilter()">filter</li>
-                    <!-- <li class="h-menu-li">other</li> -->
+                    <li class="h-menu-li <% if(gameType === '1') { %> h-menu-li-clicked <% } %>" id="h-menu-li-GameType1"><a class="header-a" href="/result/1<%if(typeof analyzeData != 'undefined'){ %>/<%= analyzeData.teamNumber %> <% } %>" >練習賽</a></li>
+                    <li class="h-menu-li <% if(gameType === '2') { %> h-menu-li-clicked <% } %>"" id="h-menu-li-GameType2"><a class="header-a" href="/result/2<%if(typeof analyzeData != 'undefined'){ %>/<%= analyzeData.teamNumber %> <% } %>">資格賽</a></li>
+                    <li class="h-menu-li <% if(gameType === '3') { %> h-menu-li-clicked <% } %>"" id="h-menu-li-GameType3"><a class="header-a" <%  if(typeof analyzeData != 'undefined'){ %> href="../../3/<%= analyzeData.teamNumber %>" <% } else{ %> href="./3" <% } %>>淘汰賽</a></li>
+                </ul>
+                
+            </div>
+
+            <div id="h-tool-div">
+                <ul id="h-tool-ul">
+                    <li class="h-tool-li" onclick="showFilter()">filter</li>
+                    <!-- <li class="h-tool-li">other</li> -->
                 </ul>
                 
             </div>
@@ -476,7 +526,7 @@
                         </div>
 
                         <div id="h-filter-submit-btn-div">
-                            <button id="h-filter-submit-btn" onclick="filterSubmit()">確認篩選</button>
+                            <button id="h-filter-submit-btn" onclick="filterSubmit('<%= gameType %>')">確認篩選</button>
                         </div>
                     </div>
     
@@ -492,6 +542,8 @@
             <script src="https://kit.fontawesome.com/3034cde1c1.js" crossorigin="anonymous"></script>
         <script>
         
+
+            console.log(location.href)
             let clickedFilterBtn = 'none';
             let chosenFilterList = {};
             let type = '';
@@ -605,7 +657,7 @@
                 
             };
         
-            const filterSubmit = () => {
+            const filterSubmit = (gameType) => {
                 let href = '?';
                 const conditions =  Object.keys(chosenFilterList);
                 conditions.forEach( condition => {
@@ -622,7 +674,7 @@
 
                 //console.log(href);
                 
-                window.location.href = href;
+                window.location.href = '/result/' + gameType + href;
             };
 
             const showFilter = () => {
@@ -631,12 +683,14 @@
                     document.getElementById('h-filter-div').style.animationName = 'showFilter';
                 } else {
                     document.getElementById('h-filter-div').style.animationName = 'hideFilter';
-                    setTimeout(() => {
+                    setTimeout( () => {
                         document.getElementById('h-filter-div').style.display = 'none';
                     }, 1000);
                 }
                 
             };
+
+            
 
 
             window.onload = () => {

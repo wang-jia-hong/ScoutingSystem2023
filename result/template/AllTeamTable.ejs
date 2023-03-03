@@ -71,6 +71,20 @@
                 border-bottom-width: 0.5vmin;
                 border-bottom-color: var(--logoPink);
             }
+
+            #full-screen-div {
+                width: 5%;
+                aspect-ratio: 1 / 1;
+                background-color: var(--logoPink);
+                border-radius: 2vmin;
+                position: absolute;
+                right: -1%;
+                bottom: -1%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #ffffff;
+            }
         </style>
     </head>
 
@@ -166,7 +180,15 @@
                     
                     
                 </table>
-                </div>
+                <div id="full-screen-div" onclick="enterFullScreen()"><i class="fa-solid fa-expand ft-lg"></i></div>
+            </div>
         </div> 
+
+        <script src="https://kit.fontawesome.com/3034cde1c1.js" crossorigin="anonymous"></script>
+        <script>
+           const enterFullScreen = () => {
+                document.getElementById('table-outerDiv').webkitRequestFullscreen();
+            }; 
+        </script>
     </body>
 </html>
