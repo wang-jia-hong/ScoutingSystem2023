@@ -102,6 +102,8 @@
                         <th>engage(%)</th>
                         <th>mobility(%)</th>
                         <th>平均分(分)</th>
+                        <th>link(條)</th>
+                        <th>犯規(分)</th>
                         <th>贏(%)</th>
                         <th>輸(%)</th>
                         <th>平手(%)</th>
@@ -154,6 +156,8 @@
                             <td><%= getRate(document.engageA / document.times) %></td>
                             <td><%= getRate(document.mobilityA / document.times) %></td>
                             <td><%= getAverage(document.pointA / document.times) %></td>
+                            <td rowspan="2"><%= getRate(document.link / document.times) %></td>
+                            <td rowspan="2"><%= getRate(document.foul / document.times) %></td>
                             <td rowspan="2"><%= getRate(document.win / document.times) %></td>
                             <td rowspan="2"><%= getRate(document.lose / document.times) %></td>
                             <td rowspan="2"><%= getRate(document.tie / document.times ) %></td>
