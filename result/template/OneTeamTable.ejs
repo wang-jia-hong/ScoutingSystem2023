@@ -5,18 +5,10 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans+SC&display=swap" rel="stylesheet">
         <style>
-            /* ::-webkit-scrollbar {
-                display: none;
-            } */
-
             :root {
                 --logoBlue: #002a5c;
                 --logoPink: #de9896;
                 font-size: 1vmin;
-            }
-
-            #table-div::-webkit-scrollbar {
-                display: none;
             }
 
             #analyze-table-outerDiv {
@@ -102,6 +94,10 @@
                 overflow: auto;
                 position: relative;
                 top: 1%;
+            }
+
+            #game-table-div::-webkit-scrollbar {
+                display: none;
             }
 
             #game-table {
@@ -432,7 +428,7 @@
                     <% }) %>
                 </table>
             </div>
-            <div id="game-full-screen-div" onclick="enterFullScreen('game')"><i class="fa-solid fa-expand ft-lg"></i></div>
+            <div id="game-full-screen-div" onclick="enterFullScreen('game')"><i id="game-full-screen-i" class="fa-solid fa-expand ft-lg"></i></div>
         </div> 
 
 
@@ -444,8 +440,18 @@
             const hideComment = (gameNum) => {
                 document.getElementById('game-comment-dialog' + gameNum).close();
             };
+
             const enterFullScreen = (table) => {
-                document.getElementById(table + '-table-outerDiv').webkitRequestFullscreen();
+                const div = document.getElementById(table + '-table-outerDiv');
+                const i = document.getElementById(table + '-full-screen-i');
+
+                i.classList.toggle('fa-expand');
+                i.classList.toggle('fa-compress');
+                div.webkitRequestFullscreen();
+                div.onclick = () => { exitFullScreen(); }
+            };
+            const exitFullScreen = () => {
+                document.webkitExitFullscreen();
             };
         </script>
     </body>

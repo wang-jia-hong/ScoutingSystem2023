@@ -429,9 +429,9 @@
             
             <div id="h-menu-div">
                 <ul id="h-menu-ul">
-                    <li class="h-menu-li <% if(gameType === '1') { %> h-menu-li-clicked <% } %>" id="h-menu-li-GameType1"><a class="header-a" href="/result/1<%if(typeof analyzeData != 'undefined'){ %>/<%= analyzeData.teamNumber %> <% } %>" >練習賽</a></li>
-                    <li class="h-menu-li <% if(gameType === '2') { %> h-menu-li-clicked <% } %>"" id="h-menu-li-GameType2"><a class="header-a" href="/result/2<%if(typeof analyzeData != 'undefined'){ %>/<%= analyzeData.teamNumber %> <% } %>">資格賽</a></li>
-                    <li class="h-menu-li <% if(gameType === '3') { %> h-menu-li-clicked <% } %>"" id="h-menu-li-GameType3"><a class="header-a" <%  if(typeof analyzeData != 'undefined'){ %> href="../../3/<%= analyzeData.teamNumber %>" <% } else{ %> href="./3" <% } %>>淘汰賽</a></li>
+                    <li class="h-menu-li <% if(gameType === '1') { %> h-menu-li-clicked <% } %>" id="h-menu-li-GameType1"><a class="header-a" href="/result/1<%if(typeof analyzeData != 'undefined' && gameType !== '1'){ %>/<%= analyzeData.teamNumber %> <% } %>" >練習賽</a></li>
+                    <li class="h-menu-li <% if(gameType === '2') { %> h-menu-li-clicked <% } %>"" id="h-menu-li-GameType2"><a class="header-a" href="/result/2<%if(typeof analyzeData != 'undefined' && gameType !== '2'){ %>/<%= analyzeData.teamNumber %> <% } %>">資格賽</a></li>
+                    <li class="h-menu-li <% if(gameType === '3') { %> h-menu-li-clicked <% } %>"" id="h-menu-li-GameType3"><a class="header-a" href="/result/3<%if(typeof analyzeData != 'undefined' && gameType !== '3'){ %>/<%= analyzeData.teamNumber %> <% } %>">淘汰賽</a></li>
                 </ul>
                 
             </div>
