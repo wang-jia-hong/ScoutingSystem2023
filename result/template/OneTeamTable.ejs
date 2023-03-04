@@ -259,8 +259,8 @@
                             <td class="analyze-td"><%= getRate(analyzeData.engageA / analyzeData.times) %></td>
                             <td class="analyze-td"><%= getRate(analyzeData.mobilityA / analyzeData.times) %></td>
                             <td class="analyze-td"><%= getAverage(analyzeData.pointA / analyzeData.times) %></td>
-                            <td rowspan="2" class="analyze-td"><%= getRate(document.link / document.times) %></td>
-                            <td rowspan="2" class="analyze-td"><%= getRate(document.foul / document.times) %></td>
+                            <td rowspan="2" class="analyze-td"><%= getRate(analyzeData.link / analyzeData.times) %></td>
+                            <td rowspan="2" class="analyze-td"><%= getRate(analyzeData.foul / analyzeData.times) %></td>
                             <td rowspan="2" class="analyze-td"><%= getRate(analyzeData.win / analyzeData.times) %></td>
                             <td rowspan="2" class="analyze-td"><%= getRate(analyzeData.lose / analyzeData.times) %></td>
                             <td rowspan="2" class="analyze-td"><%= getRate( (analyzeData.times - analyzeData.win - analyzeData.lose) / analyzeData.times ) %></td>
