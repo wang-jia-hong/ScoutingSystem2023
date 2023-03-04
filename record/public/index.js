@@ -80,9 +80,9 @@ const createFullScreenBtn = () => {
         document.getElementById('i-done-btn').style.width = '50%';
         document.getElementById('i-full-screen-btn').style.width = '50%';
     } else if(document.getElementById('a-dialog').open === true) {
-        document.getElementById('a-full-screen-div').style.display = 'block';
+        document.getElementById('a-full-screen-div').style.display = 'flex';
     } else if(document.getElementById('t-dialog').open === true) {
-        document.getElementById('t-full-screen-div').style.display = 'block';
+        document.getElementById('t-full-screen-div').style.display = 'flex';
     } else if(document.getElementById('r1-dialog').open === true) {
         document.getElementById('r1-full-screen-div').style.display = 'flex';
     }else if(document.getElementById('r2-dialog').open === true) {
@@ -130,6 +130,19 @@ const teleDone = () => {
 
     teleDialog.close();
     result1Dialog.showModal();
+
+    if( ! document.fullscreenElement ) {
+        createFullScreenBtn();
+    }
+};
+
+const backToAuto = () => {
+    const autoDialog = document.getElementById('a-dialog');
+    const teleDialog = document.getElementById('t-dialog');
+
+
+    teleDialog.close();
+    autoDialog.showModal();
 
     if( ! document.fullscreenElement ) {
         createFullScreenBtn();
