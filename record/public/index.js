@@ -269,7 +269,7 @@ const submit = async () => {
     }
 
     const link = Number(document.getElementById('r2-d-form-btn-p1').innerText);
-    const foul = Number(document.getElementById('r2-d-form-btn-p2').innerText); 
+    const penalty = Number(document.getElementById('r2-d-form-btn-p2').innerText); 
     
     let rp = 0;
     if(gameType === 1) {
@@ -332,7 +332,7 @@ const submit = async () => {
             result: result,
             character: character,
             link: link,
-            foul: foul,
+            penalty: penalty,
             rp: rp,
             comment: comment,
         }); 
@@ -354,7 +354,7 @@ const submit = async () => {
             result: result,
             character: character,
             link: link,
-            foul: foul,
+            penalty: penalty,
             rp: rp,
         });
         document.location.href = './';

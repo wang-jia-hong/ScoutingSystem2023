@@ -5,7 +5,8 @@
             :root {
                 --logoBlue: #002a5c;
                 --logoPink: #de9896;
-                font-size: 1vmin;
+                --boxShadowBlue: #83c4ff47; 
+                --fontColor: #daeaff;
             }
 
             #table-div::-webkit-scrollbar {
@@ -13,70 +14,82 @@
             }
 
             a {
-                color: var(--logoPink);
+                color: var(--fontColor);
             }
 
             #table-outerDiv {
-                width: 100%;
+                width: 92%;
                 height: 100%;
-                background-color: var(--logoPink);
+                position: relative;
+                left: 4%;
+                /* background-color: var(--logoPink); */
                 border-radius: 2vmin;
-                padding: 0% 1vmin;
+                box-shadow: var(--boxShadowBlue) 0 0 25px, inset var(--boxShadowBlue) 0 0 25px;
+
             }
 
             #table-div {
-                width: 100%;
-                height: 97%;
+                width: 94%;
+                height: 92%;
                 overflow: auto;
                 position: relative;
-                top: 1%;
+                top: 4%;
+                left: 3%;
             }
 
             table {
-                height: 100%;
                 width: 100%;
+                height: fit-content;
                 text-align: center;
                 border-collapse: collapse;
+                background-color: var(--logoBlue);
                 /* border-spacing: 1vmin; */
                 border: 0;
                 /* border-radius: 2vmin; */
             }
 
-            #th-tr {
+            thead {
                 position: sticky;
-                top: 0;
+                top: 0%;
                 left: 0;
                 height: 5vh;
+                
+                background-color: var(--logoBlue);
+                box-shadow: var(--boxShadowBlue) 0 0 50vh;
             }
 
             th {
-                background-color: var(--logoPink);
-                color:#ffffff;
-                height: 5vh;
-                border-bottom-style: solid;
-                border-bottom-color: var(--logoPink);
-                border-bottom-width: 0.5vmin;
+                color: var(--fontColor);
+                border-bottom: var(--logoBlue) solid 5px;
+                font-size: var(--pageFontSize);
+                padding-bottom: 1%;
             }
+
+            tbody {
+                /* box-shadow: inset var(--boxShadowBlue) 0 0 40px; */
+            }
+
             tr {
                 
             }
             td {
-                background-color: #ffffff;
-                color: var(--logoPink);
+                /* background-color: #ffffff; */
+                color: var(--fontColor);
                 width: fit-content;
-                height: 5vh;
+                height: 15vh;
+                font-size: calc(var(--pageFontSize) * 1.2 );
             }
 
             .bottom-tr {
                 border-bottom-style: solid;
-                border-bottom-width: 0.5vmin;
-                border-bottom-color: var(--logoPink);
+                border-bottom-width: 0.3vmin;
+                border-bottom-color: var(--boxShadowBlue);
             }
 
             #full-screen-div {
                 width: 5%;
                 aspect-ratio: 1 / 1;
-                background-color: var(--logoPink);
+                background-color: #ffffff;
                 border-radius: 2vmin;
                 position: absolute;
                 right: -2%;
@@ -84,7 +97,7 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                color: #ffffff;
+                color: var(--fontColor);
             }
         </style>
     </head>
@@ -93,95 +106,101 @@
         <div id="table-outerDiv">
             <div id="table-div">
                 <table>
-                    <tr id="th-tr">
-                        <th>Team</th>
-                        <th>mode</th>
-                        <th>top(%)</th>
-                        <th>middle(%)</th>
-                        <th>bottom(%)</th>
-                        <th>dock(%)</th>
-                        <th>engage(%)</th>
-                        <th>mobility(%)</th>
-                        <th>平均分(分)</th>
-                        <th>link(條)</th>
-                        <th>犯規(分)</th>
-                        <th>贏(%)</th>
-                        <th>輸(%)</th>
-                        <th>平手(%)</th>
-                        <th>功(%)</th>
-                        <th>守(%)</th>
-                        <th>攻兼守(%)</th>
-                        <th>平均RP</th>
-                        <th>總RP</th>
-                    </tr>
-        
+                    <thead>
+                        <tr id="th-tr">
+                            <th>Team</th>
+                            <th>mode</th>
+                            <th>top(%)</th>
+                            <th>middle(%)</th>
+                            <th>bottom(%)</th>
+                            <th>dock(%)</th>
+                            <th>engage(%)</th>
+                            <th>mobility(%)</th>
+                            <th>平均分(分)</th>
+                            <th>link(條)</th>
+                            <th>犯規(分)</th>
+                            <th>贏(%)</th>
+                            <th>輸(%)</th>
+                            <th>平手(%)</th>
+                            <th>功(%)</th>
+                            <th>守(%)</th>
+                            <th>攻兼守(%)</th>
+                            <th>平均RP</th>
+                            <th>總RP</th>
+                        </tr>
+                    </thead>
                     
-                    <% data.forEach( document => { %>
-                        <% const times = document.times %>
         
-                        <% const getRate = (num) => { %>
-                            <% if (num == 0) { %>
-                                <% return 0; %>
-                            <% } %>
-        
-                            <% return Math.round( ( (num * 100) + Number.EPSILON) * 100 ) / 100; %>
-                        <% }; %>
-        
-                        <% const getAverage = (num) => { %>
-                            <% if (num == 0) { %>
-                                <% return 0; %>
-                            <% } %>
-        
-                            <% return Math.round( (num + Number.EPSILON) * 100 ) / 100; %>
-                        <% }; %>
-        
-                        <% let cargoTotalA = document.topA + document.middleA + document.bottomA; %>
-        
-                        <% if(cargoTotalA == 0) { %>
-                            <% cargoTotalA = 1; %>
-                        <% } %>
-        
-                        <% let cargoTotalT = document.topT + document.middleT + document.bottomT; %>
-        
-                        <% if(cargoTotalT == 0) { %>
-                            <% cargoTotalT = 1; %>
-                        <% } %>
-        
-                        <tr>
-                            <td rowspan="2"><a href="./<%=gameType%>/<%=document.teamNumber%>" ><%= document.teamNumber %></a></td>
-                            <td>auto</td>
-                            <td><%= getRate(document.topA / cargoTotalA) %></td>
-                            <td><%= getRate(document.middleA / cargoTotalA) %></td>
-                            <td><%= getRate(document.bottomA / cargoTotalA) %></td>
-                            <td><%= getRate(document.dockA / document.times) %></td>
-                            <td><%= getRate(document.engageA / document.times) %></td>
-                            <td><%= getRate(document.mobilityA / document.times) %></td>
-                            <td><%= getAverage(document.pointA / document.times) %></td>
-                            <td rowspan="2"><%= getAverage(document.link / document.times) %></td>
-                            <td rowspan="2"><%= getAverage(document.foul / document.times) %></td>
-                            <td rowspan="2"><%= getRate(document.win / document.times) %></td>
-                            <td rowspan="2"><%= getRate(document.lose / document.times) %></td>
-                            <td rowspan="2"><%= getRate(document.tie / document.times ) %></td>
-                            <td rowspan="2"><%= getRate(document.offensive / document.times) %></td>
-                            <td rowspan="2"><%= getRate(document.defensive / document.times) %></td>
-                            <td rowspan="2"><%= getRate(document.mix / document.times) %></td>
-                            <td rowspan="2"><%= getAverage(document.rp / document.times) %></td>
-                            <td rowspan="2"><%= document.rp %></td>
-                        </tr>
-                        <tr class="bottom-tr">
-                            <td>tele</td>
-                            <td><%= getRate(document.topT / cargoTotalT) %></td>
-                            <td><%= getRate(document.middleT / cargoTotalT) %></td>
-                            <td><%= getRate(document.bottomT / cargoTotalT) %></td>
-                            <td><%= getRate(document.dockT / document.times) %></td>
-                            <td><%= getRate(document.engageT / document.times) %></td>
-                            <td><%= getRate(document.parkT / document.times) %></td>
-                            <td><%= getAverage(document.pointT / document.times) %></td>
-                        </tr>
-                            
+                    <tbody>
+                        <% data.forEach( document => { %>
+                            <% const times = document.times %>
             
-                            
-                    <% }) %>
+                            <% const getRate = (num) => { %>
+                                <% if (num == 0) { %>
+                                    <% return 0; %>
+                                <% } %>
+            
+                                <% return Math.round( ( (num * 100) + Number.EPSILON) * 100 ) / 100; %>
+                            <% }; %>
+            
+                            <% const getAverage = (num) => { %>
+                                <% if (num == 0) { %>
+                                    <% return 0; %>
+                                <% } %>
+            
+                                <% return Math.round( (num + Number.EPSILON) * 100 ) / 100; %>
+                            <% }; %>
+            
+                            <% let cargoTotalA = document.topA + document.middleA + document.bottomA; %>
+            
+                            <% if(cargoTotalA == 0) { %>
+                                <% cargoTotalA = 1; %>
+                            <% } %>
+            
+                            <% let cargoTotalT = document.topT + document.middleT + document.bottomT; %>
+            
+                            <% if(cargoTotalT == 0) { %>
+                                <% cargoTotalT = 1; %>
+                            <% } %>
+            
+                            <tr>
+                                <td rowspan="2"><a href="./<%=gameType%>/<%=document.teamNumber%>" ><%= document.teamNumber %></a></td>
+                                <td>auto</td>
+                                <td><%= getRate(document.topA / cargoTotalA) %></td>
+                                <td><%= getRate(document.middleA / cargoTotalA) %></td>
+                                <td><%= getRate(document.bottomA / cargoTotalA) %></td>
+                                <td><%= getRate(document.dockA / document.times) %></td>
+                                <td><%= getRate(document.engageA / document.times) %></td>
+                                <td><%= getRate(document.mobilityA / document.times) %></td>
+                                <td><%= getAverage(document.pointA / document.times) %></td>
+                                <td rowspan="2"><%= getAverage(document.link / document.times) %></td>
+                                <td rowspan="2"><%= getAverage(document.penalty / document.times) %></td>
+                                <td rowspan="2"><%= getRate(document.win / document.times) %></td>
+                                <td rowspan="2"><%= getRate(document.lose / document.times) %></td>
+                                <td rowspan="2"><%= getRate(document.tie / document.times ) %></td>
+                                <td rowspan="2"><%= getRate(document.offensive / document.times) %></td>
+                                <td rowspan="2"><%= getRate(document.defensive / document.times) %></td>
+                                <td rowspan="2"><%= getRate(document.mix / document.times) %></td>
+                                <td rowspan="2"><%= getAverage(document.rp / document.times) %></td>
+                                <td rowspan="2"><%= document.rp %></td>
+                            </tr>
+                            <tr class="bottom-tr">
+                                <td>tele</td>
+                                <td><%= getRate(document.topT / cargoTotalT) %></td>
+                                <td><%= getRate(document.middleT / cargoTotalT) %></td>
+                                <td><%= getRate(document.bottomT / cargoTotalT) %></td>
+                                <td><%= getRate(document.dockT / document.times) %></td>
+                                <td><%= getRate(document.engageT / document.times) %></td>
+                                <td><%= getRate(document.parkT / document.times) %></td>
+                                <td><%= getAverage(document.pointT / document.times) %></td>
+                            </tr>
+                                
+                
+                                
+                        <% }) %>
+
+                    </tbody>
+                    
                     
                     
                 </table>

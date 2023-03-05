@@ -30,12 +30,24 @@ app.post('/analyzeSubmit', async (req, res) => {
 
 
 //for result
+app.get('/result', async (req, res) => {
+	res.render('home');
+}); 
+
 app.get('/result/:gameType', async (req, res) => {
-	await getAllTeamResult(req, res);
+	await getAllTeamResult(req, res, process.env.gameName);
 });
 
 app.get('/result/:gameType/:teamNum', async (req, res) => {
-	await getOneTeamResult(req, res);
+	await getOneTeamResult(req, res, process.env.gameName);
+});
+
+app.get('/result/previous/:gameName/:gameType', async (req, res) => {
+	await getAllTeamResult(req, res, req.params.gameName);
+});
+
+app.get('/result/previous/:gameName/:gameType/:teamNum', async (req, res) => {
+	await getOneTeamResult(req, res, req.params.gameName);
 });
 
 const startServer = async () => {

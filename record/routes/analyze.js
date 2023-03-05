@@ -70,16 +70,8 @@ const analyzeInsert = async (req, res) => {
             const rp = reqData.rp + oldData.rp;
 
 
-            //待更改
-            let link = 0;
-            let foul = 0;
-            if( reqData.link ) {
-                link = reqData.link + oldData.link;
-                foul = reqData.foul + oldData.foul;
-            } else {
-                link = reqData.link;
-                foul = reqData.foul;
-            }
+            const link = reqData.link + oldData.link;
+            const penalty = reqData.penalty + oldData.penalty;
             
 
             const times = oldData.times + 1;
@@ -109,7 +101,7 @@ const analyzeInsert = async (req, res) => {
                 mix: mix,
                 rp: rp,
                 link: link,
-                foul: foul,
+                penalty: penalty,
                 times: times,
             });
             res.status(201).json({ result: data });
@@ -164,7 +156,7 @@ const analyzeInsert = async (req, res) => {
 
             const rp = reqData.rp;
             const link = reqData.link;
-            const foul = reqData.foul;
+            const penalty = reqData.penalty;
 
             const times = 1;
 
@@ -193,7 +185,7 @@ const analyzeInsert = async (req, res) => {
                 mix: mix,
                 rp: rp,
                 link: link,
-                foul: foul,
+                penalty: penalty,
                 times: times,
             });
 

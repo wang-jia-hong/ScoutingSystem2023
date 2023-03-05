@@ -1,10 +1,10 @@
 const { findOne, findAll } = require('../../db/CRUD');
 const { dbCilent }  = require('../../db/connect');
 
-const getOneTeamResult = async (req, res) => {
+const getOneTeamResult = async (req, res, gameName) => {
     try {
 		const params = req.params;
-        const analyzeData = await findOne('analyze', (process.env.gameName + params.gameType), {teamNumber: Number(params.teamNum)});
+        const analyzeData = await findOne('analyze', (gameName + params.gameType), {teamNumber: Number(params.teamNum)});
 
         const getRate = (num) => {
             if (num == 0) {
@@ -22,7 +22,7 @@ const getOneTeamResult = async (req, res) => {
 				cargoTotalA = 1;
 			}
 
-			const gameData = await findAll(process.env.gameName + 'Record' + params.gameType, `${analyzeData.teamNumber}`);
+			const gameData = await findAll(gameName + 'Record' + params.gameType, `${analyzeData.teamNumber}`);
 
 
 			res.render('oneTeam', {
@@ -43,7 +43,7 @@ const getOneTeamResult = async (req, res) => {
 
 };
 
-const getAllTeamResult = async (req, res) => {
+const getAllTeamResult = async (req, res, gameName) => {
     const gameType = req.params.gameType;
 	const query = req.query;
 
@@ -180,6 +180,8 @@ const getAllTeamResult = async (req, res) => {
 	checkResultAverage('rp', 'Max');
 	checkResultAverage('link', 'Min');
 	checkResultAverage('link', 'Max');
+	checkResultAverage('penalty', 'Min');
+	checkResultAverage('penalty', 'Max');
 
 	let sort = {'teamNumber' : 1};
 
@@ -191,7 +193,7 @@ const getAllTeamResult = async (req, res) => {
 
 	// console.log(newFields['topRateA']);
 	console.log(conditions);
-	const data = await dbCilent.db('analyze').collection(process.env.gameName + gameType).aggregate([{$addFields: newFields }, {$match: conditions }, {$sort: sort}]).toArray();
+	const data = await dbCilent.db('analyze').collection(gameName + gameType).aggregate([{$addFields: newFields }, {$match: conditions }, {$sort: sort}]).toArray();
 
 	console.log(data);
 

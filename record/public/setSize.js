@@ -2,15 +2,14 @@ let largerMode = false;
 
 const setSize = () => {
     
-    let w = window.innerWidth ;
-    let h = window.innerHeight ;
+    let w = window.innerWidth - 0.5;
+    let h = window.innerHeight - 0.5;
     
     if( w * window.devicePixelRatio < 700 ) {
         w = 700 / window.devicePixelRatio;
     }
     if( h * window.devicePixelRatio < 700 ) {
-        h = 700 / window.devicePixelRatio;
-        
+        h = 700 / window.devicePixelRatio;  
     }
 
     document.documentElement.style.setProperty('--w', `${w}px`);
