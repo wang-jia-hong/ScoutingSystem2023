@@ -123,7 +123,7 @@
                 display: block;
                 background-color: #000000;
                 color: #ffe0e0;
-                box-shadow: #ffe0e0 0px 0px var(--box-shadow-size), inset #ffe0e0 0px 0px var(--box-shadow-size);
+                box-shadow: #ffdfdf73 0px 0px var(--box-shadow-size), inset #ffdfdf73 0px 0px var(--box-shadow-size);
                 font-size: var(--font-size);
                 font-family: 'Shantell Sans', 'JasonHandwriting', serif;
                 outline: none;
@@ -163,7 +163,6 @@
 
             .submit-btn-clicked {
                 width: 5%;
-                height: fit-content;
                 aspect-ratio: 1 / 1;
                 box-shadow: #ffe0e0 0px 0px 0px, inset #ffe0e0 0px 0px 0px;
                 border: 0.5vmin solid transparent;
@@ -217,16 +216,6 @@
             @keyframes loading {
                 0% { transform: rotate(0deg); }
                 100% { transform: rotate(360deg); }
-            }
-
-            @keyframes pre-loading {
-                0% { 
-                    width: 10%; 
-                }
-                100% { 
-                    width: 5%; 
-                    aspect-ratio: 1 / 1;
-                }
             }
 
             @media only screen and (orientation: portrait) {
@@ -300,19 +289,39 @@
                         </div>
     
                         <div id="i-done-div">
-                            <div id="i-done-btn-div">
-                                <button id="i-done-btn" onclick="infoDone()"><i class="fa-solid fa-forward-step ft-lg"></i></button>
+                            <div id="i-absence-div" class="i-absence-div">
+                                <button id="absence-btn" class="absence-btn" onclick="absence()"><i class="fa-solid fa-skull ft-lg"></i></button>
                             </div>
-                            <div id="i-full-screen-div">
+                            <div id="i-done-btn-div" class="i-done-btn-div">
+                                <button id="i-done-btn" class="i-done-btn" onclick="infoDone()"><i class="fa-solid fa-forward-step ft-lg"></i></button>
+                            </div>
+                            <div id="i-full-screen-div" class="i-full-screen-div">
                                 <button id="i-full-screen-btn" onclick="enterFullScreen('i')"><i class="fa-solid fa-expand ft-lg"></i></button>
                             </div>
                         </div>
                     </div>
-                    
-                        
-                    
                 </div>
             </dialog>
+
+            <dialog id="absence-dialog">
+                <div class="dialog-div">
+                    <div class="dialog-inner-div">
+                        <div id="absence-dialog-content-div">
+                            <div id="absence-warning-div">
+                                <p id="absence-warning">Something went wrong with the team's robot?</p>
+                            </div>
+                            <div id="absence-confirm-div">
+                                <div class="absence-confirm-btn-div">
+                                    <button class="absence-confirm-btn" id="absence-submit-btn" onclick="absenceSubmit()">Y</button>
+                                </div>
+                                <div class="absence-confirm-btn-div">
+                                    <button class="absence-confirm-btn" id="absence-cancel-btn" onclick="absenceCancel()">N</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </dialog> 
 
             <!--'a' stands for auto-->
             <dialog id="a-dialog" class="count-dialog">
@@ -387,11 +396,11 @@
                         </div>
     
                         <div class="done-div" >
-                            <button type="button" class="t-done-btn" value="0" onclick="backToAuto()">
+                            <button class="t-done-btn" value="0" onclick="backToAuto()">
                                 <i class="fa-solid fa-backward-step ft-lg"></i>
                             </button>
 
-                            <button type="button" class="t-done-btn" value="0" onclick="teleDone()">
+                            <button class="t-done-btn" value="0" onclick="teleDone()">
                                 <i class="fa-solid fa-forward-step ft-lg"></i>
                             </button>
                         </div>
@@ -424,13 +433,18 @@
                         </div>
         
                         <div id="r1-done-div">
-                            <div id="r1-done-btn-div">
+                            <div class="r1-done-btn-div">
+                                <button class="r1-done-btn" value="0" onclick="backToTele()">
+                                    <i class="fa-solid fa-backward-step ft-lg"></i>
+                                </button>
+                            </div>
+                            <div class="r1-done-btn-div">
                                 <button class="r1-done-btn" onclick="r1Done()">
                                     <i class="fa-solid fa-forward-step ft-lg"></i>
                                 </button>
                             </div>
-                            <div id="r1-full-screen-div" class="full-screen-div">
-                                <button class="r1-done-btn" onclick="enterFullScreen('r1')"><i class="fa-solid fa-expand ft-lg"></i></button>
+                            <div id="r1-full-screen-div">
+                                <button class="r1-done-btn" id="r1-full-screen-btn" onclick="enterFullScreen('r1')"><i class="fa-solid fa-expand ft-lg"></i></button>
                             </div>
                         </div>
                     </div>
@@ -490,8 +504,11 @@
                         </div>
     
                         <div id="r2-done-div">
-                            <div id="r2-done-btn-div">
-                                <button id="r2-done-btn" onclick="r2Done()"><i class="fa-solid fa-forward-step ft-lg"></i></button>
+                            <div class="r2-done-btn-div">
+                                <button class="r2-done-btn" value="0" onclick="backToR1()"><i class="fa-solid fa-backward-step ft-lg"></i></button>
+                            </div>
+                            <div class="r2-done-btn-div">
+                                <button class="r2-done-btn" onclick="r2Done()"><i class="fa-solid fa-forward-step ft-lg"></i></button>
                             </div>
                             <div id="r2-full-screen-div">
                                 <button id="r2-full-screen-btn" onclick="enterFullScreen('r2')"><i class="fa-solid fa-expand ft-lg"></i></button>

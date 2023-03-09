@@ -191,11 +191,11 @@ const getAllTeamResult = async (req, res, gameName) => {
 		sort[query['sort']] = Number(query['sortOrder']);
 	}
 
-	// console.log(newFields['topRateA']);
-	console.log(conditions);
+
+	
 	const data = await dbCilent.db('analyze').collection(gameName + gameType).aggregate([{$addFields: newFields }, {$match: conditions }, {$sort: sort}]).toArray();
 
-	console.log(data);
+
 
 	res.render('allTeam' ,{data: data, gameType: gameType});
 };

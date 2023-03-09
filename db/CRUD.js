@@ -21,7 +21,7 @@ const insert = async (database, collection, data) => {
 };
 
 const update = async (database, collection, document, data) => {
-    return await dbCilent.db(database).collection(collection).updateOne(document, { $set: data });
+    return await dbCilent.db(database).collection(collection).updateOne(document, data);
 };
 
 

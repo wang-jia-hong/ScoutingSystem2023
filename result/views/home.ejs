@@ -3,7 +3,7 @@
     <head>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Proza+Libre&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans+SC&display=swap" rel="stylesheet">
         <style>
             :root {
                 --logoBlue: #002a5c;
@@ -25,18 +25,18 @@
             }
 
             #logo-div {
-                width: 25%;
+                width: 18%;
                 aspect-ratio: 1 / 1;
                 position: absolute;
                 left: 10%;
                 bottom: 0;
                 display: flex;
                 justify-content: center;
-                overflow: hidden;
             }
 
             #logo {
                 width: 100%;
+                filter: drop-shadow(#96A7FF 0px 0px 15px) drop-shadow(#96A7FFaa 0px 0px 5px);;
             }
 
             #title-div {
@@ -51,8 +51,22 @@
 
             #title {
                 color: #ffffff;
-                font-size: 70px;
-                font-family: 'Proza Libre', serif;
+                font-size: 65px;
+                font-family: 'Alegreya Sans SC', cursive;
+                letter-spacing: 10px;
+                filter: drop-shadow(rgba(255, 242, 242, 0.95) 0px 0px 0.617169px) drop-shadow(rgba(255, 255, 255, 0.75) 0px 0px 3.08585px) drop-shadow(rgba(255, 255, 255, 0.44) 0px 0px 9.25754px);
+            }
+
+            #next-div {
+                width: 100%;
+                height: 15%;
+                position: fixed;
+                bottom: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: #ffffff;
+                font-size: 60px;
             }
         </style>
     </head>
@@ -66,5 +80,10 @@
                 <h1 id="title">Check the result scouted by us</h1>
             </div>
         </div>
+        <div id="next-div">
+            <i class="fa-solid fa-chevron-down ft-lg"></i>
+        </div>
     </body>
+
+    <script src="https://kit.fontawesome.com/3034cde1c1.js" crossorigin="anonymous"></script>
 </html>

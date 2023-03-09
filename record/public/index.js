@@ -57,10 +57,18 @@ const mBtnClicked = (id) => {
 
 const enterFullScreen = (mode) => {
     document.getElementById(`${mode}-dialog-div`).webkitRequestFullscreen();
-    document.getElementById(`${mode}-full-screen-div`).style.display = 'none';
-    if( mode === 'i' || mode === 'r2' ) {
-        document.getElementById(`${mode}-done-btn`).style.width = '25%';
-        document.getElementById(`${mode}-full-screen-btn`).style.width = '25%';
+    if( mode === 'i') {
+        document.getElementById('i-full-screen-div').classList.toggle('i-full-screen-div-changed');
+        document.getElementById('i-done-btn-div').classList.toggle('i-done-btn-div-changed');
+        document.getElementById('i-done-btn').classList.toggle('i-done-btn-changed');
+        document.getElementById('i-absence-div').classList.toggle('i-absence-div-changed');
+        document.getElementById('absence-btn').classList.toggle('absence-btn-changed');
+    } else {
+        if( mode === 'r2' ) {
+            const doneBtn = document.querySelectorAll('.r2-done-btn');
+            doneBtn.forEach(btn => {btn.style.width = '40%';});
+        }
+        document.getElementById(`${mode}-full-screen-div`).style.display = 'none';
     }
 };
 
@@ -76,9 +84,11 @@ document.onwebkitfullscreenchange = () => {
 
 const createFullScreenBtn = () => {
     if(document.getElementById('i-dialog').open === true) {
-        document.getElementById('i-full-screen-div').style.display = 'flex';
-        document.getElementById('i-done-btn').style.width = '50%';
-        document.getElementById('i-full-screen-btn').style.width = '50%';
+        document.getElementById('i-full-screen-div').classList.toggle('i-full-screen-div-changed');
+        document.getElementById('i-done-btn-div').classList.toggle('i-done-btn-div-changed');
+        document.getElementById('i-done-btn').classList.toggle('i-done-btn-changed');
+        document.getElementById('i-absence-div').classList.toggle('i-absence-div-changed');
+        document.getElementById('absence-btn').classList.toggle('absence-btn-changed');
     } else if(document.getElementById('a-dialog').open === true) {
         document.getElementById('a-full-screen-div').style.display = 'flex';
     } else if(document.getElementById('t-dialog').open === true) {
@@ -87,8 +97,8 @@ const createFullScreenBtn = () => {
         document.getElementById('r1-full-screen-div').style.display = 'flex';
     }else if(document.getElementById('r2-dialog').open === true) {
         document.getElementById('r2-full-screen-div').style.display = 'flex';
-        document.getElementById('r2-done-btn').style.width = '50%';
-        document.getElementById('r2-full-screen-btn').style.width = '50%';
+        const doneBtn = document.querySelectorAll('.r2-done-btn');
+        doneBtn.forEach(btn => {btn.style.width = '60%';});
     }else {
         return;
     }
@@ -183,6 +193,23 @@ const r1Done = () => {
         result1Dialog.close();
         result2Dialog.showModal();
     }
+
+    if( ! document.fullscreenElement ) {
+        createFullScreenBtn();
+    }
+};
+
+const backToR1 = () => {
+    const r1Dialog = document.getElementById('r1-dialog');
+    const r2Dialog = document.getElementById('r2-dialog');
+
+
+    r2Dialog.close();
+    r1Dialog.showModal();
+
+    if( ! document.fullscreenElement ) {
+        createFullScreenBtn();
+    }
 };
 
 const r2Done = () => {
@@ -197,6 +224,19 @@ const r2Done = () => {
         if(document.fullscreenElement) {
             document.webkitExitFullscreen();
         }
+    }
+};
+
+const backToTele = () => {
+    const teleDialog = document.getElementById('t-dialog');
+    const r1Dialog = document.getElementById('r1-dialog');
+
+
+    r1Dialog.close();
+    teleDialog.showModal();
+
+    if( ! document.fullscreenElement ) {
+        createFullScreenBtn();
     }
 };
 
@@ -359,17 +399,21 @@ const submit = async () => {
         });
         document.location.href = './';
     } catch(err) {
-        submitBtn.classList.toggle('submit-btn-noAnimation');
         console.log('Submit failed.');
-        submitBtn.onclick = () => {submit();};
+        submitBtn.classList.toggle('submit-btn-noAnimation');
         submitBtn.classList.toggle('submit-btn-clicked');
         document.getElementById('submit-icon').classList.toggle('submit-icon-fly');
+        submitBtn.onclick = async () => {await submit();};
     }
 };
 
 
 
 document.getElementById('i-dialog').addEventListener('cancel', (event) => {
+    event.preventDefault();
+});
+
+document.getElementById('absence-dialog').addEventListener('cancel', (event) => {
     event.preventDefault();
 });
 

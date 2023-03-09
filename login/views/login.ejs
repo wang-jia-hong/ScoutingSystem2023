@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+        <h1>If you're a member from 7636, please login.</h1>
+        <h2><a href="/result">or you can click here to check out the result</a></h1>
+        <div id="g_id_onload"
+            data-client_id=<%= OAuthClientId %>
+            data-context="use"
+            data-ux_mode="popup"
+            data-callback="handleCredentialResponse"
+            data-auto_prompt="false"
+            >
+        </div>
+
+        <div class="g_id_signin"
+        data-type="standard"
+        data-shape="rectangular"
+        data-theme="outline"
+        data-text="signin_with"
+        data-size="large"
+        data-logo_alignment="left">
+        </div>
+
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+        window.handleCredentialResponse = async (response) => {
+            try {
+                await axios.post('/googleLogin', {
+                    googleToken: response.credential,
+                    clientId: response.clientId,
+                });
+                window.location.href = 'http://localhost:3000/record'
+            } catch(err) {
+                
+            }
+        }
+        
+                
+    </script>
+    </body>
+</html>

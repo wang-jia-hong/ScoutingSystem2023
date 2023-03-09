@@ -34,19 +34,19 @@
 }
 
 #r1-done-div {
-    width: 30%;
+    width: 40%;
     height: fit-content;
     border: 0;
     position: relative;
     top: 30%;
-    left: 35%;
+    left: 30%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-#r1-done-btn-div {
-    width: 35%;
+.r1-done-btn-div {
+    width: 30%;
     height: 100%;
     border: 0;
     margin: auto;
@@ -56,10 +56,10 @@
 }
 
 .r1-done-btn {
-    width: 80%;
+    width: 60%;
     aspect-ratio: 1 / 1;
     border: 0;
-    border-radius: 50%;
+    border-radius: 3vmin;
     background-color: #000000;
     color: #ffe0e0;
     font-size: var(--font-size);
@@ -68,13 +68,17 @@
 }
 
 #r1-full-screen-div {
-    width: 35%;
+    width: 30%;
     height: 100%;
     margin: auto;
     border: 0;
     display: none;
     justify-content: center;
     align-items: center;
+}
+
+#r1-full-screen-btn {
+    border-radius: 50%;
 }
 
 #r2-d-form-div {
@@ -198,7 +202,7 @@
     border-radius: 7vmin;
 }
 
-#r2-done-btn-div {
+.r2-done-btn-div {
     height: 100%;
     width: 100%;
     padding: 0;
@@ -208,11 +212,11 @@
     align-items: center;
 }
 
-#r2-done-btn {
-    width: 25%;
+.r2-done-btn {
+    width: 40%;
     aspect-ratio: 1 / 1;
     border: 0;
-    border-radius: 50%;
+    border-radius: 3vmin;
     margin: 0;
     background-color: #000000;
     color: #ffe0e0;
@@ -229,7 +233,7 @@
 }
 
 #r2-full-screen-btn {
-    width: 25%;
+    width: 70%;
     aspect-ratio: 1 / 1;
     border: 0;
     border-radius: 50%;
@@ -263,10 +267,10 @@
 
 
 @media only screen and (orientation: portrait) {
-    #r1-done-div { width: 40%; left: 30%; }
+    #r1-done-div { width: 50%; left: 25%; }
     #r2-d-form-div { width: 90%; height: 40%; top: 3%; left: 5%; }
     .keyboard-btn { max-width: 7vh; }
     #r2-d-keyboard-div { width: 90%; height: 40%; top: 7%; left: 5%; }
-    #r2-done-div { width: 60%; height: 20%; top: 12%; left: 20%; padding-bottom: 15%;}
+    #r2-done-div { width: 50%; height: 20%; top: 12%; left: 25%; padding-bottom: 15%;}
     #r2-dialog-div { overflow-y: auto; }
 }
