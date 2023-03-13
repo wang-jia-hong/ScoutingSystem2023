@@ -1,0 +1,15 @@
+:root {
+    --logoBlue: #002a5c;
+    --mainColor: #d4d4d4;
+    --boxShadowBlue: #83c4ff47; 
+    --fontColor: #5a5a5a;
+    --chartColor1: #002a5c;
+    --chartColor2: #b4ae83;
+    --chartColor3: #569e7b;
+    --chartColorNone: #9f9f9f;
+    --ratingColor1: #28a000;
+    --ratingColor2: #a08100;
+    --ratingColor3: #a00000;
+    --pageFontSize: 12px;
+    font-family: 'Alegreya Sans SC';
+}

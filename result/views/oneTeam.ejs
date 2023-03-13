@@ -2,43 +2,21 @@
 
 <html>
     <head>
-        <style>
-            body {
-                height: 100vh;
-                background-color: var(--logoBlue);
-            }
-            main {
-                width: 100%;
-                height: 85vh;
-            }
-
-            h1 {
-                color: #ffffff;
-                text-align: center;
-            }
-
-            #m-table-div {
-                position: relative;
-                left: 7.5%;
-                height: 80%;
-                width: 85%;
-            }
-        </style>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans+SC&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Shantell+Sans&display=swap" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="./css/root.css">
+        <link rel="stylesheet" type="text/css" href="./css/page.css">
     </head>
     <body>
-        <header id="header">
-            <%- include('../template/header') %>
-        </header>
-        
         <main>
-            
-            <div>
-                <h1><%= analyzeData.teamNumber %></h1>
-            </div>
-            <div id="m-table-div">
-                <%- include('../template/OneTeamTable') %>
-            </div>
-        </main> 
-        
+            <%- include('../template/oneTeamAnalyzeTable') %>
+            <%- include('../template/oneTeamRecordTable') %>
+        </main>
+
+        <%- include('../template/footer') %>
     </body>
 </html>

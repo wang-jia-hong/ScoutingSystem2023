@@ -1,0 +1,98 @@
+a {
+    color: var(--fontColor);
+}
+
+#table-outerDiv {
+    width: 100%;
+    height: 100%;
+    /* position: relative;
+    left: 4%; */
+    /* background-color: var(--logoPink); */
+    border-radius: 2vmin;
+    /* box-shadow: var(--boxShadowBlue) 0 0 25px, inset var(--boxShadowBlue) 0 0 25px; */
+
+}
+
+#table-div {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+
+table {
+    width: 100%;
+    height: fit-content;
+    text-align: center;
+    border-collapse: collapse;
+    border: 0;
+}
+
+thead {
+    position: sticky;
+    top: 0%;
+    left: 0;
+    height: 5vh;
+    background-color: #000000;
+    z-index: 100;
+    box-shadow: #737373 0 0 5vh;
+}
+
+th {
+    color: #c5c5c5;
+    /* border-bottom: var(--logoBlue) solid 5px; */
+    font-size: var(--pageFontSize);
+    /* padding-bottom: 1%; */
+    padding: 0;
+}
+
+.number-th {
+    width: 5%;
+}
+
+.chart-th {
+    width: 13%;
+}
+
+tbody {
+    
+}
+
+tr {
+    
+}
+td {
+    /* background-color: #000000; */
+    color: var(--fontColor);
+    width: fit-content;
+    height: 8vh;
+    font-size: calc(var(--pageFontSize) * 1.2 );
+}
+
+.bottom-tr {
+    box-shadow: #cccccc 0 5vh 5vh;
+    /* border-bottom-style: solid;
+    border-bottom-width: 0.3vmin; */
+    /* border-bottom-color: var(--boxShadowBlue); */
+}
+
+.chart-div {
+    width: 80%;
+    height: 1vh;
+    position: relative;
+    left: 10%;
+}
+
+.chart-div:hover:before {
+    width: fit-content;
+    padding: 2% 12%;
+    content: attr(hover-content);
+    white-space:nowrap;
+    position: absolute;
+    top: 200%;
+    left: 5%;
+    background-color: #b7b7b7;
+    border-radius: 3vmin;
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: #000000;
+}

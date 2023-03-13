@@ -312,7 +312,7 @@ const submit = async () => {
     const penalty = Number(document.getElementById('r2-d-form-btn-p2').innerText); 
     
     let rp = 0;
-    if(gameType === 1) {
+    if(gameType === 2) {
         rp = Number(document.getElementById('r2-d-form-btn-p3').innerText);
     }
 
