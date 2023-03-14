@@ -33,7 +33,9 @@ app.get('/login', async (req, res) => {
 	res.render('login', {OAuthClientId: process.env.OAuthClientId});
 });
 
-
+app.get('/uaTest', async (req, res) => {
+	console.log(req.get('User-Agent'));
+});
 
 app.post('/googleLogin', async (req, res) => {
 	await googleLogin(req, res);

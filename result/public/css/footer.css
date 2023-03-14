@@ -48,7 +48,7 @@ footer {
 }
 
 #github-mark {
-    height: 50%;
+    height: 45%;
     margin: 0px calc(var(--pageFontSize) * 0.8 ); 
 }
 
@@ -73,7 +73,7 @@ footer {
 }
 
 .f-logo-div-noShadow {
-    box-shadow: transparent 0 0 20px;
+    /* box-shadow: transparent 0 0 20px; */
     transition: 1s;
 }
 
@@ -83,20 +83,71 @@ footer {
 
 .toolbar-div {
     width: 100%;
-    aspect-ratio: 100 / 1;
+    height: 100%;
     background-color: var(--logoBlue);
     position: absolute;
     bottom: 0;
-    border-radius: 2vmin;
+    border-radius: 0;
     z-index: 110;
     box-shadow: var(--logoBlue) 0 0 20px;
     transition: 1.2s;
     color: #ffffff;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+    overflow: hidden;
 }
 
 .toolbar-div-show {
-    aspect-ratio: 100 / 8;
+    height: 250%;
+    border-radius: 2vmin;
     transition: 0.5s;
+}
+
+#f-link-div {
+    width: fit-content;
+    height: 40%;
+    position: relative;
+    top: 24%;
+    left: 25%;
+}
+
+#f-ul {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.f-li {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 0 5%;
+    font-size: calc(var(--pageFontSize) * 1.2);
+}
+
+.f-link-a {
+    color: #e3e3e3;
+    text-decoration: none;
+}
+
+.f-link-a-selected {
+    color: #ffffff;
+    text-decoration: dotted underline;
+}
+
+#f-tool-div {
+    width: fit-content;
+    height: 40%;
+    position: relative;
+    top: 24%;
+    left: 45%;
+}
+
+#f-tool-btn {
+    width: fit-content;
+    height: fit-content;
+    padding: 2% 2%;
 }

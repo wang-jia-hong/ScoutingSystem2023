@@ -79,7 +79,8 @@
                 border-radius: 50%;
                 position: absolute;
                 top: 7%;
-                left: 3%;
+                left: 0;
+                z-index: 1;
             }
 
             .pie-chart::before {
@@ -87,8 +88,10 @@
                 content: "";
                 width: 120%;
                 height: 120%;
+                position: relative;
                 display: block;
                 border-radius: 50%;
+                /* z-index: -1; */
                 /* animation: pie-chart-show 100s linear forwards; */
             }
 
@@ -168,6 +171,7 @@
                 bottom: 110%;
                 left: 10%;
                 border-radius: 50%;
+                /* z-index: 500; */
             }
 
             #piecesA-pie-chart::after {
@@ -203,11 +207,11 @@
             }
 
             .pie-chart-legend-outerDiv {
-                width: 45%;
+                width: 55%;
                 height: 40%;
                 position: absolute;
                 bottom: 5%;
-                right: 3%;
+                right: 0%;
             }
 
             .pie-chart-legend-div {
@@ -219,7 +223,7 @@
             }
 
             .pie-chart-legend {
-                width: 8%;
+                width: 5%;
                 aspect-ratio: 1 / 1;
             }
 
@@ -441,15 +445,15 @@
                 <div class="pie-chart-legend-outerDiv">
                     <div class="pie-chart-legend-div">
                         <div class="pie-chart-legend pie-chart-legend1"></div>
-                        <span class="pie-chart-legend-lebel pie-chart-legend-lebel1">top 21.56%</span>
+                        <span class="pie-chart-legend-lebel pie-chart-legend-lebel1">offensive <%= getRate(analyzeData.offensive / times) %>%</span>
                     </div>
                     <div class="pie-chart-legend-div">
                         <div class="pie-chart-legend pie-chart-legend2"></div>
-                        <span class="pie-chart-legend-lebel pie-chart-legend-lebel2">mid 47.66%</span>
+                        <span class="pie-chart-legend-lebel pie-chart-legend-lebel2">defensive <%= getRate(analyzeData.defensive / times) %>%</span>
                     </div>
                     <div class="pie-chart-legend-div">
                         <div class="pie-chart-legend pie-chart-legend3"></div>
-                        <span class="pie-chart-legend-lebel pie-chart-legend-lebel3">btm 32.1%</span>
+                        <span class="pie-chart-legend-lebel pie-chart-legend-lebel3">mix <%= getRate(analyzeData.mix / times) %>%</span>
                     </div>
                 </div>
             </div>

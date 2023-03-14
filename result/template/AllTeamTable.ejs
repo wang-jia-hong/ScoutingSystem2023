@@ -116,7 +116,7 @@
                                     >    
                                     </div>
                                 </td>
-                                <td rowspan="2"><%= getAverage(document.rp / times) %>/<%= document.rp %></td>
+                                <td rowspan="2"><% if(gameType !== 2) { %>n / a<% } else { %> <%= getAverage(document.rp / times) %>/<%= document.rp %><% } %></td>
                                 <td rowspan="2">
                                     <% const stability = getRate(times / ( document.absence + times) ) %>
                                     <span style="
