@@ -59,6 +59,9 @@
                             <% } %>
             
                             <tr>
+                                <div>
+                                    
+                                </div>
                                 <td rowspan="2"><a href="./<%=gameType%>/<%=document.teamNumber%>" target="_blank" ><%= document.teamNumber %></a></td>
                                 <td>A</td>
                                 
@@ -116,14 +119,16 @@
                                     >    
                                     </div>
                                 </td>
-                                <td rowspan="2"><% if(gameType !== 2) { %>n / a<% } else { %> <%= getAverage(document.rp / times) %>/<%= document.rp %><% } %></td>
+                                <td rowspan="2"><% if(gameType !== '2') { %>n / a<% } else { %> <%= getAverage(document.rp / times) %>/<%= document.rp %><% } %></td>
                                 <td rowspan="2">
-                                    <% const stability = getRate(times / ( document.absence + times) ) %>
-                                    <span style="
-                                        color: <% if(stability >= 80) { %> var(--ratingColor1) <% } else if(stability >= 50) { %> var(--ratingColor2) <% } else { %> var(--ratingColor3) <% } %>;
-                                    ">
-                                        <%= stability %>
-                                    </span>
+                                    <div id="bottom-div">
+                                        <% const stability = getRate(times / ( document.absence + times) ) %>
+                                        <span style="
+                                            color: <% if(stability >= 80) { %> var(--ratingColor1) <% } else if(stability >= 50) { %> var(--ratingColor2) <% } else { %> var(--ratingColor3) <% } %>;
+                                        ">
+                                            <%= stability %>
+                                        </span>
+                                    </div>
                                 </td>
                             </tr>
                             <tr class="bottom-tr">
@@ -160,13 +165,8 @@
                                         </div>
                                     <% } %>
                                 </td>
-                                
-                                <!-- <td><%= //getRate(document.dockT / times) %></td>
-                                <td><%= //getRate(document.engageT / times) %></td>
-                                <td><%= //getRate(document.parkT / times) %></td> -->
                                 <td><%= getAverage(document.pointT / times) %></td>
                             </tr>
-                                
                 
                                 
                         <% }) %>

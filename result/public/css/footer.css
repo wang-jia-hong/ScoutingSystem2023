@@ -1,7 +1,7 @@
 footer {
     background-color: var(--logoBlue);
     width: 100%;
-    height: 4%;
+    height: calc(var(--pageFontSize) * 2);
     position: fixed;
     bottom: 0;
     left: 0;
@@ -21,43 +21,44 @@ footer {
 
 #f-powered-by {
     width: fit-content;
-    height: 4%;
+    height: 100%;
     margin: 0;
     color: #ffffff;
-    font-family: Raleway;
-    position: fixed;
+    font-family: Raleway, Noto Sans TC, serif;
+    position: relative;
     bottom: 0;
     left: 2%;
+    float: left;
     display: flex;
     align-items: center;
     font-size: var(--pageFontSize);
+    transform: scale(0.8);
 }
 
 #f-source-code {
     width: fit-content;
-    height: 4%;
+    height: 100%;
     margin: 0;
     color: #ffffff;
     font-family: Raleway;
-    position: fixed;
+    position: relative;
     bottom: 0;
-    left: calc(var(--pageFontSize) * 25);
+    right: 15vmin;
+    float: right;
     display: flex;
     align-items: center;
     font-size: var(--pageFontSize);
+    transform: scale(0.8);
+    text-decoration: none;
 }
 
 #github-mark {
-    height: 45%;
+    height: 50%;
     margin: 0px calc(var(--pageFontSize) * 0.8 ); 
 }
 
-#f-source-code-link {
-    color: #ffffff;
-}
-
 .f-logo-div {
-    width: 8%;
+    width: 15vmin;
     aspect-ratio: 1 / 1;
     border-radius: 2vmin;
     background-color: var(--logoBlue);
@@ -73,7 +74,7 @@ footer {
 }
 
 .f-logo-div-noShadow {
-    /* box-shadow: transparent 0 0 20px; */
+    box-shadow: transparent 0 0 20px;
     transition: 1s;
 }
 
@@ -98,7 +99,7 @@ footer {
 }
 
 .toolbar-div-show {
-    height: 250%;
+    height: 15vmin;
     border-radius: 2vmin;
     transition: 0.5s;
 }
