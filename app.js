@@ -14,6 +14,14 @@ const { getAllTeamResult, getOneTeamResult } = require('./result/routes/result')
 
 const { findUser, insertUser, googleLogin, loginVerify, submitApprove } = require('./login/routes/authentication');
 
+// app.use(function (req, res, next) {
+// 	res.setHeader(
+// 		'Content-Security-Policy',
+// 		// eslint-disable-next-line quotes
+// 		"default-src 'self'; font-src 'self' fonts.gstatic.com ka-f.fontawesome.com; img-src 'self'; script-src 'self' cdn.jsdelivr.net kit.fontawesome.com; style-src 'self' fonts.googleapis.com; frame-src 'self'; connect-src 'self' ws: ka-f.fontawesome.com ;"
+// 	);
+// 	next();
+//   });
 app.use(express.json());
 app.use('/login', express.static('./home/public'));
 app.use('/record', [loginVerify, express.static('./record/public')]);

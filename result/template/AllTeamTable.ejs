@@ -27,7 +27,7 @@
                     
         
                     <tbody>
-                        <% data.forEach( document => { %>
+                        <% data.forEach( (document, index) => { %>
                             <% const times = document.times %>
             
                             <% const getRate = (num) => { %>
@@ -66,7 +66,7 @@
                                 <td>A</td>
                                 
                                 <td>
-                                    <div class="chart-div" 
+                                    <div class="chart chart-left"
                                         style=
                                             "background: linear-gradient(to right, var(--chartColor1) <%= getRate(document.topA / cargoTotalA) %>%, var(--chartColor2) <%= getRate(document.topA / cargoTotalA) %>%, var(--chartColor2) <%= getRate((document.topA + document.middleA) / cargoTotalA) %>%, var(--chartColor3) <%= getRate((document.topA + document.middleA) / cargoTotalA) %>% <% if(document.topA + document.middleA + document.bottomA === 0) { %>, var(--chartColorNone) 0% <% } %>);"
                                         hover-content=
@@ -76,7 +76,7 @@
                                 </td>
 
                                 <td>
-                                    <div class="chart-div" 
+                                    <div class="chart chart-left"
                                         style=
                                             "background: linear-gradient(to right, var(--chartColor1) <%= getRate(document.dockA / times) %>%, var(--chartColor2) <%= getRate(document.dockA / times) %>%, var(--chartColor2) <%= getRate((document.dockA + document.mobilityA) / times) %>%, var(--chartColorNone) <%= getRate((document.dockA + document.mobilityA) / times) %>%);"
                                         hover-content=
@@ -89,7 +89,7 @@
                                     <% if(document.dockA === 0) { %>
                                         n/a
                                     <% } else { %>
-                                        <div class="chart-div" 
+                                        <div class="chart chart-left"
                                             style=
                                                 "background: linear-gradient(to right, var(--chartColor1) <%= getRate(document.engageA / document.dockA) %>%, var(--chartColorNone) <%= getRate(document.engageA / document.dockA) %>%);"
                                                 hover-content=
@@ -102,7 +102,7 @@
                                 <td rowspan="2"><%= getAverage(document.link / times) %></td>
                                 <td rowspan="2"><%= getAverage(document.penalty / times) %></td>
                                 <td rowspan="2">
-                                    <div class="chart-div" 
+                                    <div class="chart chart-right" 
                                     style=
                                         "background: linear-gradient(to right, var(--chartColor1) <%= getRate(document.win / times) %>%, var(--chartColor2) <%= getRate(document.win / times) %>%, var(--chartColor2) <%= getRate((document.win + document.lose) / times) %>%, var(--chartColor3) <%= getRate((document.win + document.lose) / times) %>%);"
                                     hover-content=
@@ -111,7 +111,7 @@
                                     </div>
                                 </td>
                                 <td rowspan="2">
-                                    <div class="chart-div" 
+                                    <div class="chart chart-right" 
                                         style=
                                             "background: linear-gradient(to right, var(--chartColor1) <%= getRate(document.offensive / times) %>%, var(--chartColor2) <%= getRate(document.offensive / times) %>%, var(--chartColor2) <%= getRate((document.offensive + document.defensive) / times) %>%, var(--chartColor3) <%= getRate((document.offensive + document.defensive) / times) %>%);"
                                         hover-content=
@@ -134,7 +134,7 @@
                             <tr class="bottom-tr">
                                 <td>T</td>
                                 <td>
-                                    <div class="chart-div" 
+                                    <div class="chart chart-left"
                                         style=
                                             "background: linear-gradient(to right, var(--chartColor1) <%= getRate(document.topT / cargoTotalT) %>%, var(--chartColor2) <%= getRate(document.topT / cargoTotalT) %>%, var(--chartColor2) <%= getRate((document.topT + document.middleT) / cargoTotalT) %>%, var(--chartColor3) <%= getRate((document.topT + document.middleT) / cargoTotalT) %>% <% if(document.topT + document.middleT + document.bottomT === 0) { %>, var(--chartColorNone) 0% <% } %>);"
                                         hover-content=
@@ -143,7 +143,7 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <div class="chart-div" 
+                                    <div class="chart chart-left" 
                                         style=
                                             "background: linear-gradient(to right, var(--chartColor1) <%= getRate(document.dockT / times) %>%, var(--chartColor2) <%= getRate(document.dockT / times) %>%, var(--chartColor2) <%= getRate((document.dockT + document.parkT) / times) %>%, var(--chartColorNone) <%= getRate((document.dockT + document.parkT) / times) %>%);"
                                         hover-content=
@@ -156,7 +156,7 @@
                                     <% if(document.dockT === 0) { %>
                                         n/a
                                     <% } else { %>
-                                        <div class="chart-div" 
+                                        <div class="chart chart-left" 
                                             style=
                                                 "background: linear-gradient(to right, var(--chartColor1) <%= getRate(document.engageT / document.dockT) %>%, var(--chartColorNone) <%= getRate(document.engageT / document.dockT) %>%);"
                                             hover-content=
@@ -176,6 +176,16 @@
                     </tbody>
                 </table>
             </div>
-        </div> 
+        </div>
+        <script>
+            const charts = document.querySelectorAll('.chart');
+            ['mouseover', 'mouseout'].forEach(event => {
+                charts.forEach( chart => {
+                    chart.addEventListener(event, () => {
+                        chart.classList.toggle('chart-withBefore');
+                    });
+                });
+            });
+        </script>
     </body>
 </html>

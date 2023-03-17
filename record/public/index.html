@@ -2,231 +2,18 @@
 <html lang="zh-TW">
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
         <title>觀賽系統</title>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans+SC&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Shantell+Sans&display=swap" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="./css/index.css">
         <link rel="stylesheet" type="text/css" href="./css/start-dialog.css">
         <link rel="stylesheet" type="text/css" href="./css/info-dialog.css">
         <link rel="stylesheet" type="text/css" href="./css/count-dialog.css">
         <link rel="stylesheet" type="text/css" href="./css/result-dialog.css">
-        <style>
-            :root {
-                --w: 0;
-                --h: 0;
-                --box-shadow-offset: 0.3vmin;
-                --box-shadow-size: 3vmin;
-                --font-size: 2vmin;
-                touch-action: manipulation;
-                box-sizing: border-box;
-            }
-
-            ::-webkit-scrollbar {
-                display: none;
-            }
-
-            @font-face {
-                font-family: JasonHandwriting;
-                src: url('./JasonHandwriting1.woff');
-            }
-
-            body {    
-                margin: 0 !important;
-                padding: 0 !important;
-                width: 100vw;
-                height: 100vh;
-                background-color: black;
-                /* min-width: 500px;
-                min-height: 500px; */
-                overflow: hidden;
-            }
-
-            #body-div {
-                width: 100%;
-                height: 100%;
-                overflow: auto;
-                z-index: 1;
-            }
-
-            dialog {
-                border: none;
-                box-shadow: 0 0 0;
-                width: 100%;
-                height: 100%;
-                padding: 0;
-                margin: 0;
-                background-color: black;
-                user-select:none;
-                overflow: auto;
-                z-index: 100;
-            }
-
-            dialog:modal {
-                position: fixed;
-                inset-block-start: 0px;
-                inset-block-end: 0px;
-                max-width: 100%;
-                max-height: 100%;
-                user-select: text;
-                visibility: visible;
-                overflow: auto;
-            }
-
-            .dialog-div {
-                width: 100%;
-                height: 100%;
-                background-color: #000000;
-                overflow: auto;
-            }
-
-            .dialog-inner-div {
-                width: var(--w);
-                height: var(--h);
-            }
-
-            #lastPage-div {
-                width: var(--w);
-                height: var(--h);
-            }
-
-            #comment-form {
-                width: 100%;
-                height: 75%;
-                display: flex;
-                justify-content: center;
-                align-items: end;
-            }
-
-            #comment-form-div {
-                width: 70%;
-                height: 90%;
-            }
-
-            #comment-label {
-                height: 10%;
-                display: block;
-                color: #ffe0e0;
-                font-size: var(--font-size);
-                letter-spacing: calc(var(--font-size) * 0.3);
-                font-family: 'Alegreya Sans SC', serif;
-            }
-
-            #comment-textarea {
-                width: 100%;
-                height: 80%;
-                padding: 5%;
-                box-sizing: border-box;
-                border: 0;
-                border-radius: 2vmin;
-                display: block;
-                background-color: #000000;
-                color: #ffe0e0;
-                box-shadow: #ffdfdf73 0px 0px var(--box-shadow-size), inset #ffdfdf73 0px 0px var(--box-shadow-size);
-                font-size: var(--font-size);
-                font-family: 'Shantell Sans', 'JasonHandwriting', serif;
-                outline: none;
-            }
-
-            #submit-btn-div {
-                width: 100%;
-                height: 15%;
-                position: relative;
-                top: 3%;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                color: #ffe0e0;
-                font-size: var(--font-size);
-            }
-
-            .submit-btn {
-                width: 8%;
-                aspect-ratio: 1 / 1;
-                border: 0;
-                padding: 0;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                border-radius: 3vmin;
-                background-color: #000000;
-                color: #ffe0e0;
-                animation: rotate 2s linear infinite;
-                transition: 0.8s;
-            }
-
-            .submit-btn-noAnimation {
-                animation: none;
-                box-shadow: #ffe0e0 0px 0px var(--box-shadow-size), inset #ffe0e0 0px 0px var(--box-shadow-size);
-            }
-
-            .submit-btn-clicked {
-                width: 5%;
-                aspect-ratio: 1 / 1;
-                box-shadow: #ffe0e0 0px 0px 0px, inset #ffe0e0 0px 0px 0px;
-                border: 0.5vmin solid transparent;
-                border-top: 0.5vmin solid #ffe0e0;
-                border-radius: 50%;
-                animation: loading 1s 0.2s linear infinite;
-                transition: 0.8s;
-            }
-
-            #submit-icon {
-                animation: none;
-            }
-
-            .submit-icon {
-                position: absolute;
-                left: 45%;
-                bottom: 15%;
-                height: 70%;
-                width: 10%;
-                display: flex !important;
-                justify-content: center;
-                align-items: center;
-                pointer-events: none;
-            }
-
-            .submit-icon-fly {
-                bottom: 400%;
-                left: 100%;
-                color: transparent;
-                transition: 3s;
-            }
-
-            @keyframes rotate {
-                0%{
-                    box-shadow: #ffe0e0 var(--box-shadow-offset) 0px var(--box-shadow-size), inset #ffe0e0 calc(var(--box-shadow-offset) * -1) 0px var(--box-shadow-size);
-                }
-                25%{
-                    box-shadow: #ffe0e0 0px var(--box-shadow-offset) var(--box-shadow-size), inset #ffe0e0 0px calc(var(--box-shadow-offset) * -1) var(--box-shadow-size);
-                }
-                50%{
-                    box-shadow: #ffe0e0 calc(var(--box-shadow-offset) * -1) 0px var(--box-shadow-size), inset #ffe0e0 var(--box-shadow-offset) 0px var(--box-shadow-size);
-                }
-                75%{
-                    box-shadow: #ffe0e0 0px calc(var(--box-shadow-offset) * -1) var(--box-shadow-size), inset #ffe0e0 0px var(--box-shadow-offset) var(--box-shadow-size);
-                }
-                100%{
-                    box-shadow: #ffe0e0 var(--box-shadow-offset) 0px var(--box-shadow-size), inset #ffe0e0 calc(var(--box-shadow-offset) * -1) 0px var(--box-shadow-size);
-                }
-            }
-
-            @keyframes loading {
-                0% { transform: rotate(0deg); }
-                100% { transform: rotate(360deg); }
-            }
-
-            @media only screen and (orientation: portrait) {
-                .submit-btn { width: 15%; }
-                .submit-btn-clicked { width: 10%; }
-            }
-
-        </style>
     </head>
     <body id="body">
-        
             <dialog open id="s-dialog">
                 <div id="s-dialog-div" class="dialog-inner-div">
                     <button id="s-dialog-btn" onclick="start()">start</button>
@@ -263,27 +50,27 @@
                         <div id="i-d-keyboard-div">
     
                             <div class="keyboard-div">
-                                <div class="keyboard-btn-div"> <button class="keyboard-btn" id="i-keyboard-btn1" onclick="keyboard('i', 1)">1</button> </div>
-                                <div class="keyboard-btn-div"> <button class="keyboard-btn" id="i-keyboard-btn2" onclick="keyboard('i', 2)">2</button> </div>
-                                <div class="keyboard-btn-div"> <button class="keyboard-btn" id="i-keyboard-btn3" onclick="keyboard('i', 3)">3</button> </div>
+                                <div class="keyboard-btn-div"> <button class="keyboard-btn keyboard-num-btn" id="i-keyboard-btn1" mode="i" keyboard="1">1</button> </div>
+                                <div class="keyboard-btn-div"> <button class="keyboard-btn keyboard-num-btn" id="i-keyboard-btn2" mode="i" keyboard="2">2</button> </div>
+                                <div class="keyboard-btn-div"> <button class="keyboard-btn keyboard-num-btn" id="i-keyboard-btn3" mode="i" keyboard="3">3</button> </div>
                             </div>
     
                             <div class="keyboard-div">
-                                <div class="keyboard-btn-div"> <button class="keyboard-btn" id="i-keyboard-btn4" onclick="keyboard('i', 4)">4</button> </div>
-                                <div class="keyboard-btn-div"> <button class="keyboard-btn" id="i-keyboard-btn5" onclick="keyboard('i', 5)">5</button> </div>
-                                <div class="keyboard-btn-div"> <button class="keyboard-btn" id="i-keyboard-btn6" onclick="keyboard('i', 6)">6</button> </div>
+                                <div class="keyboard-btn-div"> <button class="keyboard-btn keyboard-num-btn" id="i-keyboard-btn4" mode="i" keyboard="4">4</button> </div>
+                                <div class="keyboard-btn-div"> <button class="keyboard-btn keyboard-num-btn" id="i-keyboard-btn5" mode="i" keyboard="5">5</button> </div>
+                                <div class="keyboard-btn-div"> <button class="keyboard-btn keyboard-num-btn" id="i-keyboard-btn6" mode="i" keyboard="6">6</button> </div>
                             </div>
     
                             <div class="keyboard-div">
-                                <div class="keyboard-btn-div"> <button class="keyboard-btn" id="i-keyboard-btn7" onclick="keyboard('i', 7)">7</button> </div>
-                                <div class="keyboard-btn-div"> <button class="keyboard-btn" id="i-keyboard-btn8" onclick="keyboard('i', 8)">8</button> </div>
-                                <div class="keyboard-btn-div"> <button class="keyboard-btn" id="i-keyboard-btn9" onclick="keyboard('i', 9)">9</button> </div>
+                                <div class="keyboard-btn-div"> <button class="keyboard-btn keyboard-num-btn" id="i-keyboard-btn7" mode="i" keyboard="7">7</button> </div>
+                                <div class="keyboard-btn-div"> <button class="keyboard-btn keyboard-num-btn" id="i-keyboard-btn8" mode="i" keyboard="8">8</button> </div>
+                                <div class="keyboard-btn-div"> <button class="keyboard-btn keyboard-num-btn" id="i-keyboard-btn9" mode="i" keyboard="9">9</button> </div>
                             </div>
     
                             <div class="keyboard-div">
                                 <div class="keyboard-btn-div"></div>
-                                <div class="keyboard-btn-div"> <button class="keyboard-btn" id="i-keyboard-btn0" onclick="keyboard('i', 0)">0</button> </div>
-                                <div class="keyboard-btn-div"> <button class="keyboard-btn" id="i-delete-btn" onclick="backspace('i')"><i class="fa-solid  fa-delete-left ft-lg" id="delete-icon"></i></button> </div>
+                                <div class="keyboard-btn-div"> <button class="keyboard-btn keyboard-num-btn" id="i-keyboard-btn0" mode="i" keyboard="0">0</button> </div>
+                                <div class="keyboard-btn-div"> <button class="keyboard-btn keyboard-del-btn" id="i-delete-btn" mode="i"><i class="fa-solid  fa-delete-left ft-lg" id="delete-icon"></i></button> </div>
                             </div>
                             
                         </div>
@@ -421,7 +208,7 @@
                 <div id="r1-dialog-div" class="dialog-div">
                     <div class="dialog-inner-div">
                         <div id="r1-gameResult-div" class="r1-btn-div">
-                            <button id="r1-win-btn" class="r1-btn" onclick="gameResultBtnClicked('win')" >win</button>
+                            <button id="r1-win-btn" class="r1-btn" onclick="gameResultBtnClicked('win')">win</button>
                             <button id="r1-lose-btn" class="r1-btn" onclick="gameResultBtnClicked('lose')">lose</button>
                             <button id="r1-tie-btn" class="r1-btn" onclick="gameResultBtnClicked('tie')">tie</button>
                         </div>
@@ -478,27 +265,27 @@
                         <div id="r2-d-keyboard-div">
     
                             <div class="keyboard-div">
-                                <div class="keyboard-btn-div"> <button class="keyboard-btn" id="r2-keyboard-btn1" onclick="keyboard('r2', 1)">1</button> </div>
-                                <div class="keyboard-btn-div"> <button class="keyboard-btn" id="r2-keyboard-btn2" onclick="keyboard('r2', 2)">2</button> </div>
-                                <div class="keyboard-btn-div"> <button class="keyboard-btn" id="r2-keyboard-btn3" onclick="keyboard('r2', 3)">3</button> </div>
+                                <div class="keyboard-btn-div"> <button class="keyboard-btn  keyboard-num-btn" id="r2-keyboard-btn1" mode="r2" keyboard="1">1</button> </div>
+                                <div class="keyboard-btn-div"> <button class="keyboard-btn  keyboard-num-btn" id="r2-keyboard-btn2" mode="r2" keyboard="2">2</button> </div>
+                                <div class="keyboard-btn-div"> <button class="keyboard-btn  keyboard-num-btn" id="r2-keyboard-btn3" mode="r2" keyboard="3">3</button> </div>
                             </div>
     
                             <div class="keyboard-div">
-                                <div class="keyboard-btn-div"> <button class="keyboard-btn" id="r2-keyboard-btn4" onclick="keyboard('r2', 4)">4</button> </div>
-                                <div class="keyboard-btn-div"> <button class="keyboard-btn" id="r2-keyboard-btn5" onclick="keyboard('r2', 5)">5</button> </div>
-                                <div class="keyboard-btn-div"> <button class="keyboard-btn" id="r2-keyboard-btn6" onclick="keyboard('r2', 6)">6</button> </div>
+                                <div class="keyboard-btn-div"> <button class="keyboard-btn keyboard-num-btn" id="r2-keyboard-btn4" mode="r2" keyboard="4">4</button> </div>
+                                <div class="keyboard-btn-div"> <button class="keyboard-btn keyboard-num-btn" id="r2-keyboard-btn5" mode="r2" keyboard="5">5</button> </div>
+                                <div class="keyboard-btn-div"> <button class="keyboard-btn keyboard-num-btn" id="r2-keyboard-btn6" mode="r2" keyboard="6">6</button> </div>
                             </div>
     
                             <div class="keyboard-div">
-                                <div class="keyboard-btn-div"> <button class="keyboard-btn" id="r2-keyboard-btn7" onclick="keyboard('r2', 7)">7</button> </div>
-                                <div class="keyboard-btn-div"> <button class="keyboard-btn" id="r2-keyboard-btn8" onclick="keyboard('r2', 8)">8</button> </div>
-                                <div class="keyboard-btn-div"> <button class="keyboard-btn" id="r2-keyboard-btn9" onclick="keyboard('r2', 9)">9</button> </div>
+                                <div class="keyboard-btn-div"> <button class="keyboard-btn keyboard-num-btn" id="r2-keyboard-btn7" mode="r2" keyboard="7">7</button> </div>
+                                <div class="keyboard-btn-div"> <button class="keyboard-btn keyboard-num-btn" id="r2-keyboard-btn8" mode="r2" keyboard="8">8</button> </div>
+                                <div class="keyboard-btn-div"> <button class="keyboard-btn keyboard-num-btn" id="r2-keyboard-btn9" mode="r2" keyboard="9">9</button> </div>
                             </div>
     
                             <div class="keyboard-div">
                                 <div class="keyboard-btn-div"></div>
-                                <div class="keyboard-btn-div"> <button class="keyboard-btn" id="r2-keyboard-btn0" onclick="keyboard('r2', 0)">0</button> </div>
-                                <div class="keyboard-btn-div"> <button class="keyboard-btn" id="r2-delete-btn" onclick="backspace('r2')"><i class="fa-solid  fa-delete-left ft-lg" id="delete-icon"></i></button> </div>
+                                <div class="keyboard-btn-div"> <button class="keyboard-btn keyboard-num-btn" id="r2-keyboard-btn0" mode="r2" keyboard="0">0</button> </div>
+                                <div class="keyboard-btn-div"> <button class="keyboard-btn keyboard-del-btn" id="r2-delete-btn" mode="r2"><i class="fa-solid  fa-delete-left ft-lg" id="delete-icon"></i></button> </div>
                             </div>
                             
                         </div>
@@ -532,17 +319,15 @@
                 </form>
                 <div id="submit-btn-div">
                     <button type="button" id="submit-btn" class="submit-btn" onclick="submit()"></button>
-                    <i id="submit-icon" class="fa-solid fa-paper-plane ft-lg submit-icon"></i>
+                    <div id="submit-icon-div" class="submit-icon-div">
+                        <i id="submit-icon" class="fa-solid fa-paper-plane ft-lg"></i>
+                    </div>
                 </div>
             </div>
         </div>
-            
     </body>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="https://kit.fontawesome.com/3034cde1c1.js" crossorigin="anonymous"></script>
-    <script src="./setSize.js"></script>
-    <script src="./index.js"></script>
-
-    
-    <script src="./infoDialog.js"></script>
+    <script src="./js/fontawesome/all.js"></script>
+    <script src="./js/index.js"></script>
+    <script src="./js/setSize.js"></script>
 </html>

@@ -95,26 +95,35 @@ tr {
     height: 100%;
 } */
 
-.chart-div {
+.chart {
     width: 80%;
     height: 1vh;
     position: relative;
     left: 10%;
+    cursor: pointer;
 }
 
-.chart-div:hover::before {
+.chart-withBefore::before {
     width: fit-content;
     padding: 2% 12%;
     content: attr(hover-content);
     white-space:nowrap;
     position: absolute;
     top: 200%;
-    left: -30%;
     background-color: #b7b7b7;
     border-radius: 3vmin;
-    font-size: 12px;
+    font-size: var(--pageFontSize);
     letter-spacing: 2px;
     color: #000000;
+    cursor: pointer;
+}
+
+.chart-left::before {
+    left: 0%;
+}
+
+.chart-right::before {
+    right: -120%;
 }
 
 @media only screen and (max-width: 1100px) {

@@ -1,0 +1,211 @@
+:root {
+    --w: 0;
+    --h: 0;
+    --box-shadow-offset: 0.3vmin;
+    --box-shadow-size: 3vmin;
+    --font-size: 2vmin;
+    touch-action: manipulation;
+    box-sizing: border-box;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+@font-face {
+    font-family: JasonHandwriting;
+    src: url('./JasonHandwriting1.woff');
+}
+
+body {    
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+    /* min-width: 500px;
+    min-height: 500px; */
+    overflow: hidden;
+}
+
+#body-div {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    z-index: 1;
+}
+
+dialog {
+    border: none;
+    box-shadow: 0 0 0;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    background-color: black;
+    user-select:none;
+    overflow: auto;
+    z-index: 100;
+}
+
+dialog:modal {
+    position: fixed;
+    inset-block-start: 0px;
+    inset-block-end: 0px;
+    max-width: 100%;
+    max-height: 100%;
+    user-select: text;
+    visibility: visible;
+    overflow: auto;
+}
+
+.dialog-div {
+    width: 100%;
+    height: 100%;
+    background-color: #000000;
+    overflow: auto;
+}
+
+.dialog-inner-div {
+    width: var(--w);
+    height: var(--h);
+}
+
+#lastPage-div {
+    width: var(--w);
+    height: var(--h);
+}
+
+#comment-form {
+    width: 100%;
+    height: 75%;
+    display: flex;
+    justify-content: center;
+    align-items: end;
+}
+
+#comment-form-div {
+    width: 70%;
+    height: 90%;
+}
+
+#comment-label {
+    height: 10%;
+    display: block;
+    color: #ffe0e0;
+    font-size: var(--font-size);
+    letter-spacing: calc(var(--font-size) * 0.3);
+    font-family: 'Alegreya Sans SC', serif;
+}
+
+#comment-textarea {
+    width: 100%;
+    height: 80%;
+    padding: 5%;
+    box-sizing: border-box;
+    border: 0;
+    border-radius: 2vmin;
+    display: block;
+    background-color: #000000;
+    color: #ffe0e0;
+    box-shadow: #ffdfdf73 0px 0px var(--box-shadow-size), inset #ffdfdf73 0px 0px var(--box-shadow-size);
+    font-size: var(--font-size);
+    font-family: 'Shantell Sans', 'JasonHandwriting', serif;
+    outline: none;
+}
+
+#submit-btn-div {
+    width: 100%;
+    height: 15%;
+    position: relative;
+    top: 3%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ffe0e0;
+    font-size: var(--font-size);
+}
+
+.submit-btn {
+    width: 8%;
+    aspect-ratio: 1 / 1;
+    border: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 3vmin;
+    background-color: #000000;
+    color: #ffe0e0;
+    animation: rotate 2s linear infinite;
+    transition: 0.8s;
+}
+
+.submit-btn-noAnimation {
+    animation: none;
+    box-shadow: #ffe0e0 0px 0px var(--box-shadow-size), inset #ffe0e0 0px 0px var(--box-shadow-size);
+}
+
+.submit-btn-clicked {
+    width: 5%;
+    aspect-ratio: 1 / 1;
+    box-shadow: #ffe0e0 0px 0px 0px, inset #ffe0e0 0px 0px 0px;
+    border: 0.5vmin solid transparent;
+    border-top: 0.5vmin solid #ffe0e0;
+    border-radius: 50%;
+    animation: loading 1s 0.2s linear infinite;
+    transition: 0.8s;
+}
+
+#submit-icon-div {
+    animation: none;
+}
+
+.submit-icon-div {
+    position: absolute;
+    left: 46%;
+    bottom: 30%;
+    height: 40%;
+    width: 8%;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+    font-size: 2vw;
+}
+
+.submit-icon-div-fly {
+    bottom: 400%;
+    left: 100%;
+    color: transparent;
+    transition: 3s;
+}
+
+@keyframes rotate {
+    0%{
+        box-shadow: #ffe0e0 var(--box-shadow-offset) 0px var(--box-shadow-size), inset #ffe0e0 calc(var(--box-shadow-offset) * -1) 0px var(--box-shadow-size);
+    }
+    25%{
+        box-shadow: #ffe0e0 0px var(--box-shadow-offset) var(--box-shadow-size), inset #ffe0e0 0px calc(var(--box-shadow-offset) * -1) var(--box-shadow-size);
+    }
+    50%{
+        box-shadow: #ffe0e0 calc(var(--box-shadow-offset) * -1) 0px var(--box-shadow-size), inset #ffe0e0 var(--box-shadow-offset) 0px var(--box-shadow-size);
+    }
+    75%{
+        box-shadow: #ffe0e0 0px calc(var(--box-shadow-offset) * -1) var(--box-shadow-size), inset #ffe0e0 0px var(--box-shadow-offset) var(--box-shadow-size);
+    }
+    100%{
+        box-shadow: #ffe0e0 var(--box-shadow-offset) 0px var(--box-shadow-size), inset #ffe0e0 calc(var(--box-shadow-offset) * -1) 0px var(--box-shadow-size);
+    }
+}
+
+@keyframes loading {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@media only screen and (orientation: portrait) {
+    .submit-btn { width: 15%; }
+    .submit-btn-clicked { width: 10%; }
+    .submit-icon-div { width: 15%; left: 42.5%; font-size: 4vw; }
+}
