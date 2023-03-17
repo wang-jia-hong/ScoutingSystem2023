@@ -80,7 +80,7 @@
                                         style=
                                             "background: linear-gradient(to right, var(--chartColor1) <%= getRate(document.dockA / times) %>%, var(--chartColor2) <%= getRate(document.dockA / times) %>%, var(--chartColor2) <%= getRate((document.dockA + document.mobilityA) / times) %>%, var(--chartColorNone) <%= getRate((document.dockA + document.mobilityA) / times) %>%);"
                                         hover-content=
-                                            "dock <%= getRate(document.dockA / times) %>% mobility <%= getRate(document.mobilityA / times) %>% none <%= getRate( (times - (document.dockA + document.mobilityA) / times) ) %>%"
+                                            "dock <%= getRate(document.dockA / times) %>% mobility <%= getRate(document.mobilityA / times) %>% none <%= getRate( ( times - (document.dockA + document.mobilityA) ) / times) %>%"
                                     >    
                                     </div>
                                 </td>
@@ -147,7 +147,7 @@
                                         style=
                                             "background: linear-gradient(to right, var(--chartColor1) <%= getRate(document.dockT / times) %>%, var(--chartColor2) <%= getRate(document.dockT / times) %>%, var(--chartColor2) <%= getRate((document.dockT + document.parkT) / times) %>%, var(--chartColorNone) <%= getRate((document.dockT + document.parkT) / times) %>%);"
                                         hover-content=
-                                            "dock <%= getRate(document.dockT / times) %>% park <%= getRate(document.parkT / times) %>% none <%= getRate( (times - (document.dockT + document.parkT) / times) ) %>%"
+                                            "dock <%= getRate(document.dockT / times) %>% park <%= getRate(document.parkT / times) %>% none <%= getRate( ( times - (document.dockT + document.parkT) ) / times) %>%"
                                     >  
                                     </div>
                                 </td>

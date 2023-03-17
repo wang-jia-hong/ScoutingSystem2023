@@ -25,13 +25,153 @@
                 <div id="f-tool-div">
                     <ul id="f-ul">
                         <li class="f-li"><button class="f-tool-btn" onclick="showFilter()">filter</button></li>
+                    </ul>
                 </div>
                 <div></div>
             </div>
             <div id="filter-div" class="filter-div">
                 <div id="filter-mode-div">
-
+                    <ul id="filter-mode-ul">
+                        <li class="filter-mode-li" id="filter-auto-li" mode="auto">Auto</li>
+                        <li class="filter-mode-li" id="filter-tele-li" mode="tele">Tele</li>
+                        <li class="filter-mode-li" id="filter-other-li" mode="other">Other</li>
+                    </ul>
                 </div>
+                <div id="filter-btn-outerDiv">
+                    <div id="filter-auto-btn-div" class="filter-btn-div">
+                        <div class="filter-btn" id="topAFilterBtn" filterName="topA">
+                            <p class="filter-btn-tag">Top</btn>
+                            <p class="filter-btn-tag"><span id="topAMinTag">_</span>% - <span id="topAMaxTag">_</span>%</p>
+                        </div>
+                        <div class="filter-btn" id="middleAFilterBtn" filterName="middleA">
+                            <p class="filter-btn-tag">Middle</btn>
+                            <p class="filter-btn-tag"><span id="middleAMinTag">_</span>% - <span id="middleAMaxTag">_</span>%</p>
+                        </div>
+                        <div class="filter-btn" id="bottomAFilterBtn" filterName="bottomA">
+                            <p class="filter-btn-tag">Bottom</btn>
+                            <p class="filter-btn-tag"><span id="bottomAMinTag">_</span>% - <span id="bottomAMaxTag">_</span>%</p>
+                        </div>
+                        <div class="filter-btn" id="dockAFilterBtn" filterName="dockA">
+                            <p class="filter-btn-tag">Dock</btn>
+                            <p class="filter-btn-tag"><span id="dockAMinTag">_</span>% - <span id="dockAMaxTag">_</span>%</p>
+                        </div>
+                        <div class="filter-btn" id="mobilityAFilterBtn" filterName="mobilityA">
+                            <p class="filter-btn-tag">Mobility</btn>
+                            <p class="filter-btn-tag"><span id="mobilityAMinTag">_</span>% - <span id="mobilityAMaxTag">_</span>%</p>
+                        </div>
+                        <div class="filter-btn" id="engageAFilterBtn" filterName="engageA">
+                            <p class="filter-btn-tag">Engage</btn>
+                            <p class="filter-btn-tag"><span id="engageAMinTag">_</span>% - <span id="engageAMaxTag">_</span>%</p>
+                        </div>
+                        <div class="filter-btn" id="pointAFilterBtn" filterName="pointA">
+                            <p class="filter-btn-tag">Point</btn>
+                            <p class="filter-btn-tag"><span id="pointAMinTag">_</span>% - <span id="pointAMaxTag">_</span>%</p>
+                        </div>
+                    </div>
+                    <div id="filter-tele-btn-div" class="filter-btn-div">
+                        <div class="filter-btn" id="topTFilterBtn" filterName="topT">
+                            <p class="filter-btn-tag">Top</btn>
+                            <p class="filter-btn-tag"><span id="topTMinTag">_</span>% - <span id="topTMaxTag">_</span>%</p>
+                        </div>
+                        <div class="filter-btn" id="middleTFilterBtn" filterName="middleT">
+                            <p class="filter-btn-tag">Middle</btn>
+                            <p class="filter-btn-tag"><span id="middleTMinTag">_</span>% - <span id="middleTMaxTag">_</span>%</p>
+                        </div>
+                        <div class="filter-btn" id="bottomTFilterBtn" filterName="bottomT">
+                            <p class="filter-btn-tag">Bottom</btn>
+                            <p class="filter-btn-tag"><span id="bottomTMinTag">_</span>% - <span id="bottomTMaxTag">_</span>%</p>
+                        </div>
+                        <div class="filter-btn" id="dockTFilterBtn" filterName="dockT">
+                            <p class="filter-btn-tag">Dock</btn>
+                            <p class="filter-btn-tag"><span id="dockTMinTag">_</span>% - <span id="dockTMaxTag">_</span>%</p>
+                        </div>
+                        <div class="filter-btn" id="parkTFilterBtn" filterName="parkT">
+                            <p class="filter-btn-tag">Park</btn>
+                            <p class="filter-btn-tag"><span id="parkTMinTag">_</span>% - <span id="parkTMaxTag">_</span>%</p>
+                        </div>
+                        <div class="filter-btn" id="engageTFilterBtn" filterName="engageT">
+                            <p class="filter-btn-tag">Engage</btn>
+                            <p class="filter-btn-tag"><span id="engageTMinTag">_</span>% - <span id="engageTMaxTag">_</span>%</p>
+                        </div>
+                        <div class="filter-btn" id="pointTFilterBtn" filterName="pointT">
+                            <p class="filter-btn-tag">Point</btn>
+                            <p class="filter-btn-tag"><span id="pointTMinTag">_</span>% - <span id="pointTMaxTag">_</span>%</p>
+                        </div>
+                    </div>
+                    <div id="filter-other-btn-div" class="filter-btn-div">
+                        <div class="filter-btn" id="linkFilterBtn" filterName="link">
+                            <p class="filter-btn-tag">Link</btn>
+                            <p class="filter-btn-tag"><span id="linkMinTag">_</span> - <span id="linkMaxTag">_</span></p>
+                        </div>
+                        <div class="filter-btn" id="penaltyFilterBtn" filterName="penalty">
+                            <p class="filter-btn-tag">Penalty</btn>
+                            <p class="filter-btn-tag"><span id="penaltyMinTag">_</span> - <span id="penaltyMaxTag">_</span></p>
+                        </div>
+                        <div class="filter-btn" id="winFilterBtn" filterName="win">
+                            <p class="filter-btn-tag">Win</btn>
+                            <p class="filter-btn-tag"><span id="winMinTag">_</span>% - <span id="winMaxTag">_</span>%</p>
+                        </div>
+                        <div class="filter-btn" id="loseFilterBtn" filterName="lose">
+                            <p class="filter-btn-tag">Lose</btn>
+                            <p class="filter-btn-tag"><span id="loseMinTag">_</span>% - <span id="loseMaxTag">_</span>%</p>
+                        </div>
+                        <div class="filter-btn" id="tieFilterBtn" filterName="tie">
+                            <p class="filter-btn-tag">Tie</btn>
+                            <p class="filter-btn-tag"><span id="tieMinTag">_</span>% - <span id="tieMaxTag">_</span>%</p>
+                        </div>
+                        <div class="filter-btn" id="offensiveFilterBtn" filterName="offensive">
+                            <p class="filter-btn-tag">Offensive</btn>
+                            <p class="filter-btn-tag"><span id="offensiveMinTag">_</span>% - <span id="offensiveMaxTag">_</span>%</p>
+                        </div>
+                        <div class="filter-btn" id="defensiveFilterBtn" filterName="defensive">
+                            <p class="filter-btn-tag">Defensive</btn>
+                            <p class="filter-btn-tag"><span id="defensiveMinTag">_</span>% - <span id="defensiveMaxTag">_</span>%</p>
+                        </div>
+                        <div class="filter-btn" id="mixFilterBtn" filterName="mix">
+                            <p class="filter-btn-tag">Mix</btn>
+                            <p class="filter-btn-tag"><span id="mixMinTag">_</span>% - <span id="mixMaxTag">_</span>%</p>
+                        </div>
+                        <div class="filter-btn" id="rpFilterBtn" filterName="rp">
+                            <p class="filter-btn-tag">Avg RP</btn>
+                            <p class="filter-btn-tag"><span id="rpMinTag">_</span> - <span id="rpMaxTag">_</span></p>
+                        </div>
+                        <div class="filter-btn" id="stabilityFilterBtn" filterName="stability">
+                            <p class="filter-btn-tag">Stability</btn>
+                            <p class="filter-btn-tag"><span id="stabilityMinTag">_</span> - <span id="stabilityMaxTag">_</span></p>
+                        </div>
+                    </div>
+                </div>
+                <div id="filter-tool-div">
+                    <div id="filter-slider-outerDiv">
+                        <div id="filter-slider-div">
+                            <div class="slider-extr-tag-div">
+                                <p class="slider-extr-tag" id="slider-min-tag">30</p>
+                            </div>
+                            
+                            <div id="filter-slider-range-div">
+                                <div id="slider-track"></div>
+                            
+
+                                <div id="filter-range-outerDiv">
+                                    <div class="filter-range-div" id="filter-range1-div">
+                                        <input type="range" max="100" min="0" value="30" id="slider1" class="filter-range">
+                                    </div>
+        
+                                    <div class="filter-range-div" id="filter-range2-div">
+                                        <input type="range" max="100" min="0" value="70" id="slider2" class="filter-range">
+                                    </div>
+                                </div>
+
+                            </div>
+                            
+                            <div class="slider-extr-tag-div">
+                                <p class="slider-extr-tag" id="slider-max-tag">70</p>
+                            </div>     
+                            
+                        </div>
+                    </div>
+                </div>
+                <div id="filter-submit-btn" gameType="<%= gameType %>">Submit</div>
             </div>
         </footer>
 

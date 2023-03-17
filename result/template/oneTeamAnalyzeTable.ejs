@@ -154,7 +154,7 @@
             }
 
             #strategy-pie-chart::before {
-                background: conic-gradient(var(--chartColor1) <%= getRate(analyzeData.offensive / times) %>%, var(--chartColor2) <%= getRate(analyzeData.offensive / times) %>% <%= getRate( (analyzeData.offensive + analyzeData.defensive) / times ) %>%, var(--chartColor3) <%= getRate( (analyzeData.offensive + analyzeData.defensive) / times) %>%);
+                background: conic-gradient(var(--chartColor1) <%= getRate(analyzeData.offensive / times) %>%, var(--chartColor2) <%= getRate(analyzeData.offensive / times) %>% <%= getRate( (analyzeData.offensive + analyzeData.defensive) / times ) %>%, var(--chartColor3) <%= getRate( (analyzeData.offensive + analyzeData.defensive) / times) %>%, var(--chartColorNone) <%= getRate((analyzeData.offensive + analyzeData.defensive + analyzeData.mix) / times) %>%);
             }
 
             .pie-chart::after {
@@ -171,7 +171,6 @@
                 bottom: 8%;
                 left: 10%;
                 border-radius: 50%;
-                /* z-index: 500; */
             }
 
             #piecesA-pie-chart::after {
@@ -208,15 +207,18 @@
 
             .pie-chart-legend-outerDiv {
                 width: 55%;
-                height: 40%;
+                height: 60%;
                 position: absolute;
                 bottom: 5%;
                 right: 0%;
+                display: flex;
+                flex-wrap: wrap;
+                align-items: end;
             }
 
             .pie-chart-legend-div {
                 width: 100%;
-                height: 30%;
+                height: 25%;
                 display: flex;
                 align-items: center;
                 justify-content: left;
@@ -454,6 +456,10 @@
                     <div class="pie-chart-legend-div">
                         <div class="pie-chart-legend pie-chart-legend3"></div>
                         <span class="pie-chart-legend-lebel pie-chart-legend-lebel3">mix <%= getRate(analyzeData.mix / times) %>%</span>
+                    </div>
+                    <div class="pie-chart-legend-div">
+                        <div class="pie-chart-legend pie-chart-legendNone"></div>
+                        <span class="pie-chart-legend-lebel pie-chart-legend-lebelNone">none <%= getRate((times - (analyzeData.offensive + analyzeData.defensive + analyzeData.mix)) / times) %>%</span>
                     </div>
                 </div>
             </div>

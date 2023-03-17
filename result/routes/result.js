@@ -96,17 +96,33 @@ const getAllTeamResult = async (req, res, gameName) => {
 
 	checkMoveRate('dock', 'A', 'Min');
 	checkMoveRate('dock', 'A', 'Max');
-	checkMoveRate('engage', 'A', 'Min');
-	checkMoveRate('engage', 'A', 'Max');
 	checkMoveRate('mobility', 'A', 'Min');
 	checkMoveRate('mobility', 'A', 'Max');
 	checkMoveRate('dock', 'T', 'Min');
 	checkMoveRate('dock', 'T', 'Max');
-	checkMoveRate('engage', 'T', 'Min');
-	checkMoveRate('engage', 'T', 'Max');
 	checkMoveRate('park', 'T', 'Min');
 	checkMoveRate('park', 'T', 'Max');
 	
+	const checkEngageRate = (mode, extremum) => {
+		if( Object.prototype.hasOwnProperty.call(query, `engage${mode}${extremum}`) ) {
+			if( extremum === 'Min' || ! Object.prototype.hasOwnProperty.call(query, `engage${mode}Min`) ) {
+				newFields[`engageRate${mode}`] = {$cond: [ {$eq: [`$dock${mode}`, 0]}, 0, { $divide: [`$engage${mode}`, `$dock${mode}`] } ] };
+				conditions[`engageRate${mode}`] = {};
+			}
+			
+
+			if(extremum === 'Min') {
+				conditions[`engageRate${mode}`]['$gte'] = Number( query[`engage${mode}${extremum}`] ) / 100;
+			} else {
+				conditions[`engageRate${mode}`]['$lte'] = Number( query[`engage${mode}${extremum}`] ) / 100;
+			}
+		}
+	};
+
+	checkEngageRate('A', 'Min');
+	checkEngageRate('A', 'Max');
+	checkEngageRate('T', 'Min');
+	checkEngageRate('T', 'Max');
 	
 
 	const checkAveragePoint = (mode, extremum) => {
@@ -158,7 +174,24 @@ const getAllTeamResult = async (req, res, gameName) => {
 	checkResultRate('defensive', 'Max');
 	checkResultRate('mix', 'Min');
 	checkResultRate('mix', 'Max');
+	
+	const checkStability = (extremum) => {
+		if( Object.prototype.hasOwnProperty.call(query, `stability${extremum}`) ) {
+			if( extremum === 'Min' || ! Object.prototype.hasOwnProperty.call(query, 'stabilityMin') ) {
+				newFields['stability'] = {$cond: [ {$eq: ['$times', 0]}, 0, { $divide: [ {$subtract: ['$times', '$absence'] }, '$times'] } ] };
+				conditions['stability'] = {};
+			}
+			
+			if(extremum === 'Min') {
+				conditions['stability']['$gte'] = Number( query[`stability${extremum}`] ) / 100;
+			} else {
+				conditions['stability']['$lte'] = Number( query[`stability${extremum}`] ) / 100;
+			}
+		}
+	};
 
+	checkStability('Min');
+	checkStability('Max');
 
 
 	const checkResultAverage = (item, extremum) => {
@@ -176,12 +209,12 @@ const getAllTeamResult = async (req, res, gameName) => {
 		}
 	};
 
-	checkResultAverage('rp', 'Min');
-	checkResultAverage('rp', 'Max');
 	checkResultAverage('link', 'Min');
 	checkResultAverage('link', 'Max');
 	checkResultAverage('penalty', 'Min');
 	checkResultAverage('penalty', 'Max');
+	checkResultAverage('rp', 'Min');
+	checkResultAverage('rp', 'Max');
 
 	let sort = {'teamNumber' : 1};
 

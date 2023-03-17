@@ -16,7 +16,8 @@
                 left: 5%;
                 box-shadow: #b6b6b6 0 0 20px;
                 /* margin-bottom: 50%; */
-                overflow: auto;
+                overflow-y: auto;
+                overflow-x: hidden;
             }
 
             #game-table {
@@ -58,6 +59,7 @@
                 text-align: center;
                 position: relative;
                 padding: 0;
+                z-index: 10;
             }
 
             .comment-td {
@@ -198,6 +200,8 @@
                                     deffensive
                                 <% } else if( document.character === 3 ) { %>
                                     mix
+                                <% } else if( document.character === 0 ) { %>
+                                    none
                                 <% } %>
                             </td>
                             <td rowspan="2" class="game-td comment-td" hover-content="<%= document.comment %>">
