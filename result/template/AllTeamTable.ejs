@@ -113,9 +113,9 @@
                                 <td rowspan="2">
                                     <div class="chart chart-right" 
                                         style=
-                                            "background: linear-gradient(to right, var(--chartColor1) <%= getRate(document.offensive / times) %>%, var(--chartColor2) <%= getRate(document.offensive / times) %>%, var(--chartColor2) <%= getRate((document.offensive + document.defensive) / times) %>%, var(--chartColor3) <%= getRate((document.offensive + document.defensive) / times) %>%);"
+                                            "background: linear-gradient(to right, var(--chartColor1) <%= getRate(document.offensive / times) %>%, var(--chartColor2) <%= getRate(document.offensive / times) %>%, var(--chartColor2) <%= getRate((document.offensive + document.defensive) / times) %>%, var(--chartColor3) <%= getRate((document.offensive + document.defensive) / times) %>%, var(--chartColorNone) <%= getRate((document.offensive + document.defensive + document.mix) / times) %>%);"
                                         hover-content=
-                                            "offensive <%= getRate(document.offensive / times) %>% defensive <%= getRate(document.defensive / times) %>% mix <%= getRate(document.mix / times) %>%"
+                                            "offensive <%= getRate(document.offensive / times) %>% defensive <%= getRate(document.defensive / times) %>% mix <%= getRate(document.mix / times) %>% none <%= getRate( (times - (document.offensive + document.defensive + document.mix)) / times) %>%"
                                     >    
                                     </div>
                                 </td>

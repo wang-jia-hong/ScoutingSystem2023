@@ -96,7 +96,7 @@
 
 .r2-d-form-btn-div {
     width: 100%;
-    height: 33%;
+    height: 25%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -107,7 +107,7 @@
     height: 60%;
     border: 0;
     padding: 3% 7%;
-    border-radius: 7vmin;
+    border-radius: 5vmin;
     background-color: #000000;
     color: #4c4c4c;
     box-shadow: #4c4c4c 0px 0px var(--box-shadow-size), inset #4c4c4c 0px 0px var(--box-shadow-size);

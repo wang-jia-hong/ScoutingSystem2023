@@ -11,18 +11,18 @@ const start = () => {
 
 let chosenForm = 0;
 
-const choseForm = (mode, number) => {
-    const clickedBtn = document.getElementById(`${mode}-d-form-btn${number}`);
+const infoChoseForm = (number) => {
+    const clickedBtn = document.getElementById(`i-d-form-btn${number}`);
     clickedBtn.style.color = '#ffe0e0';
     clickedBtn.style.boxShadow = '#ffe0e0 0px 0px var(--box-shadow-size), inset #ffe0e0 0px 0px var(--box-shadow-size)';
     clickedBtn.style.animation= '0.2s ease-out 0s 1 normal forwards running bump';
     chosenForm = number;
     for(let i = 1; i < 4; ++i){
         if(i != number) {
-            const otherBtn = document.getElementById(`${mode}-d-form-btn${i}`);
+            const otherBtn = document.getElementById(`i-d-form-btn${i}`);
             otherBtn.style.color = '#4c4c4c';
             otherBtn.style.boxShadow = '#4c4c4c 0px 0px var(--box-shadow-size), inset #4c4c4c 0px 0px var(--box-shadow-size)';
-            const p = document.getElementById(`${mode}-d-form-btn-p${i}`);
+            const p = document.getElementById(`i-d-form-btn-p${i}`);
             if(p.innerText == '' && otherBtn.style.animation === '0.2s ease-out 0s 1 normal forwards running bump') {
                 otherBtn.style.animation = '0.2s ease-out 0s 1 normal forwards running back';
             }
@@ -379,6 +379,25 @@ const backToR1 = () => {
     }
 };
 
+const r2ChoseForm = (number) => {
+    const clickedBtn = document.getElementById(`r2-d-form-btn${number}`);
+    clickedBtn.style.color = '#ffe0e0';
+    clickedBtn.style.boxShadow = '#ffe0e0 0px 0px var(--box-shadow-size), inset #ffe0e0 0px 0px var(--box-shadow-size)';
+    clickedBtn.style.animation= '0.2s ease-out 0s 1 normal forwards running bump';
+    chosenForm = number;
+    for(let i = 1; i < 5; ++i){
+        if(i != number) {
+            const otherBtn = document.getElementById(`r2-d-form-btn${i}`);
+            otherBtn.style.color = '#4c4c4c';
+            otherBtn.style.boxShadow = '#4c4c4c 0px 0px var(--box-shadow-size), inset #4c4c4c 0px 0px var(--box-shadow-size)';
+            const p = document.getElementById(`r2-d-form-btn-p${i}`);
+            if(p.innerText == '' && otherBtn.style.animation === '0.2s ease-out 0s 1 normal forwards running bump') {
+                otherBtn.style.animation = '0.2s ease-out 0s 1 normal forwards running back';
+            }
+        }
+    }
+};
+
 const r2Done = () => {
     if( document.getElementById('r2-d-form-btn-p1').innerText == '' ) {
         document.getElementById('r2-d-form-btn1').style.animation = 'rotate 2s linear infinite';
@@ -386,7 +405,9 @@ const r2Done = () => {
         document.getElementById('r2-d-form-btn2').style.animation = 'rotate 2s linear infinite';
     } else if( document.getElementById('r2-d-form-btn-p3').innerText == '') {
         document.getElementById('r2-d-form-btn3').style.animation = 'rotate 2s linear infinite';
-    } else {
+    } else if( document.getElementById('r2-d-form-btn-p4').innerText == '') {
+        document.getElementById('r2-d-form-btn4').style.animation = 'rotate 2s linear infinite';
+    }else {
         document.getElementById('r2-dialog').close();
         if(document.fullscreenElement) {
             document.webkitExitFullscreen();
@@ -483,6 +504,8 @@ const submit = async () => {
         rp = Number(document.getElementById('r2-d-form-btn-p3').innerText);
     }
 
+    const alliance = Number(document.getElementById('r2-d-form-btn-p4').innerText); 
+
     let character = 0;
     if ( gameCharacter === 'offensive' ) {
         character = 1;
@@ -541,6 +564,7 @@ const submit = async () => {
             link: link,
             penalty: penalty,
             rp: rp,
+            alliance: alliance,
             comment: comment,
         }); 
         await axios.post('/analyzeSubmit', {
