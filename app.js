@@ -14,16 +14,24 @@ const { getAllTeamResult, getOneTeamResult } = require('./result/routes/result')
 
 const { findUser, insertUser, googleLogin, loginVerify, submitApprove } = require('./login/routes/authentication');
 
-// app.use(function (req, res, next) {
-// 	res.setHeader(
-// 		'Content-Security-Policy',
-// 		// eslint-disable-next-line quotes
-// 		"default-src 'self'; font-src 'self' fonts.gstatic.com ka-f.fontawesome.com; img-src 'self'; script-src 'self' cdn.jsdelivr.net kit.fontawesome.com; style-src 'self' fonts.googleapis.com; frame-src 'self'; connect-src 'self' ws: ka-f.fontawesome.com ;"
-// 	);
-// 	next();
-//   });
+app.use('/result', function (req, res, next) {
+	res.setHeader(
+		'Content-Security-Policy',
+		// eslint-disable-next-line quotes
+		"default-src 'self'; font-src 'self' fonts.gstatic.com; img-src 'self'; script-src 'self' cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' fonts.googleapis.com; frame-src 'self'; connect-src 'self';"
+	);
+	next();
+});
+app.use('/login', function (req, res, next) {
+	res.setHeader(
+		'Content-Security-Policy',
+		// eslint-disable-next-line quotes
+		"default-src 'self'; font-src 'self' fonts.gstatic.com; img-src 'self'; script-src 'self' cdn.jsdelivr.net accounts.google.com; style-src 'self' 'unsafe-inline' fonts.googleapis.com accounts.google.com; frame-src 'self' accounts.google.com; connect-src 'self';"
+	);
+	next();
+});
 app.use(express.json());
-app.use('/login', express.static('./home/public'));
+app.use('/login', express.static('./login/public'));
 app.use('/record', [loginVerify, express.static('./record/public')]);
 app.use('/recordSubmit', submitApprove);
 app.use('/analyzeSubmit', submitApprove);

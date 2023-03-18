@@ -1,0 +1,313 @@
+#h1-div {
+    width: 7%;
+    height: 5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 3%;
+    left: 5%;
+    background-color: var(--fontColor);
+    color: var(--mainColor);
+    font-size: calc(var(--pageFontSize) * 1.3);
+    box-shadow: #b6b6b6 5px 5px 20px;
+}
+
+#pie-chart-area {
+    width: 90%;
+    height: 40%;
+    position: absolute;
+    top: 12%;
+    left: 5%;
+    box-shadow: #b6b6b6 0 0 20px;
+}
+
+.pie-chart-div {
+    width: 23%;
+    height: 40%;
+    overflow: hidden;
+    position: absolute;
+}
+
+#piecesA-pie-chart-div {
+    top: 5%;
+    left: 3.6%;
+}
+
+#piecesT-pie-chart-div {
+    top: 55%;
+    left: 5.6%;
+}
+
+#moveA-pie-chart-div {
+    top: 5%;
+    left: 27.2%;
+}
+
+#moveT-pie-chart-div {
+    top: 55%;
+    left: 29.2%;
+}
+
+#engageA-pie-chart-div {
+    top: 5%;
+    left: 50.8%;
+}
+
+#engageT-pie-chart-div {
+    top: 55%;
+    left: 52.8%;
+}
+
+#result-pie-chart-div {
+    top: 5%;
+    left: 74.4%;
+}
+
+#strategy-pie-chart-div {
+    top: 55%;
+    left: 76.4%;
+}
+
+.pie-chart {
+    width: 26%;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    position: absolute;
+    top: 7%;
+    left: 0;
+    z-index: 1;
+}
+
+.pie-chart::before {
+    --chartDeg1: 0%;
+    content: "";
+    width: 120%;
+    height: 120%;
+    position: relative;
+    display: block;
+    border-radius: 50%;
+    /* z-index: -1; */
+    /* animation: pie-chart-show 100s linear forwards; */
+}
+
+#piecesA-pie-chart {
+    --piecesAColo1: attr(color1);
+}
+
+#piecesA-pie-chart::before {
+    
+    background: conic-gradient(var(--chartColor1) var(--piecesAColo1), var(--chartColor2) <%= getRate(analyzeData.topA / cargoTotalA ) %>% <%= getRate( (analyzeData.topA + analyzeData.middleA) / cargoTotalA ) %>%, var(--chartColor3) <%= getRate( (analyzeData.topA + analyzeData.middleA) / cargoTotalA ) %>%);
+    
+}
+
+<% let cargoTotalT = analyzeData.topT + analyzeData.middleT + analyzeData.bottomT; %>
+
+#piecesT-pie-chart::before {
+    <% if(cargoTotalT === 0) { %>
+        background: conic-gradient(var(--chartColorNone) 0% 100%);
+    <% } else { %>
+        background: conic-gradient(var(--chartColor1) <%= getRate(analyzeData.topT / cargoTotalT) %>%, var(--chartColor2) <%= getRate(analyzeData.topT / cargoTotalT ) %>% <%= getRate( (analyzeData.topT + analyzeData.middleT) / cargoTotalT ) %>%, var(--chartColor3) <%= getRate( (analyzeData.topT + analyzeData.middleT) / cargoTotalT ) %>%);
+    <% } %>
+}
+
+#moveA-pie-chart::before {
+    background: conic-gradient(var(--chartColor1) <%= getRate(analyzeData.dockA / times) %>%, var(--chartColor2) <%= getRate(analyzeData.dockA / times ) %>% <%= getRate( (analyzeData.dockA + analyzeData.mobilityA) / times ) %>%, var(--chartColorNone) <%= getRate( (analyzeData.dockA + analyzeData.mobilityA) / times ) %>%);
+}
+
+#moveT-pie-chart::before {
+    background: conic-gradient(var(--chartColor1) <%= getRate(analyzeData.dockT / times) %>%, var(--chartColor2) <%= getRate(analyzeData.dockT / times ) %>% <%= getRate( (analyzeData.dockT + analyzeData.parkT) / times ) %>%, var(--chartColorNone) <%= getRate( (analyzeData.dockT + analyzeData.parkT) / times ) %>%);
+}
+
+#engageA-pie-chart::before {
+    <% if(analyzeData.dockA === 0) { %>
+        background: conic-gradient(transparent 0% 100%);
+    <% } else { %>
+        background: conic-gradient(var(--chartColor1) <%= getRate(analyzeData.engageA / analyzeData.dockA) %>%, var(--chartColorNone) <%= getRate(analyzeData.engageA / analyzeData.dockA) %>%);
+    <% } %>
+}
+
+#engageT-pie-chart::before {
+    <% if(analyzeData.dockT === 0) { %>
+        background: conic-gradient(transparent 0% 100%);
+    <% } else { %>
+        background: conic-gradient(var(--chartColor1) <%= getRate(analyzeData.engageT / analyzeData.dockT) %>%, var(--chartColorNone) <%= getRate(analyzeData.engageT / analyzeData.dockT) %>%);
+    <% } %>
+}
+
+#result-pie-chart::before {
+    background: conic-gradient(var(--chartColor1) <%= getRate(analyzeData.win / times) %>%, var(--chartColor2) <%= getRate(analyzeData.win / times) %>% <%= getRate( (analyzeData.win + analyzeData.lose) / times ) %>%, var(--chartColor3) <%= getRate( (analyzeData.win + analyzeData.lose) / times ) %>%);
+}
+
+#strategy-pie-chart::before {
+    background: conic-gradient(var(--chartColor1) <%= getRate(analyzeData.offensive / times) %>%, var(--chartColor2) <%= getRate(analyzeData.offensive / times) %>% <%= getRate( (analyzeData.offensive + analyzeData.defensive) / times ) %>%, var(--chartColor3) <%= getRate( (analyzeData.offensive + analyzeData.defensive) / times) %>%, var(--chartColor3) <%= getRate((analyzeData.offensive + analyzeData.defensive + analyzeData.mix) / times) %>%, var(--chartColorNone) <%= getRate((analyzeData.offensive + analyzeData.defensive + analyzeData.mix) / times) %>%);
+}
+
+.pie-chart::after {
+    content: "";
+    width: 100%;
+    aspect-ratio: 1/1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--mainColor);
+    color: #191919;
+    font-size: calc(var(--pageFontSize) * 1.2);
+    position: absolute;
+    bottom: 8%;
+    left: 10%;
+    border-radius: 50%;
+}
+
+#piecesA-pie-chart::after {
+    content: "pieces a";
+}
+
+#piecesT-pie-chart::after {
+    content: "pieces t";
+}
+
+#moveA-pie-chart::after {
+    content: "move a";
+}
+
+#moveT-pie-chart::after {
+    content: "move t";
+}
+
+#engageA-pie-chart::after {
+    content: "engage a";
+}
+
+#engageT-pie-chart::after {
+    content: "engage t";
+}
+
+#result-pie-chart::after {
+    content: "result";
+}
+
+#strategy-pie-chart::after {
+    content: "strategy";
+}
+
+.pie-chart-legend-outerDiv {
+    width: 60%;
+    height: 60%;
+    position: absolute;
+    bottom: 5%;
+    right: 0%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+}
+
+.pie-chart-legend-div {
+    width: 100%;
+    height: 25%;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
+
+.pie-chart-legend {
+    width: 5%;
+    aspect-ratio: 1 / 1;
+}
+
+.pie-chart-legend1 {
+    background-color: var(--chartColor1);
+}
+
+.pie-chart-legend2 {
+    background-color: var(--chartColor2);
+}
+
+.pie-chart-legend3 {
+    background-color: var(--chartColor3);
+}
+
+.pie-chart-legendNone {
+    background-color: var(--chartColorNone);
+}
+
+.pie-chart-legend-lebel {
+    font-size: calc(var(--pageFontSize) * 1.05);
+    margin-left: 5%;
+}
+
+.pie-chart-legend-lebel1 {
+    color: var(--chartColor1);
+}
+
+.pie-chart-legend-lebel2 {
+    color: var(--chartColor2);
+}
+
+.pie-chart-legend-lebel3 {
+    color: var(--chartColor3);
+}
+
+.pie-chart-legend-lebelNone {
+    color: var(--chartColorNone);
+}
+
+@keyframes pie-chart-show {
+    0% {
+        clip-path: polygon(50% 0%, 50% 0%, 50% 0%, 50% 0%, 50% 0%, 50% 50%);
+    }
+    25% {
+        clip-path: polygon(50% 0%, 100% 0%, 100% 50%, 50% 50%, 50% 50%, 50% 50%);
+    }
+    50% {
+        clip-path: polygon(50% 0%, 100% 0%, 100% 100%, 50% 100%, 50% 100%, 50% 50%);
+    }
+    75% {
+        clip-path: polygon(50% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 50%, 50% 50%);
+    }
+    100% {
+        clip-path: polygon(50% 0%, 0% 50%);
+    }
+}
+
+#analyze-table-div {
+    width: 90%;
+    height: 10%;
+    position: absolute;
+    top: 60%;
+    left: 5%;
+    box-shadow: #b6b6b6 0 0 20px;
+}
+
+#analyze-table {
+    width: 100%;
+    height: 100%;
+    border-collapse: collapse;
+    font-size: var(--pageFontSize);
+    overflow: hidden;
+}
+
+#analyze-thead {
+    height: 40%;
+    background-color: #000000;
+    z-index: 100;
+}
+
+.analyze-th {
+    width: 16.6%;
+    height: 4vh;
+    color: #c5c5c5;
+    font-size: var(--pageFontSize);
+    padding: 0;
+}
+
+.analyze-td {
+    text-align: center;
+}
+
+@media only screen and (max-width: 1100px) {
+    #pie-chart-area { height: 50%; }
+    #analyze-table-div { top: 70% }
+    .pie-chart::after { font-size: var(--pageFontSize); }
+    .pie-chart-legend-lebel { font-size: var(--pageFontSize); }
+}

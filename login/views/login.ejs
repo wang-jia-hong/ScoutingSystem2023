@@ -27,20 +27,6 @@
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-    <script>
-        window.handleCredentialResponse = async (response) => {
-            try {
-                await axios.post('/googleLogin', {
-                    googleToken: response.credential,
-                    clientId: response.clientId,
-                });
-                window.location.href = '/record'
-            } catch(err) {
-                
-            }
-        }
-        
-                
-    </script>
+    <script src="./login.js" type="text/javascript"></script>
     </body>
 </html>

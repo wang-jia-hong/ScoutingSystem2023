@@ -257,15 +257,6 @@
 
         <div id="space-div"></div>
 
-        <script>
-            const comments = document.querySelectorAll('.comment-td');
-            ['mouseover', 'mouseout'].forEach(event => {
-                comments.forEach( comment => {
-                    comment.addEventListener(event, () => {
-                        comment.classList.toggle('comment-td-withAfter');
-                    });
-                });
-            });
-        </script>
+        <script src="./js/oneTeamRecordTable.js" type="text/javascript"></script>
     </body>
 </html>
