@@ -29,7 +29,6 @@
             }
 
             #game-thead {
-                height: 4vh;
                 background-color: #000000;
                 position: sticky;
                 top: 0;
@@ -41,6 +40,7 @@
             .game-th {
                 width: 8%;
                 min-width: 7.2vw;
+                height: 4vh;
                 color: #c5c5c5;
                 font-size: var(--pageFontSize);
                 padding: 0;
@@ -65,7 +65,7 @@
                 font-family: 'Shantell Sans', 'JasonHandwriting', serif;
             }
 
-            .comment-td:hover::after {
+            .comment-td-withAfter::after {
                 background-color: #00000068;
                 width: fit-content;
                 max-width: 60vw;
@@ -86,6 +86,7 @@
                 animation: showComment 0.2s linear forwards;
                 z-index: 200;
                 backdrop-filter: blur(5px);
+                -webkit-backdrop-filter: blur(5px);
             }
 
             @keyframes showComment {
@@ -117,6 +118,13 @@
                 position: relative;
                 top: 80%;
                 left: 5%;
+            }
+
+            @media only screen and (max-width: 1100px) {
+                #game-table-div { top: 90%; }
+                .game-td { height: 15vh; }
+                .bottom-tr::after { height: 15vh; }
+                #space-div { top: 90%; }
             }
         </style>
     </head>
@@ -248,5 +256,16 @@
         </div>
 
         <div id="space-div"></div>
+
+        <script>
+            const comments = document.querySelectorAll('.comment-td');
+            ['mouseover', 'mouseout'].forEach(event => {
+                comments.forEach( comment => {
+                    comment.addEventListener(event, () => {
+                        comment.classList.toggle('comment-td-withAfter');
+                    });
+                });
+            });
+        </script>
     </body>
 </html>

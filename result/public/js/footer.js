@@ -24,6 +24,7 @@ const showToolbarByTouch = async () => {
         toolbarHovered = false;
         toolbarHoveredChangedToFalseByTouch = true;
     } else {
+
         toolbarTouched = !toolbarTouched;
         document.getElementById('toolbar-div').classList.toggle('toolbar-div-show');
         document.getElementById('f-logo-div').classList.toggle('f-logo-div-noShadow');
@@ -35,11 +36,14 @@ const showFilter = async () => {
     filter.classList.toggle('filter-div-show');
 };
 
+document.getElementById('f-tool-filter-btn').addEventListener('click', () => showFilter(), false);
+document.getElementById('f-tool-filter-btn').addEventListener('touchstart', () => showFilter(), false);
+
 const footer = document.getElementById('footer');
 
-footer.addEventListener('mouseover', () => showToolbar());
-footer.addEventListener('mouseout', () => hideToolbar());
-footer.addEventListener('touchstart', () => showToolbarByTouch());
+footer.addEventListener('mouseenter', () => showToolbar(), false);
+footer.addEventListener('mouseleave', () => hideToolbar(), false);
+footer.addEventListener('touchstart', () => showToolbarByTouch(), false);
 
 let chosenFilterMode = 'auto';
 document.getElementById('filter-auto-li').classList.toggle('filter-mode-li-clicked');
