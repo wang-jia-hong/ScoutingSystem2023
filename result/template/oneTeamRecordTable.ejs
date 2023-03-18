@@ -34,7 +34,7 @@
                 position: sticky;
                 top: 0;
                 left: 0;
-                z-index: 100;
+                z-index: 20;
                 box-shadow: #737373 0 0 5vh;
             }
 
@@ -59,7 +59,6 @@
                 text-align: center;
                 position: relative;
                 padding: 0;
-                z-index: 10;
             }
 
             .comment-td {
@@ -67,37 +66,35 @@
             }
 
             .comment-td:hover::after {
-                background-color: #a0a0a026;
-                width: 60%;
+                background-color: #00000068;
+                width: fit-content;
+                max-width: 60vw;
                 height: fit-content;
-                padding: 0% 1%;
+                max-height: 50vh;
+                overflow: auto;
+                padding: 1% 3%;
+                border-radius: 1vmin;
                 content: attr(hover-content);
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 position: fixed;
-                top: 1%;
-                left: 20%;
-                /* background-color: #ffffff5b; */
-                /* border-radius: 0.5vmin; */
+                bottom: 8%;
+                left: 2%;
                 font-size: calc(var(--pageFontSize) * 1.2);
                 letter-spacing: calc(var(--pageFontSize) * 0.5);
                 animation: showComment 0.2s linear forwards;
                 z-index: 200;
-                backdrop-filter: blur(20px);
+                backdrop-filter: blur(5px);
             }
 
             @keyframes showComment {
                 from {
-                    
                     color: #00000000;
-                    clip-path: polygon(0% 0%, 0% 0%, 100% 0%, 100% 0%);
-                    /* height: calc(fit-content * 0.2); */
+                    transform: translatex(-100%);
                 } to {
-                    
-                    color: rgb(0, 0, 0);
-                    clip-path: polygon(0% 0%, 0% 100%, 100% 100%, 100% 0%);
-                    /* height: calc(fit-content * 1); */
+                    color: #ffffffff;
+                    transform: translatex(0%);
                 }
             }
             
@@ -111,7 +108,7 @@
                 height: 8vh;
                 box-sizing: border-box;
                 display: block;
-                z-index: 5;
+                z-index: -1;
             }
 
             #space-div {
