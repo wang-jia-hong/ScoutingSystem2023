@@ -53,14 +53,14 @@ const getAllTeamResult = async (req, res, gameName) => {
 	const checkCargoRate = (place, mode, extremum) => {
 		if(Object.prototype.hasOwnProperty.call(query, `${place}${mode}${extremum}`)) {
 			if( extremum === 'Min' || ! Object.prototype.hasOwnProperty.call(query, `${place}${mode}Min`) ) {
-				newFields[`${place}Rate${mode}`] = {$cond: [ {$eq: [`$${place}${mode}`, 0]}, 0, {'$divide': [`$${place}${mode}`, {$sum: [`$top${mode}`, `$middle${mode}`, `$bottom${mode}`] } ] } ] };
-				conditions[`${place}Rate${mode}`] = {};
+				newFields[`${place}${mode}Filter`] = {$cond: [ {$eq: [`$${place}${mode}`, 0]}, 0, {'$divide': [`$${place}${mode}`, {$sum: [`$top${mode}`, `$middle${mode}`, `$bottom${mode}`] } ] } ] };
+				conditions[`${place}${mode}Filter`] = {};
 			}
 
 			if(extremum === 'Min') {
-				conditions[`${place}Rate${mode}`]['$gte'] = Number( query[`${place}${mode}${extremum}`] ) / 100;
+				conditions[`${place}${mode}Filter`]['$gte'] = Number( query[`${place}${mode}${extremum}`] ) / 100;
 			} else {
-				conditions[`${place}Rate${mode}`]['$lte'] = Number( query[`${place}${mode}${extremum}`] ) / 100;
+				conditions[`${place}${mode}Filter`]['$lte'] = Number( query[`${place}${mode}${extremum}`] ) / 100;
 			}
 		}
 	};
@@ -81,15 +81,15 @@ const getAllTeamResult = async (req, res, gameName) => {
 	const checkMoveRate = (item, mode, extremum) => {
 		if( Object.prototype.hasOwnProperty.call(query, `${item}${mode}${extremum}`) ) {
 			if( extremum === 'Min' || ! Object.prototype.hasOwnProperty.call(query, `${item}${mode}Min`) ) {
-				newFields[`${item}Rate${mode}`] = {$cond: [ {$eq: ['$times', 0]}, 0, { $divide: [`$${item}${mode}`, '$times'] } ] };
-				conditions[`${item}Rate${mode}`] = {};
+				newFields[`${item}${mode}Filter`] = {$cond: [ {$eq: ['$times', 0]}, 0, { $divide: [`$${item}${mode}`, '$times'] } ] };
+				conditions[`${item}${mode}Filter`] = {};
 			}
 			
 
 			if(extremum === 'Min') {
-				conditions[`${item}Rate${mode}`]['$gte'] = Number( query[`${item}${mode}${extremum}`] ) / 100;
+				conditions[`${item}${mode}Filter`]['$gte'] = Number( query[`${item}${mode}${extremum}`] ) / 100;
 			} else {
-				conditions[`${item}Rate${mode}`]['$lte'] = Number( query[`${item}${mode}${extremum}`] ) / 100;
+				conditions[`${item}${mode}Filter`]['$lte'] = Number( query[`${item}${mode}${extremum}`] ) / 100;
 			}
 		}
 	};
@@ -106,15 +106,15 @@ const getAllTeamResult = async (req, res, gameName) => {
 	const checkEngageRate = (mode, extremum) => {
 		if( Object.prototype.hasOwnProperty.call(query, `engage${mode}${extremum}`) ) {
 			if( extremum === 'Min' || ! Object.prototype.hasOwnProperty.call(query, `engage${mode}Min`) ) {
-				newFields[`engageRate${mode}`] = {$cond: [ {$eq: [`$dock${mode}`, 0]}, 0, { $divide: [`$engage${mode}`, `$dock${mode}`] } ] };
-				conditions[`engageRate${mode}`] = {};
+				newFields[`engage${mode}Filter`] = {$cond: [ {$eq: [`$dock${mode}`, 0]}, 0, { $divide: [`$engage${mode}`, `$dock${mode}`] } ] };
+				conditions[`engage${mode}Filter`] = {};
 			}
 			
 
 			if(extremum === 'Min') {
-				conditions[`engageRate${mode}`]['$gte'] = Number( query[`engage${mode}${extremum}`] ) / 100;
+				conditions[`engage${mode}Filter`]['$gte'] = Number( query[`engage${mode}${extremum}`] ) / 100;
 			} else {
-				conditions[`engageRate${mode}`]['$lte'] = Number( query[`engage${mode}${extremum}`] ) / 100;
+				conditions[`engage${mode}Filter`]['$lte'] = Number( query[`engage${mode}${extremum}`] ) / 100;
 			}
 		}
 	};
@@ -128,15 +128,15 @@ const getAllTeamResult = async (req, res, gameName) => {
 	const checkAveragePoint = (mode, extremum) => {
 		if( Object.prototype.hasOwnProperty.call(query, `point${mode}${extremum}`) ) {
 			if( extremum === 'Min' || ! Object.prototype.hasOwnProperty.call(query, `point${mode}Min`) ) {
-				newFields[`averagePoint${mode}`] = {$cond: [ {$eq: ['$times', 0]}, 0, { $divide: [`$point${mode}`, '$times'] } ] };
-				conditions[`averagePoint${mode}`] = {};
+				newFields[`point${mode}Filter`] = {$cond: [ {$eq: ['$times', 0]}, 0, { $divide: [`$point${mode}`, '$times'] } ] };
+				conditions[`point${mode}Filter`] = {};
 			}
 			
 
 			if(extremum === 'Min') {
-				conditions[`averagePoint${mode}`]['$gte'] =  Number( query[`point${mode}${extremum}`] );
+				conditions[`point${mode}Filter`]['$gte'] =  Number( query[`point${mode}${extremum}`] );
 			} else {
-				conditions[`averagePoint${mode}`]['$lte'] = Number( query[`point${mode}${extremum}`] );
+				conditions[`point${mode}Filter`]['$lte'] = Number( query[`point${mode}${extremum}`] );
 			}
 		}
 	};
@@ -150,14 +150,14 @@ const getAllTeamResult = async (req, res, gameName) => {
 	const checkResultRate = (item, extremum) => {
 		if( Object.prototype.hasOwnProperty.call(query, `${item}${extremum}`) ) {
 			if( extremum === 'Min' || ! Object.prototype.hasOwnProperty.call(query, `${item}Min`) ) {
-				newFields[`${item}Rate`] = {$cond: [ {$eq: ['$times', 0]}, 0, { $divide: [`$${item}`, '$times'] } ] };
-				conditions[`${item}Rate`] = {};
+				newFields[`${item}Filter`] = {$cond: [ {$eq: ['$times', 0]}, 0, { $divide: [`$${item}`, '$times'] } ] };
+				conditions[`${item}Filter`] = {};
 			}
 			
 			if(extremum === 'Min') {
-				conditions[`${item}Rate`]['$gte'] = Number( query[`${item}${extremum}`] ) / 100;
+				conditions[`${item}Filter`]['$gte'] = Number( query[`${item}${extremum}`] ) / 100;
 			} else {
-				conditions[`${item}Rate`]['$lte'] = Number( query[`${item}${extremum}`] ) / 100;
+				conditions[`${item}Filter`]['$lte'] = Number( query[`${item}${extremum}`] ) / 100;
 			}
 		}
 	};
@@ -197,14 +197,14 @@ const getAllTeamResult = async (req, res, gameName) => {
 	const checkResultAverage = (item, extremum) => {
 		if( Object.prototype.hasOwnProperty.call(query, `${item}${extremum}`) ) {
 			if( extremum === 'Min' || ! Object.prototype.hasOwnProperty.call(query, `${item}Min`) ) {
-				newFields[`${item}average`] = {$cond: [ {$eq: ['$times', 0]}, 0, { $divide: [`$${item}`, '$times'] } ] };
-				conditions[`${item}average`] = {};
+				newFields[`${item}Filter`] = {$cond: [ {$eq: ['$times', 0]}, 0, { $divide: [`$${item}`, '$times'] } ] };
+				conditions[`${item}Filter`] = {};
 			}
 			
 			if(extremum === 'Min') {
-				conditions[`${item}average`]['$gte'] = Number( query[`${item}${extremum}`] );
+				conditions[`${item}Filter`]['$gte'] = Number( query[`${item}${extremum}`] );
 			} else {
-				conditions[`${item}average`]['$lte'] = Number( query[`${item}${extremum}`] );
+				conditions[`${item}Filter`]['$lte'] = Number( query[`${item}${extremum}`] );
 			}
 		}
 	};
@@ -216,13 +216,16 @@ const getAllTeamResult = async (req, res, gameName) => {
 	checkResultAverage('rp', 'Min');
 	checkResultAverage('rp', 'Max');
 
-	let sort = {'teamNumber' : 1};
+	let sort = {};
 
 	
 
 	if( Object.prototype.hasOwnProperty.call(query, 'sort') ) {
 		sort[query['sort']] = Number(query['sortOrder']);
+	} else {
+		sort = {'teamNumber' : 1};
 	}
+	console.log(sort);
 
 
 	

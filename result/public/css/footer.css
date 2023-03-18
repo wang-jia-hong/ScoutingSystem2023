@@ -113,7 +113,7 @@ footer {
     left: 25%;
 }
 
-#f-ul {
+.f-ul {
     margin: 0;
     padding: 0;
     display: flex;
@@ -151,7 +151,7 @@ footer {
 .f-tool-btn {
     width: fit-content;
     height: fit-content;
-    padding: 8% 80%;
+    padding: 8% 40%;
     background-color: #ffffff;
     color: var(--logoBlue);
     border: 0;
@@ -249,7 +249,7 @@ footer {
     margin: auto 5%;
     float: left;
     color: #a0a0a0;
-    border: #a0a0a0 solid 0.1vmin;
+    border: #a0a0a0 solid 0.3vmin;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -258,12 +258,13 @@ footer {
 }
 
 .filter-btn-clicked {
-    box-shadow: inset #ffffff 0 0 2vmin;
+    background-color: #ffffff;
+    color: var(--logoBlue) !important;
 }
 
 .filter-btn-chosen {
     color: #ffffff;
-    border: #ffffff solid 0.1vmin;
+    border: #ffffff solid 0.3vmin;
 }
 
 .filter-btn-tag {
@@ -281,14 +282,15 @@ footer {
     left: 10%;
     display: flex;
     align-items: center;
+    justify-content: space-around;
     border: #ffffff solid 0.2vmin;
     border-radius: 2vmin;
 }
 
 #filter-slider-outerDiv {
-    height: 30%;
+    height: 100%;
     width: 60%;
-    margin: 0 5%;
+    margin: 0;
     display: flex;
     align-items: center;
 }
@@ -331,7 +333,7 @@ footer {
     width: 100%;
     height: 100%;
     position: relative;
-    bottom: 5%;
+    bottom: 8%;
 }
 
 .filter-range-div {
@@ -365,35 +367,35 @@ footer {
 .filter-range::-webkit-slider-thumb {
     -webkit-appearance: none;
     pointer-events: auto;
-    height: 2vh;
-    width: 2vh; 
+    height: 3.5vmin;
+    width: 3.5vmin; 
     background: #ffffff;
     border:#ffffff;
-    border-radius: 50%;
+    border-radius: 1vmin;
     margin: 0;
 }
 
 .filter-range::-moz-range-thumb {
     -moz-appearance: none;
     pointer-events: auto;
-    height: 2vh;
-    width: 2vh;
+    height: 3.5vmin;
+    width: 3.5vmin;
     background: #ffffff;
     border:#ffffff;
-    border-radius: 50%;
+    border-radius: 1vmin;
     margin: 0;
 }
 
 #slider-track {
-    height: 5%;
+    height: 8%;
     width: 100%;
     position: relative;
-    top: 47.5%;
+    top: 46%;
     border: 0;
-    border-radius: 50px;
+    border-radius: 0.2vmin;
     padding: 0;
     margin: 0;
-    background: linear-gradient(to right, #a0a0a0 30% , #ffffff 30% , #ffffff 70%, #a0a0a0 70%);
+    background: linear-gradient(to right, #cbcbcb 30% , #ffffff 30% , #ffffff 70%, #cbcbcb 70%);
 }
 
 #filter-submit-btn {
@@ -409,4 +411,43 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+#sortBy-div {
+    width: calc(var(--pageFontSize) * 28);
+    height: 100%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.sortBy-btn {
+    width: calc(var(--pageFontSize) * 12);
+    height: 50%;
+    padding: 0 7%;
+    box-sizing: border-box;
+    border: var(--logoPink) solid 0.3vmin;
+    border-radius: 2vmin;
+    background-color: var(--logoBlue);
+    color: var(--logoPink);
+    margin: 0;
+    font-family: 'Alegreya Sans SC';
+    font-size: var(--pageFontSize);
+}
+
+.sort-order-btn {
+    width: calc(var(--pageFontSize) * 3);
+    height: 50%;
+    background-color: var(--logoBlue);
+    color: var(--logoPink);
+    border: var(--logoPink) solid 0.3vmin;
+    border-radius: 2vmin;
+    margin: 0;
+    font-size: var(--pageFontSize);
+}
+
+.sort-btn-clicked {
+    background-color: var(--logoPink);
+    color: #ffffff;
 }

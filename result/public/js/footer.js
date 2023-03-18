@@ -67,8 +67,12 @@ const filterBtnClicked = (btn) => {
     btn.classList.add('filter-btn-chosen');
 
     const filterName = btn.getAttribute('filterName');
-    if(clickedFilterBtn != 'none') {
+
+    if(clickedFilterBtn !== 'none') {
         if(clickedFilterBtn === filterName) {
+            if(sortBy === filterName) {
+                sortByBtn.classList.remove('sort-btn-clicked');
+            }
             btn.classList.remove('filter-btn-chosen');
             document.getElementById(clickedFilterBtn + 'MinTag').innerText = '_';
             document.getElementById(clickedFilterBtn + 'MaxTag').innerText = '_';
@@ -76,6 +80,11 @@ const filterBtnClicked = (btn) => {
             clickedFilterBtn = 'none';
             console.log(chosenFilterList);
         } else {
+            if(sortBy === clickedFilterBtn) {
+                sortByBtn.classList.remove('sort-btn-clicked');
+            } else if(sortBy === filterName) {
+                sortByBtn.classList.toggle('sort-btn-clicked');
+            }
             document.getElementById(clickedFilterBtn + 'FilterBtn').classList.toggle('filter-btn-clicked');
             clickedFilterBtn = filterName;
             chosenFilterList[filterName] = [];
@@ -99,7 +108,6 @@ filterBtns.forEach(btn => {
 });
 
 const sliderInputted = () => {
-    console.log('hi there');
     const slider1 = document.getElementById('slider1');
     const slider2 = document.getElementById('slider2');
     const sliderTrack = document.getElementById('slider-track');
@@ -108,7 +116,7 @@ const sliderInputted = () => {
     const percent2 = (slider2.value / sliderMax) * 100;
 
     if(percent1 <= percent2) {
-        if(clickedFilterBtn != 'none') {
+        if(clickedFilterBtn !== 'none') {
             chosenFilterList[clickedFilterBtn][0] = Number(slider1.value);
             chosenFilterList[clickedFilterBtn][1] = Number(slider2.value);
             document.getElementById(clickedFilterBtn + 'MinTag').innerText = slider1.value;
@@ -116,9 +124,9 @@ const sliderInputted = () => {
         }
         document.getElementById('slider-min-tag').innerText = slider1.value;
         document.getElementById('slider-max-tag').innerText = slider2.value;
-        sliderTrack.style.background = `linear-gradient(to right, #a0a0a0 ${percent1}% , #ffffff ${percent1}% , #ffffff ${percent2}%, #a0a0a0 ${percent2}%)`;
+        sliderTrack.style.background = `linear-gradient(to right, #cbcbcb ${percent1}% , #ffffff ${percent1}% , #ffffff ${percent2}%, #cbcbcb ${percent2}%)`;
     } else {
-        if(clickedFilterBtn != 'none') {
+        if(clickedFilterBtn !== 'none') {
             chosenFilterList[clickedFilterBtn][0] = Number(slider2.value);
             chosenFilterList[clickedFilterBtn][1] = Number(slider1.value);
             document.getElementById(clickedFilterBtn + 'MinTag').innerText = slider2.value;
@@ -126,7 +134,7 @@ const sliderInputted = () => {
         }
         document.getElementById('slider-min-tag').innerText = slider2.value;
         document.getElementById('slider-max-tag').innerText = slider1.value;
-        sliderTrack.style.background = `linear-gradient(to right, #a0a0a0 ${percent2}% , #ffffff ${percent2}% , #ffffff ${percent1}%, #a0a0a0 ${percent1}%)`;
+        sliderTrack.style.background = `linear-gradient(to right, #cbcbcb ${percent2}% , #ffffff ${percent2}% , #ffffff ${percent1}%, #cbcbcb ${percent1}%)`;
     }
 };
 
@@ -135,6 +143,55 @@ const filterSliders = document.querySelectorAll('.filter-range');
 filterSliders.forEach(slider => {
     slider.addEventListener('input', () => sliderInputted());
 });
+
+let sortBy = 'none';
+let sortOrder = 'none';
+
+const sortByBtn = document.getElementById('sortBy-btn');
+const descendingBtn = document.getElementById('descending-btn');
+const ascendingBtn = document.getElementById('ascending-btn');
+
+const sortByBtnClicked = () => {
+    if(clickedFilterBtn !== 'none') {
+        if(sortBy !== 'none') {
+            sortByBtn.classList.toggle('sort-btn-clicked');
+            sortByBtn.innerText = 'Sort By ' + clickedFilterBtn;
+            if(sortBy !== clickedFilterBtn) {
+                if(sortOrder === 'none') {
+                    sortOrderBtnClicked('descending');
+                }
+                sortBy = clickedFilterBtn;
+            } else {
+                sortByBtn.innerText = 'Sort By   _____';
+                document.getElementById(sortOrder + '-btn').classList.toggle('sort-btn-clicked');
+                sortBy = 'none';
+                sortOrder = 'none';
+            }
+        } else {
+            sortByBtn.classList.toggle('sort-btn-clicked');
+            sortByBtn.innerText = 'Sort By ' + clickedFilterBtn;
+            sortBy = clickedFilterBtn;
+            if(sortOrder === 'none') {
+                sortOrderBtnClicked('descending');
+            }
+        }
+    }
+    console.log(sortBy);
+};
+
+sortByBtn.addEventListener('click', () => sortByBtnClicked());
+
+const sortOrderBtnClicked = (order) => {
+    if(sortOrder !== 'none') {
+        document.getElementById(sortOrder + '-btn').classList.remove('sort-btn-clicked');
+    }
+    document.getElementById(order + '-btn').classList.toggle('sort-btn-clicked');
+    sortOrder = order;
+    console.log('order  ' + sortOrder);
+};
+
+descendingBtn.addEventListener('click', () => sortOrderBtnClicked('descending'));
+ascendingBtn.addEventListener('click', () => sortOrderBtnClicked('ascending'));
 
 const filterSubmit = () => {
     let href = '?';
@@ -149,9 +206,23 @@ const filterSubmit = () => {
         }
     });
 
-    href = href.slice(0, -1);
+    if(sortBy !== 'none') {
+        if( !conditions.includes(sortBy) ) {
+            href += sortBy + 'Min=0&';
+        }
 
-    console.log(href);
+        href += 'sort=' + sortBy + 'Filter&';
+
+        if(sortOrder === 'descending') {
+            sortOrder = '-1';
+        } else if(sortOrder === 'ascending') {
+            sortOrder = '1';
+        }
+
+        href += 'sortOrder=' + sortOrder + '&';
+    }
+
+    href = href.slice(0, -1);
 
     const gameType = document.getElementById('filter-submit-btn').getAttribute('gameType');
     
