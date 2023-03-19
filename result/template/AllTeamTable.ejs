@@ -78,25 +78,22 @@
                                 <td>
                                     <div class="chart chart-left"
                                         style=
-                                            "background: linear-gradient(to right, var(--chartColor1) <%= getRate(document.dockA / times) %>%, var(--chartColor2) <%= getRate(document.dockA / times) %>%, var(--chartColor2) <%= getRate((document.dockA + document.mobilityA) / times) %>%, var(--chartColorNone) <%= getRate((document.dockA + document.mobilityA) / times) %>%);"
+                                            "background: linear-gradient(to right, var(--chartColor2) <%= getRate(document.mobilityA / times) %>%, var(--chartColorNone) <%= getRate(document.mobilityA / times) %>%);"
                                         hover-content=
-                                            "dock <%= getRate(document.dockA / times) %>% mobility <%= getRate(document.mobilityA / times) %>% none <%= getRate( ( times - (document.dockA + document.mobilityA) ) / times) %>%"
+                                            "mobility <%= getRate(document.mobilityA / times) %>% none <%= getRate( ( times - document.mobilityA ) / times) %>%"
                                     >    
                                     </div>
                                 </td>
 
                                 <td>
-                                    <% if(document.dockA === 0) { %>
-                                        n/a
-                                    <% } else { %>
-                                        <div class="chart chart-left"
-                                            style=
-                                                "background: linear-gradient(to right, var(--chartColor1) <%= getRate(document.engageA / document.dockA) %>%, var(--chartColorNone) <%= getRate(document.engageA / document.dockA) %>%);"
-                                                hover-content=
-                                                "engage <%= getRate(document.engageA / document.dockA) %>% none <%= getRate( (document.dockA - document.engageA) / document.dockA) %>%"
-                                        >    
-                                        </div>
-                                    <% } %>
+                                    
+                                    <div class="chart chart-left"
+                                        style=
+                                            "background: linear-gradient(to right, var(--chartColor1) <%= getRate( (document.dockA - document.engageA) / times) %>%, var(--chartColor3) <%= getRate( (document.dockA - document.engageA) / times) %>%, var(--chartColor3) <%= getRate( document.engageA / times) %>%, var(--chartColorNone) <%= getRate( document.engageA / times) %>%);"
+                                            hover-content=
+                                            "dock <%= getRate( (document.dockA - document.engageA) / times) %>% engage <%= getRate( document.engageA / times) %>% none <%= getRate( (times - document.dockA) / times) %>%"
+                                    >    
+                                    </div>
                                 </td>
                                 <td><%= getAverage(document.pointA / times) %></td>
                                 <td rowspan="2"><%= getAverage(document.link / times) %></td>

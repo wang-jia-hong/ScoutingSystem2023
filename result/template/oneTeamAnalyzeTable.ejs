@@ -43,7 +43,7 @@
                 left: 5.6%;
             }
 
-            #moveA-pie-chart-div {
+            #mobilityA-pie-chart-div {
                 top: 5%;
                 left: 27.2%;
             }
@@ -125,8 +125,8 @@
                 <% } %>
             }
 
-            #moveA-pie-chart::before {
-                background: conic-gradient(var(--chartColor1) <%= getRate(analyzeData.dockA / times) %>%, var(--chartColor2) <%= getRate(analyzeData.dockA / times ) %>% <%= getRate( (analyzeData.dockA + analyzeData.mobilityA) / times ) %>%, var(--chartColorNone) <%= getRate( (analyzeData.dockA + analyzeData.mobilityA) / times ) %>%);
+            #mobilityA-pie-chart::before {
+                background: conic-gradient(var(--chartColor2) <%= getRate(analyzeData.mobilityA / times) %>%, var(--chartColorNone) <%= getRate(analyzeData.mobilityA / times) %>%);
             }
 
             #moveT-pie-chart::before {
@@ -134,11 +134,7 @@
             }
 
             #engageA-pie-chart::before {
-                <% if(analyzeData.dockA === 0) { %>
-                    background: conic-gradient(transparent 0% 100%);
-                <% } else { %>
-                    background: conic-gradient(var(--chartColor1) <%= getRate(analyzeData.engageA / analyzeData.dockA) %>%, var(--chartColorNone) <%= getRate(analyzeData.engageA / analyzeData.dockA) %>%);
-                <% } %>
+                background: conic-gradient(var(--chartColor1) <%= getRate( (analyzeData.dockA - analyzeData.engageA) / times) %>%, var(--chartColor3) <%= getRate( (analyzeData.dockA - analyzeData.engageA) / times) %>%, var(--chartColor3) <%= getRate( analyzeData.engageA / times) %>%, var(--chartColorNone) <%= getRate( analyzeData.engageA / times) %>%);
             }
 
             #engageT-pie-chart::before {
@@ -181,8 +177,8 @@
                 content: "pieces t";
             }
 
-            #moveA-pie-chart::after {
-                content: "move a";
+            #mobilityA-pie-chart::after {
+                content: "mobility a";
             }
 
             #moveT-pie-chart::after {
@@ -190,7 +186,7 @@
             }
 
             #engageA-pie-chart::after {
-                content: "engage a";
+                content: "dock a";
             }
 
             #engageT-pie-chart::after {
@@ -368,20 +364,16 @@
                 </div>
             </div>
 
-            <div id="moveA-pie-chart-div" class="pie-chart-div">
-                <div id="moveA-pie-chart" class="pie-chart"></div>
+            <div id="mobilityA-pie-chart-div" class="pie-chart-div">
+                <div id="mobilityA-pie-chart" class="pie-chart"></div>
                 <div class="pie-chart-legend-outerDiv">
-                    <div class="pie-chart-legend-div">
-                        <div class="pie-chart-legend pie-chart-legend1"></div>
-                        <span class="pie-chart-legend-lebel pie-chart-legend-lebel1">dock <%= getRate(analyzeData.dockA / times) %>%</span>
-                    </div>
                     <div class="pie-chart-legend-div">
                         <div class="pie-chart-legend pie-chart-legend2"></div>
                         <span class="pie-chart-legend-lebel pie-chart-legend-lebel2">mobility <%= getRate(analyzeData.mobilityA / times) %>%</span>
                     </div>
                     <div class="pie-chart-legend-div">
                         <div class="pie-chart-legend pie-chart-legendNone"></div>
-                        <span class="pie-chart-legend-lebel pie-chart-legend-lebelNone">none <%= getRate( (times - (analyzeData.dockA + analyzeData.mobilityA) ) / times) %>%</span>
+                        <span class="pie-chart-legend-lebel pie-chart-legend-lebelNone">none <%= getRate( (times - analyzeData.mobilityA) / times) %>%</span>
                     </div>
                 </div>
             </div>
@@ -409,11 +401,15 @@
                 <div class="pie-chart-legend-outerDiv">
                     <div class="pie-chart-legend-div">
                         <div class="pie-chart-legend pie-chart-legend1"></div>
-                        <span class="pie-chart-legend-lebel pie-chart-legend-lebel1">engage<% if(analyzeData.dockA === 0) { %> n / a<% } else { %> <%= getRate(analyzeData.engageA / analyzeData.dockA) %>% <% } %></span>
+                        <span class="pie-chart-legend-lebel pie-chart-legend-lebel1">dock <%= getRate( (analyzeData.dockA - analyzeData.engageA) / times) %>%</span>
+                    </div>
+                    <div class="pie-chart-legend-div">
+                        <div class="pie-chart-legend pie-chart-legend3"></div>
+                        <span class="pie-chart-legend-lebel pie-chart-legend-lebel3">engage <%= getRate( analyzeData.engageA / times) %>%</span>
                     </div>
                     <div class="pie-chart-legend-div">
                         <div class="pie-chart-legend pie-chart-legendNone"></div>
-                        <span class="pie-chart-legend-lebel pie-chart-legend-lebelNone">none<% if(analyzeData.dockA === 0) { %> n / a<% } else { %> <%= getRate( (analyzeData.dockA - analyzeData.engageA) / analyzeData.dockA ) %>% <% } %></span>
+                        <span class="pie-chart-legend-lebel pie-chart-legend-lebelNone">none <%= getRate( (times - analyzeData.dockA) / times) %>%</span>
                     </div>
                 </div>
             </div>
