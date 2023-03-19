@@ -438,17 +438,33 @@ const submit = async () => {
     const gameNumber = Number(document.getElementById('i-d-form-btn-p3').innerText);
 
     let moveA = 0;
-    const dockA = Number(document.getElementById('a-charge-btn').value);
+    let dockA = Number(document.getElementById('a-charge-btn').value);
     const mobilityA = Number(document.getElementById('a-community-btn').value);
     const engageA = Number(document.getElementById('a-balance-btn').value);
     if(dockA === 1) {
         if(engageA === 1) {
-            moveA = 3;
+            if(mobilityA === 1) {
+                moveA = 5;
+            } else {
+                moveA = 3;
+            }
         } else {
-            moveA = 1;
+            if(mobilityA === 1) {
+                moveA = 4;
+            } else {
+                moveA = 1;
+            }
         }
     } else if( mobilityA === 1) {
-        moveA = 2;
+        if(engageA === 1) {
+            moveA = 5;
+            dockA = 1;
+        } else {
+            moveA = 2;
+        }
+    } else if (engageA === 1) {
+        moveA = 3;
+        dockA = 1;
     }
 
     let cargoA = [];
@@ -462,7 +478,7 @@ const submit = async () => {
     }
 
     let moveT = 0;
-    const dockT = Number(document.getElementById('t-charge-btn').value);
+    let dockT = Number(document.getElementById('t-charge-btn').value);
     const parkT = Number(document.getElementById('t-park-btn').value);
     const engageT = Number(document.getElementById('t-balance-btn').value);
 
@@ -472,7 +488,10 @@ const submit = async () => {
         } else {
             moveT = 1;
         }
-    } else if( parkT === 1) {
+    } else if(engageT === 1) {
+        moveT = 3;
+        dockT = 1;
+    } else if(parkT === 1) {
         moveT = 2;
     }
 
