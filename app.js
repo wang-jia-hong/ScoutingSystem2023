@@ -85,9 +85,9 @@ app.get('/result/previous/:gameName/:gameType/:teamNum', async (req, res) => {
 	await getOneTeamResult(req, res, req.params.gameName);
 });
 
-// app.get('*', async (req, res) => {
-// 	res.redirect('/result/2');
-// });
+app.get('*', async (req, res) => {
+	res.redirect('/result/2');
+});
 
 const startServer = async () => {
 	try {
