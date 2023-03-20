@@ -16,9 +16,9 @@
             <div id="toolbar-div" class="toolbar-div">
                 <div id="f-link-div">
                     <ul class="f-ul">
-                        <li class="f-li" id="f-link-li-1"><a class="f-link-a <% if(gameType === '1') { %> f-link-a-selected <% } %>" href="/result/1<%if(typeof analyzeData != 'undefined' && gameType !== '1'){ %>/<%= analyzeData.teamNumber %> <% } %>" >practice</a></li>
-                        <li class="f-li" id="f-link-li-2"><a class="f-link-a <% if(gameType === '2') { %> f-link-a-selected <% } %>" href="/result/2<%if(typeof analyzeData != 'undefined' && gameType !== '2'){ %>/<%= analyzeData.teamNumber %> <% } %>">qualification</a></li>
-                        <li class="f-li" id="f-link-li-3"><a class="f-link-a  <% if(gameType === '3') { %> f-link-a-selected <% } %>" href="/result/3<%if(typeof analyzeData != 'undefined' && gameType !== '3'){ %>/<%= analyzeData.teamNumber %> <% } %>">playoff</a></li>
+                        <li class="f-li" id="f-link-li-1"><a class="f-link-a <% if(gameType === '1') { %> f-link-a-selected <% } %>" href="<%if(typeof analyzeData != 'undefined' && gameType !== '1'){ %>../../1/<%= analyzeData.teamNumber %> <% } else { %>../1<% } %>">practice</a></li>
+                        <li class="f-li" id="f-link-li-2"><a class="f-link-a <% if(gameType === '2') { %> f-link-a-selected <% } %>" href="<%if(typeof analyzeData != 'undefined' && gameType !== '2'){ %>../../2/<%= analyzeData.teamNumber %> <% } else { %>../2<% } %>">qualification</a></li>
+                        <li class="f-li" id="f-link-li-3"><a class="f-link-a <% if(gameType === '3') { %> f-link-a-selected <% } %>" href="<%if(typeof analyzeData != 'undefined' && gameType !== '3'){ %>../../3/<%= analyzeData.teamNumber %> <% } else { %>../3<% } %>">playoff</a></li>
                     </ul>
                 </div>
 
