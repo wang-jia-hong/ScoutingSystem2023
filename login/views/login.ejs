@@ -1,28 +1,39 @@
 <!DOCTYPE html>
 <html>
     <head>
-
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans+SC&display=swap" rel="stylesheet">
+        <link href="./login.css" rel="stylesheet">
     </head>
     <body>
-        <h1>If you're a member from 7636, please login.</h1>
-        <h2><a href="/result">or you can click here to check out the result</a></h1>
-        <div id="g_id_onload"
-            data-client_id=<%= OAuthClientId %>
-            data-context="use"
-            data-ux_mode="popup"
-            data-callback="handleCredentialResponse"
-            data-auto_prompt="false"
-            >
+        <div id="login-div">
+            <div id="title-div">
+                <h1>If you're a member</br>from 7636,</br>please login.</h1>
+            </div>
+            <div id="g_id_onload"
+                data-client_id=<%= OAuthClientId %>
+                data-context="use"
+                data-ux_mode="popup"
+                data-callback="handleCredentialResponse"
+                data-auto_prompt="false"
+                >
+            </div>
+    
+            <div id="login-btn-div">
+                <div class="g_id_signin"
+                    data-type="standard"
+                    data-shape="rectangular"
+                    data-theme="outline"
+                    data-text="signin_with"
+                    data-size="large"
+                    data-logo_alignment="center">
+                </div>
+            </div>
         </div>
 
-        <div class="g_id_signin"
-        data-type="standard"
-        data-shape="rectangular"
-        data-theme="outline"
-        data-text="signin_with"
-        data-size="large"
-        data-logo_alignment="left">
-        </div>
+        <h4><a href="/result">or you can click here to check out the result</a></h4>
+        
 
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
