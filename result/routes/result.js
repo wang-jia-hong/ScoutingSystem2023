@@ -233,7 +233,7 @@ const getAllTeamResult = async (req, res, gameName) => {
 
 
 
-	res.render('allTeam' ,{data: data, gameType: gameType});
+	res.status(200).render('allTeam' ,{data: data, gameType: gameType});
 };
 
 module.exports =  {getAllTeamResult, getOneTeamResult};

@@ -39,8 +39,10 @@ app.use('/absenceSubmit', submitApprove);
 
 
 
-app.use('/result', express.static('./result/public'));
+app.use('/result/:gameType', express.static('./result/public'));
 app.use('/result/:gameType/:teamNum', express.static('./result/public'));
+app.use('/previous/:gameName/:gameType', express.static('./result/public'));
+app.use('/previous/:gameName/:gameType/:teamNum', express.static('./result/public'));
 
 app.set('views', ['./result/views', './login/views']);
 app.set('view engine', 'ejs');
@@ -77,11 +79,11 @@ app.get('/result/:gameType/:teamNum', async (req, res) => {
 	await getOneTeamResult(req, res, process.env.gameName);
 });
 
-app.get('/result/previous/:gameName/:gameType', async (req, res) => {
+app.get('/previous/:gameName/:gameType', async (req, res) => {
 	await getAllTeamResult(req, res, req.params.gameName);
 });
 
-app.get('/result/previous/:gameName/:gameType/:teamNum', async (req, res) => {
+app.get('/previous/:gameName/:gameType/:teamNum', async (req, res) => {
 	await getOneTeamResult(req, res, req.params.gameName);
 });
 

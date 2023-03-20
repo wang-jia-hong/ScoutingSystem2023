@@ -230,7 +230,11 @@ const filterSubmit = () => {
 
     const gameType = document.getElementById('filter-submit-btn').getAttribute('gameType');
     
-    window.location.href = '/result/' + gameType + href;
+    if( window.location.pathname.includes('previous') ) {
+        window.location.href = '/previous/' + window.location.pathname.split('/')[2] + '/' + gameType + href;
+    } else {
+        window.location.href = '/result/' + gameType + href;
+    }
 };
 
 document.getElementById('filter-submit-btn').addEventListener('click', () => filterSubmit());
