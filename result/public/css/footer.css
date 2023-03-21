@@ -149,13 +149,18 @@ footer {
 }
 
 .f-tool-btn {
-    width: fit-content;
-    height: fit-content;
-    padding: 8% 40%;
+    width: calc(var(--pageFontSize) * 5);
+    height: calc(var(--pageFontSize) * 1.8);
+    padding: 0;
     background-color: #ffffff;
     color: var(--logoBlue);
     border: 0;
     border-radius: 2vmin;
+    font-size: calc(var(--pageFontSize) * 1.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 
 .filter-div {

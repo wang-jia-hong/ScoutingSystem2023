@@ -12,24 +12,13 @@ const { analyzeInsert } = require('./record/routes/analyze');
 const absenceInsert = require('./record/routes/absence');
 const { getAllTeamResult, getOneTeamResult } = require('./result/routes/result');
 
+const loginCSP = require('./login/middlewares/csp');
+const resultCSP = require('./result/middlewares/csp');
 const { findUser, insertUser, googleLogin, loginVerify, submitApprove } = require('./login/routes/authentication');
 
-app.use('/result', function (req, res, next) {
-	res.setHeader(
-		'Content-Security-Policy',
-		// eslint-disable-next-line quotes
-		"default-src 'self'; font-src 'self' fonts.gstatic.com; img-src 'self'; script-src 'self' cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' fonts.googleapis.com; frame-src 'self'; connect-src 'self';"
-	);
-	next();
-});
-app.use('/login', function (req, res, next) {
-	res.setHeader(
-		'Content-Security-Policy',
-		// eslint-disable-next-line quotes
-		"default-src 'self'; font-src 'self' fonts.gstatic.com; img-src 'self'; script-src 'self' cdn.jsdelivr.net accounts.google.com; style-src 'self' 'unsafe-inline' fonts.googleapis.com accounts.google.com; frame-src 'self' accounts.google.com; connect-src 'self';"
-	);
-	next();
-});
+app.use('/login', loginCSP);
+app.use('/result', resultCSP);
+app.use('/previous', resultCSP);
 app.use(express.json());
 app.use('/login', express.static('./login/public'));
 app.use('/record', [loginVerify, express.static('./record/public')]);

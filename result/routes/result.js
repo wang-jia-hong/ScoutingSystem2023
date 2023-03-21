@@ -25,13 +25,11 @@ const getOneTeamResult = async (req, res, gameName) => {
 			const gameData = await findAll(gameName + 'Record' + params.gameType, `${analyzeData.teamNumber}`);
 
 
-			res.render('oneTeam', {
+			res.status(200).render('oneTeam', {
 				analyzeData: analyzeData,
 				gameData: gameData,
 				gameType: params.gameType,
 			});
-
-			res.end();
 		} else {
 			res.redirect('/result/' + req.params.gameType);
 		}
