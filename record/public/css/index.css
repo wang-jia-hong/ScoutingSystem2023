@@ -14,7 +14,7 @@
 
 @font-face {
     font-family: JasonHandwriting;
-    src: url('./JasonHandwriting1.woff');
+    src: url('../font/JasonHandwriting1.woff');
 }
 
 body {    
